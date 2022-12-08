@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmera.c                                            :+:      :+:    :+:   */
+/*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 19:24:10 by admin             #+#    #+#             */
-/*   Updated: 2022/12/06 19:26:57 by admin            ###   ########.fr       */
+/*   Updated: 2022/12/08 13:50:19 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_cams *new_camera(t_vector *pos, t_vector *dir, float angle)
+t_cam *new_camera(t_p3 *pos, t_p3 *dir, float angle)
 {
-	t_cams *camera;
+	t_cam *camera;
 
-	camera = (t_cams*)malloc(sizeof(t_cams));
+	camera = (t_cam*)malloc(sizeof(t_cam));
 	if (!camera)
 		fatal_error("Camera was not allocated");
 	camera->pos = pos;

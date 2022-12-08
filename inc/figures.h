@@ -1,15 +1,71 @@
-#ifndef FIGURES_H
-#define FIGURES_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   figures.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/08 13:45:17 by gpinchuk          #+#    #+#             */
+/*   Updated: 2022/12/08 16:24:15 by gpinchuk         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-typedef struct	s_sphere
+#ifndef FIGURES_H
+# define FIGURES_H
+# define TP_SPHERE 1
+
+# include "../inc/minirt.h"
+
+typedef struct s_sphere
 {
-	t_vector	*centr;
+	t_p3		centr;
 	float		radius;
 }				t_sphere;
 
-typedef struct	s_figures
+typedef struct s_plane
 {
-	t_sphere *sp;
+	t_p3		centr;
+	t_p3		orient;
+}				t_plane;
+
+typedef struct s_triangle
+{
+	t_p3		p1;
+	t_p3		p2;
+	t_p3		p3;
+}				t_triangle;
+
+typedef struct s_cylinder
+{
+	t_p3		centr;
+	t_p3		orient;
+	float		radius;
+	float		height;
+}				t_cylinder;
+
+// typedef struct s_square
+// {
+// 	t_p3		centr;
+// 	t_p3		orient;
+// 	float		scale;
+// }				t_square;
+
+union u_figures
+{
+	t_sphere	sp;
+	t_plane		pl;
+	t_triangle	tr;
+	t_cylinder	cy;
+	// t_square	sq;
+};
+
+typedef struct s_figures
+{
+	int				flag;
+	union u_figures	figures;
+	t_p3			collor;
+	// t_p3			*pos;
+	struct s_figure	*next;
 }				t_figures;
 
 

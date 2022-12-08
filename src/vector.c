@@ -3,28 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   vector.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 18:12:38 by admin             #+#    #+#             */
-/*   Updated: 2022/12/06 18:54:27 by admin            ###   ########.fr       */
+/*   Updated: 2022/12/08 13:50:02 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "../inc/minirt.h"
 
-t_vector *new_vec(float x, float y, float z)
+t_p3 *new_vec(float x, float y, float z)
 {
-	t_vector *vec;
-	vec = (t_vector *)malloc(sizeof(new_vec));
-	if (!new)
+	t_p3 *vec;
+	vec = (t_p3 *)malloc(sizeof(t_p3));
+	if (!vec)
 		fatal_error("Vector was not allocated");
 	vec->x = x;
 	vec->y = y;
 	vec->z = z;
-	return (new);
+	return (vec);
 }
 
-float vec_lenth(t_vector *vec)
+float vec_lenth(t_p3 *vec)
 {
 	float ret;
 
@@ -32,7 +32,7 @@ float vec_lenth(t_vector *vec)
 	return (ret);
 }
 
-void vec_norm(t_vector *vec)
+void vec_norm(t_p3 *vec)
 {
 	float len;
 
@@ -42,7 +42,7 @@ void vec_norm(t_vector *vec)
 	vec->z /= len;
 }
 
-float vec_dot_product(t_vector *vec1, t_vector *vec2)
+float vec_dot_product(t_p3 *vec1, t_p3 *vec2)
 {
 	float ret;
 

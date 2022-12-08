@@ -1,23 +1,37 @@
-#ifndef SCENE_H
-#define SCENE_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   scene.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/08 14:41:34 by gpinchuk          #+#    #+#             */
+/*   Updated: 2022/12/08 14:41:58 by gpinchuk         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-typedef struct	s_cams
+#ifndef SCENE_H
+# define SCENE_H
+
+# include "minirt.h"
+
+typedef struct	s_cam
 {
-	t_vector	*pos;
-	t_vector	*direct;
+	t_p3	*pos;
+	t_p3	*direct;
 	float		angle;
-}				t_cams;
+}				t_cam;
 
 
 typedef struct	s_scene
 {
-	t_cams		*camera;
-	t_figures	figures;
+	t_cam		*camera;
+	t_figures	*figures;
 
-}				t_scene
+}				t_scene;
 
 //CMAERA
-t_cams *new_camera(t_vector *pos, t_vector *dir, float angle);
+t_cam *new_camera(t_p3 *pos, t_p3 *dir, float angle);
 
 //SCENE
 

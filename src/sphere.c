@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: admin <admin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 18:52:41 by admin             #+#    #+#             */
-/*   Updated: 2022/12/06 18:55:56 by admin            ###   ########.fr       */
+/*   Updated: 2022/12/08 13:50:11 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_sphere *new_sphere(t_vector *vec, float rad)
+t_sphere *new_sphere(t_p3 *vec, float rad)
 {
 	t_sphere *sphere;
 

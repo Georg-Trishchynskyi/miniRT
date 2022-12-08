@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 14:54:18 by fstaryk           #+#    #+#             */
-/*   Updated: 2022/11/19 18:56:10 by fstaryk          ###   ########.fr       */
+/*   Updated: 2022/12/08 14:58:13 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdint.h>
+
+# include "get_next_line.h"
 
 typedef struct s_list
 {
@@ -80,4 +82,7 @@ void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 						void (*del)(void *));
 char				*ft_string_lower(char *str);
+void				free_strarr(char **strarr);
+int					get_str_arr_len(char **strarr);
+
 #endif

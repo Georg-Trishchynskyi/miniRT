@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt.h                                           :+:      :+:    :+:   */
+/*   get_strarr_len.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/08 14:41:25 by gpinchuk          #+#    #+#             */
-/*   Updated: 2022/12/08 14:41:28 by gpinchuk         ###   ########.fr       */
+/*   Created: 2022/12/08 14:57:53 by fstaryk           #+#    #+#             */
+/*   Updated: 2022/12/08 14:58:14 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-#define MINIRT_H
+int	get_str_arr_len(char **strarr)
+{
+	int	i;
 
-# include <fcntl.h>
-# include <stdio.h>
-# include <math.h>
-# include <mlx.h>
-
-# include "vector.h"
-# include "figures.h"
-# include "libft.h"
-# include "scene.h"
-
-//ERRORS
-int		print_error(char *str);
-void	fatal_error(char *str);
-void	exit_error(int code);
-
-#endif
+	if (!strarr)
+		return (0);
+	i = 0;
+	while (strarr[i] != NULL)
+		i++;
+	return (i);
+}
