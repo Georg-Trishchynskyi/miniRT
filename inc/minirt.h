@@ -6,7 +6,7 @@
 /*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:41:25 by gpinchuk          #+#    #+#             */
-/*   Updated: 2022/12/08 14:41:28 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2022/12/08 16:56:05 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 
 # include "vector.h"
 # include "figures.h"
+# include "get_next_line.h"
 # include "libft.h"
 # include "scene.h"
 
@@ -27,5 +28,8 @@
 int		print_error(char *str);
 void	fatal_error(char *str);
 void	exit_error(int code);
+
+//PARSING
+t_scene	*parse_scene(char *file_name);
 
 #endif

@@ -6,13 +6,13 @@
 /*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 18:52:41 by admin             #+#    #+#             */
-/*   Updated: 2022/12/08 13:50:11 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2022/12/08 16:56:41 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_sphere *new_sphere(t_p3 *vec, float rad)
+t_sphere *new_sphere(t_p3 vec, float rad)
 {
 	t_sphere *sphere;
 

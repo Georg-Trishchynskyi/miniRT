@@ -6,13 +6,13 @@
 /*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 13:01:23 by gpinchuk          #+#    #+#             */
-/*   Updated: 2022/12/08 16:19:23 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2022/12/08 16:55:37 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minirt.h"
 
-t_scene *parse(char *file_name)
+t_scene *parse_scene(char *file_name)
 {
 	int fd = open(file_name, O_RDONLY);
 	char *str;
@@ -23,7 +23,6 @@ t_scene *parse(char *file_name)
 	str = get_next_line(fd);
 	while (str)
 	{      
-		temp_parse(str, scene);
 		free(str);
 		str = get_next_line(fd);
 	}
@@ -31,7 +30,7 @@ t_scene *parse(char *file_name)
 	return scene;
 }
 
-void temp_parse(char *str, t_scene *scene)
-{
+// void temp_parse(char *str, t_scene *scene)
+// {
 	
-}
+// }

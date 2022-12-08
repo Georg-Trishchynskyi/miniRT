@@ -6,7 +6,7 @@
 /*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 14:54:18 by fstaryk           #+#    #+#             */
-/*   Updated: 2022/12/08 14:58:13 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2022/12/08 16:54:30 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdint.h>
-
-# include "get_next_line.h"
 
 typedef struct s_list
 {
