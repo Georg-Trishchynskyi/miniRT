@@ -6,13 +6,16 @@
 /*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 13:45:17 by gpinchuk          #+#    #+#             */
-/*   Updated: 2022/12/08 16:24:15 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2022/12/09 19:07:23 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FIGURES_H
 # define FIGURES_H
-# define TP_SPHERE 1
+# define SP 1
+# define PL 2
+# define TR 3
+# define CY 4
 
 # include "../inc/minirt.h"
 
@@ -39,7 +42,7 @@ typedef struct s_cylinder
 {
 	t_p3		centr;
 	t_p3		orient;
-	float		radius;
+	float		di;
 	float		height;
 }				t_cylinder;
 
@@ -65,7 +68,7 @@ typedef struct s_figures
 	union u_figures	figures;
 	t_p3			collor;
 	// t_p3			*pos;
-	struct s_figure	*next;
+	struct s_figures *next;
 }				t_figures;
 
 

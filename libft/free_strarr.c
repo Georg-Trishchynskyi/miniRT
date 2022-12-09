@@ -6,9 +6,11 @@
 /*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:50:56 by fstaryk           #+#    #+#             */
-/*   Updated: 2022/12/08 14:58:13 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2022/12/08 17:03:02 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 void	free_strarr(char **strarr)
 {
