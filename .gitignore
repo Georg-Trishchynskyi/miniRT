@@ -1,6 +1,7 @@
 # Prerequisites
 *.d
 minirt
+launch.json
 
 # Object files
 *.o

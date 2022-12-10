@@ -6,7 +6,7 @@
 /*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 13:45:17 by gpinchuk          #+#    #+#             */
-/*   Updated: 2022/12/09 19:07:23 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2022/12/10 14:14:44 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,10 @@ typedef struct s_figures
 	struct s_figures *next;
 }				t_figures;
 
+//PARSE
+void	parse_plane(char **str, t_figures **figures);
+void	parse_sphere(char **str, t_figures **figures);
+void	parse_triangle(char **str, t_figures ** figures);
+void	parse_cylinder(char **str, t_figures ** figures);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:41:34 by gpinchuk          #+#    #+#             */
-/*   Updated: 2022/12/09 18:10:00 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2022/12/10 14:15:36 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,28 +19,38 @@ typedef struct	s_cam
 {
 	t_p3		pos;
 	t_p3		direct;
-	float		angle;
+	float		fov;
 }				t_cam;
 
 typedef struct s_light
 {
 	t_p3		pos;
-	t_p3		scale;
+	float		scale;
 	t_p3		rgb;
 }				t_light;
 
+typedef struct s_lights
+{
+	t_light			light;
+	struct s_lights	*next;
+}				t_lights;
 
 typedef struct	s_scene
 {
 	t_cam		*camera;
 	t_figures	*figures;
-	t_light		*lights;
+	t_lights	*lights;
 	float		a_scale;
 	t_p3		a_color;
 }				t_scene;
 
+//PARSE
+void	parse_ambient(char **str, t_scene *scene);
+void	parse_camera(char **str, t_scene *scene);
+void	parse_light(char **str, t_lights **light);
+
 //CMAERA
-t_cam *new_camera(t_p3 pos, t_p3 dir, float angle);
+// t_cam *new_camera();
 
 //SCENE
 

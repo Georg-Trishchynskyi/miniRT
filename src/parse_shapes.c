@@ -6,74 +6,84 @@
 /*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:08:10 by gpinchuk          #+#    #+#             */
-/*   Updated: 2022/12/08 16:56:17 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2022/12/10 14:09:30 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "minirt.h"
+#include "minirt.h"
 
-// new_ambient(char **source, t_scene *scene)
-// {
+void parse_plane(char **str, t_figures **figures)
+{
+	t_figures *temp;
+
+	add_end_f(figures);
+	temp = *figures;
+	while(temp->next)
+		temp = temp->next;
+	temp->flag = PL;
+	next(str);
+	temp->figures.pl.centr = read_vec(str);
+	next(str);
+	temp->figures.pl.orient = read_vec(str);
+	next(str);
+	temp->collor = read_vec(str);
 	
-// }
+}
 
-// void create_plane(char **source, t_scene *scene)
-// {
-// 	union u_figures	*plane;
-// 	t_p3	*vec1;
-// 	t_p3	*vec2;
-// 	t_p3	*collor;
+void parse_sphere(char **str, t_figures **figures)
+{
+	t_figures *temp;
 
-// 	vec1 = transform_to_float(source[1]);
-// 	vec2 = transform_to_float(source[2]);
-// 	collor = transform_to_float(source[3]);
-// 	plane->pl = new_plane(vec1, vec2);
-// 	add_figure(create_figure(plane, collor));
-// }
-
-// t_p3 *transform_to_float(char *str)
-// {
+	add_end_f(figures);
+	temp = *figures;
+	while(temp->next)
+		temp = temp->next;
+	temp->flag = SP;
+	next(str);
+	temp->figures.sp.centr = read_vec(str);
+	next(str);
+	temp->figures.sp.radius = stof(str);
+	next(str);
+	temp->collor = read_vec(str);
 	
-// }
+}
 
-// t_plane *new_plane(t_p3 *centr, t_p3 *orient)
-// {
-// 	t_plane *new;
+void parse_triangle(char **str, t_figures ** figures)
+{
+	t_figures *temp;
 
-// 	new = (t_plane *)malloc(sizeof(t_plane));
-// 	if (!new)
-// 		fatal_error("plane was not allocated");
-// 	new->centr = centr;
-// 	new->orient = orient;
-// 	return (new);
-// }
+	add_end_f(figures);
+	temp = *figures;
+	while(temp->next)
+		temp = temp->next;
+	temp->flag = TR;
+	next(str);
+	temp->figures.tr.p1 = read_vec(str);
+	next(str);
+	temp->figures.tr.p2 = read_vec(str);
+	next(str);
+	temp->figures.tr.p3 = read_vec(str);
+	next(str);
+	temp->collor = read_vec(str);	
+}
 
-// void add_figure(t_figures **head, t_figures *new)
-// {
-// 	t_figures *temp;
+void parse_cylinder(char **str, t_figures ** figures)
+{
+	t_figures *temp;
 
-// 	if (!(*head))
-// 	{
-// 		(*head) = new;
-// 		return ;
-// 	}
-// 	if (!new)
-// 		return ;
-// 	temp = *head;
-// 	while (temp->next)
-// 		temp = temp->next;
-// 	temp->next = new;	
-// }
-
-// t_figures *create_figure(union u_figures *figure, t_p3 *collor)
-// {
-// 	t_figures *new;
-
-// 	new = (t_figures*)malloc(sizeof(t_figures));
-// 	if(!new)
-// 		fatal_error("fugure was not allocated");
-// 	new->figures = figure;
-// 	new->collor = collor;
-// 	new->next = NULL;
-// 	return (new);
-// }
+	add_end_f(figures);
+	temp = *figures;
+	while(temp->next)
+		temp = temp->next;
+	temp->flag = CY;
+	next(str);
+	temp->figures.cy.centr = read_vec(str);
+	next(str);
+	temp->figures.cy.orient = read_vec(str);
+	next(str);
+	temp->figures.cy.di = stof(str);
+	next(str);
+	temp->figures.cy.height = stof(str);
+	next(str);
+	temp->collor = read_vec(str);
+}

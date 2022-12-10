@@ -6,7 +6,7 @@
 /*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:41:25 by gpinchuk          #+#    #+#             */
-/*   Updated: 2022/12/08 17:01:55 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2022/12/10 14:16:50 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,12 @@ void	exit_error(int code);
 
 //PARSING
 t_scene	*parse_scene(char *file_name);
+
+//UTILS
+void add_end_f(t_figures **figures);
+t_figures *new_lst_f(void);
+t_p3 read_vec(char **str);
+float stof(char **str);
+void next(char **str);
 
 #endif
