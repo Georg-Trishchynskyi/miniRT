@@ -6,7 +6,7 @@
 /*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 18:12:38 by admin             #+#    #+#             */
-/*   Updated: 2022/12/08 13:50:02 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2022/12/10 16:30:38 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,14 @@ float vec_lenth(t_p3 *vec)
 	float ret;
 
 	ret = sqrt((pow(vec->x, 2) + pow(vec->y, 2) + pow(vec->z, 2)));
+	return (ret);
+}
+
+float vec_lenth_sq(t_p3 *vec)
+{
+	float ret;
+
+	ret = (pow(vec->x, 2) + pow(vec->y, 2) + pow(vec->z, 2));
 	return (ret);
 }
 

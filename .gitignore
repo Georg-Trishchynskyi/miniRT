@@ -2,6 +2,7 @@
 *.d
 minirt
 launch.json
+.vscode
 
 # Object files
 *.o

@@ -6,7 +6,7 @@
 /*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:09:44 by gpinchuk          #+#    #+#             */
-/*   Updated: 2022/12/10 14:45:34 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2022/12/10 16:40:25 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void next(char **str)
 {
 	while(!(ft_isdigit(**str)))
 	{
+		if(**str == ',')
+			fatal_error("error in map");
 		if(**str == '-')
 			break;
 		(*str)++;
@@ -57,7 +59,6 @@ t_p3 read_vec(char **str)
 	new.y = stof(str);
 	(*str)++;
 	new.z = stof(str);
-	(*str)++;
 	return new;
 }
 
