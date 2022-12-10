@@ -1,33 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector.h                                           :+:      :+:    :+:   */
+/*   ft_mlx.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/08 14:41:40 by gpinchuk          #+#    #+#             */
-/*   Updated: 2022/12/10 18:55:05 by fstaryk          ###   ########.fr       */
+/*   Created: 2022/12/10 16:50:35 by fstaryk           #+#    #+#             */
+/*   Updated: 2022/12/10 18:47:30 by fstaryk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VECTOR_H
-#define VECTOR_H
+#include "minirt.h"
 
-typedef struct  s_p3
+void	my_mlx_pixel_put(t_scene *scene, int x, int y, int color)
 {
-	float	x;
-	float	y;
-	float	z;
-}				t_p3;
+	char	*dst;
 
-t_p3	_norm(t_p3 vec);
-float	_lenth(t_p3 vec);
-float	_lenth_sq(t_p3 vec);
-t_p3	_substruct(t_p3 vec1, t_p3 vec2);
-t_p3	new_vec(float x, float y, float z);
-t_p3	_multy(t_p3 vec1, float i);
-float	_dot(t_p3 vec1, t_p3 vec2);
-t_p3	_cross(t_p3 vec1, t_p3 vec2);
-t_p3	_add(t_p3 vec1, t_p3 vec2);
-
-#endif
+	if (x < scene->width && y <= scene->height && x > 0 && y > 0)
+	{
+		dst = scene->mlx->addr + (y * scene->mlx->line_length + \
+					x * (scene->mlx->bits_per_pixel / 8));
+		*(unsigned int *)dst = color;
+	}
+}

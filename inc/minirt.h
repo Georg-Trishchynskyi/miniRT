@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:41:25 by gpinchuk          #+#    #+#             */
-/*   Updated: 2022/12/10 14:16:50 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2022/12/10 19:05:05 by fstaryk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 # include "libft.h"
 # include "scene.h"
 
+//#define PI_180 0.0174532925f
+
 //ERRORS
 int		print_error(char *str);
 void	fatal_error(char *str);
@@ -39,5 +41,15 @@ t_figures *new_lst_f(void);
 t_p3 read_vec(char **str);
 float stof(char **str);
 void next(char **str);
+
+void	my_mlx_pixel_put(t_scene *scene, int x, int y, int color);
+
+
+//Utils
+
+int rgb_int(t_p3 col);
+
+//render
+void render_scene(t_scene *scene);
 
 #endif

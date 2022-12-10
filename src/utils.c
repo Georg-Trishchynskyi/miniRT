@@ -1,33 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector.h                                           :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/08 14:41:40 by gpinchuk          #+#    #+#             */
-/*   Updated: 2022/12/10 18:55:05 by fstaryk          ###   ########.fr       */
+/*   Created: 2022/12/10 18:56:44 by fstaryk           #+#    #+#             */
+/*   Updated: 2022/12/10 18:58:15 by fstaryk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VECTOR_H
-#define VECTOR_H
+#include "../inc/minirt.h"
 
-typedef struct  s_p3
-{
-	float	x;
-	float	y;
-	float	z;
-}				t_p3;
-
-t_p3	_norm(t_p3 vec);
-float	_lenth(t_p3 vec);
-float	_lenth_sq(t_p3 vec);
-t_p3	_substruct(t_p3 vec1, t_p3 vec2);
-t_p3	new_vec(float x, float y, float z);
-t_p3	_multy(t_p3 vec1, float i);
-float	_dot(t_p3 vec1, t_p3 vec2);
-t_p3	_cross(t_p3 vec1, t_p3 vec2);
-t_p3	_add(t_p3 vec1, t_p3 vec2);
-
-#endif
+int rgb_int(t_p3 col) {
+    return ((int)col.x << 16) | ((int)col.y << 8) | (int)col.z;
+}
