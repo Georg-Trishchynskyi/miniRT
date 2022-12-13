@@ -6,7 +6,7 @@
 /*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:41:25 by gpinchuk          #+#    #+#             */
-/*   Updated: 2022/12/10 19:05:05 by fstaryk          ###   ########.fr       */
+/*   Updated: 2022/12/13 13:41:17 by fstaryk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,8 @@ int rgb_int(t_p3 col);
 
 //render
 void render_scene(t_scene *scene);
+
+void print_p3(t_p3 x);
+void print_scene(t_scene *scene);
 
 #endif

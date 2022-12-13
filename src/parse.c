@@ -6,7 +6,7 @@
 /*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 13:01:23 by gpinchuk          #+#    #+#             */
-/*   Updated: 2022/12/10 18:09:17 by fstaryk          ###   ########.fr       */
+/*   Updated: 2022/12/12 11:14:37 by fstaryk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ t_scene *parse_scene(char *file_name)
 	scene->figures = NULL;
 	scene->lights = NULL;
 	scene->background = 0xffffff;
+	scene->height = 1200;
+	scene->width = 1200;
 	str = get_next_line(fd);
 	while (str)
 	{

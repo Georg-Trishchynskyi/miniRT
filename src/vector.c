@@ -6,7 +6,7 @@
 /*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 18:12:38 by admin             #+#    #+#             */
-/*   Updated: 2022/12/10 19:01:24 by fstaryk          ###   ########.fr       */
+/*   Updated: 2022/12/13 14:10:15 by fstaryk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,23 @@ float _lenth(t_p3 vec)
 	return (ret);
 }
 
+// double		mod(t_p3 v)
+// {
+// 	return (sqrt(dot(v, v)));
+// }
+
+// t_p3		normalize(t_p3 p)
+// {
+// 	t_p3	nv;
+// 	double	mod;
+
+// 	mod = sqrt(p.x * p.x + p.y * p.y + p.z * p.z);
+// 	nv.x = p.x / mod;
+// 	nv.y = p.y / mod;
+// 	nv.z = p.z / mod;
+// 	return (nv);
+// }
+
 float _lenth_sq(t_p3 vec)
 {
 	float ret;
@@ -42,14 +59,18 @@ float _lenth_sq(t_p3 vec)
 
 t_p3 _norm(t_p3 vec)
 {
-	float len;
-	t_p3 ret;	
+	t_p3	nv;
+	float	mod;
 
-	len = _lenth(vec);
-	ret.x /= len;
-	ret.y /= len;
-	ret.z /= len;
-	return ret;
+	// print_p3(vec);
+	mod = sqrt((double)vec.x * (double)vec.x + (double)vec.y * (double)vec.y + (double)vec.z * (double)vec.z);
+	if(mod == 0)
+		return vec;
+	// printf("mod is %f\n", mod);
+	nv.x = vec.x / mod;
+	nv.y = vec.y / mod;
+	nv.z = vec.z / mod;
+	return (nv);
 }
 
 t_p3 _substruct(t_p3 vec1, t_p3 vec2)
@@ -57,8 +78,8 @@ t_p3 _substruct(t_p3 vec1, t_p3 vec2)
 	t_p3 new;
 
 	new.x = vec1.x - vec2.x;
-	new.y = vec1.x - vec2.x;
-	new.z = vec1.x - vec2.x;
+	new.y = vec1.y - vec2.y;
+	new.z = vec1.z - vec2.z;
 
 	return (new);
 }
@@ -68,20 +89,24 @@ t_p3 _add(t_p3 vec1, t_p3 vec2)
 	t_p3 new;
 
 	new.x = vec1.x + vec2.x;
-	new.y = vec1.x + vec2.x;
-	new.z = vec1.x + vec2.x;
+	new.y = vec1.y + vec2.y;
+	new.z = vec1.z + vec2.z;
 
 	return (new);
 }
 
-t_p3 _cross(t_p3 vec1, t_p3 vec2)
+t_p3 _cross(t_p3 a, t_p3 b)
 {
-	t_p3 new;
+	t_p3	cp;
+	// printf("a is ");
+	// print_p3(a);
+	// printf("b is ");
+	// print_p3(a);
+	cp.x = a.y * b.z - a.z * b.y;
+	cp.y = a.z * b.x - a.x * b.z;
+	cp.z = a.x * b.y - a.y * b.x;
 
-	new.x = vec1.x * vec2.x;
-	new.y = vec1.y * vec2.y;
-	new.z = vec1.z * vec2.z;
-	return (new);
+	return (cp);
 }
 
 t_p3 _multy(t_p3 vec1, float i)
