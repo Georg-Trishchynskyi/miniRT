@@ -6,7 +6,7 @@
 /*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 16:47:30 by fstaryk           #+#    #+#             */
-/*   Updated: 2022/12/13 17:12:50 by fstaryk          ###   ########.fr       */
+/*   Updated: 2022/12/13 21:36:42 by fstaryk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_p3    look_at_pixel(t_p3 d, t_p3 cam_nv)
 	return rotated;
 }
 
-float   sphere_intersection(t_p3 d, t_p3 cam_nv, t_p3 sp_o, float r){
+float   sphere_intersection(t_p3 d, t_p3 cam_o, t_p3 sp_o, float r){
     t_p3 p;//makes vector p that goes from sphere origin to intersection
     float disc;
     float x1;
@@ -61,7 +61,7 @@ float   sphere_intersection(t_p3 d, t_p3 cam_nv, t_p3 sp_o, float r){
     float quad_kof[3];
     
 	// print_p3(d);
-    p = _substruct(cam_nv, sp_o);
+    p = _substruct(cam_o, sp_o);
     quad_kof[0] = _dot(d, d);
     quad_kof[1] = 2 * _dot(p, d);
     quad_kof[2] = _dot(p, p) - r * r;
@@ -78,14 +78,14 @@ float   sphere_intersection(t_p3 d, t_p3 cam_nv, t_p3 sp_o, float r){
 		return (x1 < x2 ? x1 : x2);
 }
 
-float	plane_intersection(t_p3 d, t_p3 cam_nv, t_p3 pl_n, t_p3 pl_o){
+float	plane_intersection(t_p3 d, t_p3 cam_o, t_p3 pl_n, t_p3 pl_o){
 	float inter_proj;//projection of intersecting normal and direction of camera
 	float inter;
 	
 	inter_proj = _dot(d, pl_n);
 	if(inter_proj == 0)//this means that plane doesnt intersect with the ray
 		return INFINITY;
-	inter = _dot(_substruct(pl_o, cam_nv)/*vector to posible inter*/, pl_n) / inter_proj;
+	inter = _dot(_substruct(pl_o, cam_o)/*vector to posible inter*/, pl_n) / inter_proj;
 	//if inter == 0 vector is || to plane
 	//if < 0 its on the oposite side of the cam
 	//if > 0 it intersects
@@ -95,7 +95,7 @@ float	plane_intersection(t_p3 d, t_p3 cam_nv, t_p3 pl_n, t_p3 pl_o){
 		return INFINITY;
 }
 
-float try_intersections(t_p3 d, t_p3 cam_nv, t_figures *fig, t_figures *closest_fig)
+float try_intersections(t_p3 d, t_p3 cam_o, t_figures *fig, t_figures *closest_fig)
 {
 	float inter_dist;
     float closest_inter;
@@ -104,9 +104,9 @@ float try_intersections(t_p3 d, t_p3 cam_nv, t_figures *fig, t_figures *closest_
     while (fig)
 	{
 		if(fig->flag == SP)
-            inter_dist = sphere_intersection(d, cam_nv, fig->figures.sp.centr, fig->figures.sp.radius);
+            inter_dist = sphere_intersection(d, cam_o, fig->figures.sp.centr, fig->figures.sp.radius);
 		else if(fig->flag == PL)
-			inter_dist = plane_intersection(d, cam_nv, fig->figures.pl.orient, fig->figures.pl.centr);
+			inter_dist = plane_intersection(d, cam_o, fig->figures.pl.orient, fig->figures.pl.centr);
         if(inter_dist < closest_inter && inter_dist > 0){
             closest_inter = inter_dist;
             *closest_fig = *fig;
@@ -121,14 +121,17 @@ int trace_ray(t_p3 d, t_scene *scene)
 {
     float   closest_inter;
     t_figures closest_figure;
-
+	t_p3		reflect_norm;
+	t_p3	inter_p;
+	
+	// closest_figure = NULL;
     closest_figure.flag = 0;
     closest_inter = try_intersections(d, scene->camera->pos, scene->figures, &closest_figure);
-    
     if(closest_inter == INFINITY)
         return scene->background;
-    else
-        return rgb_int(closest_figure.collor);
+	inter_p = _add(scene->camera->pos, _multy(_norm(d), closest_inter));
+    reflect_norm = _norm(calculate_base_reflection(inter_p, &closest_figure));
+	return rgb_int(_multy(closest_figure.collor, calculate_light(reflect_norm, inter_p, scene)));
 }
 
 void render_scene(t_scene *scene)

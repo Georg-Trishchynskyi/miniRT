@@ -6,7 +6,7 @@
 /*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 15:34:13 by fstaryk           #+#    #+#             */
-/*   Updated: 2022/12/13 14:16:20 by fstaryk          ###   ########.fr       */
+/*   Updated: 2022/12/13 21:19:35 by fstaryk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,23 @@ void print_camera(t_cam *cam){
     printf("fov %f, fov actual %f\n", cam->fov, cam->fov_l);
 }
 
+void print_lights(t_lights *lights){
+    printf("\n\tLIGHTS\n");
+    while(lights)
+    {
+        printf("\nlight1\ncolor in rgb : ");
+        print_p3(lights->light.rgb);
+        printf("position is : ");
+        print_p3(lights->light.pos);
+        printf("intensity is %f\n", lights->light.scale);
+        lights = lights->next;
+    }
+}
+
 void print_scene(t_scene *scene)
 {
     printf("Aspect ratio %f\n background color is %d\nwidth is %d, height is %d\n", scene->aspect_ratio, scene->background, scene->width, scene->height);
     print_camera(scene->camera);
+    print_lights(scene->lights);
     print_figures(scene->figures);
-    
 }
