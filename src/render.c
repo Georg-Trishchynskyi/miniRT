@@ -6,7 +6,7 @@
 /*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 16:47:30 by fstaryk           #+#    #+#             */
-/*   Updated: 2022/12/13 14:17:43 by fstaryk          ###   ########.fr       */
+/*   Updated: 2022/12/13 17:12:50 by fstaryk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,23 +22,6 @@ t_p3    get_screen_coord(int x, int y, t_scene *scene)
 	ret.z = -1;
 	// printf("result is "z
 	return ret;
-}
-
-double		mod(t_p3 v)
-{
-	return (sqrt(_dot(v, v)));
-}
-
-t_p3		normalize(t_p3 p)
-{
-	t_p3	nv;
-	double	mod;
-
-	mod = sqrt(p.x * p.x + p.y * p.y + p.z * p.z);
-	nv.x = p.x / mod;
-	nv.y = p.y / mod;
-	nv.z = p.z / mod;
-	return (nv);
 }
 
 t_p3    look_at_pixel(t_p3 d, t_p3 cam_nv)
@@ -95,6 +78,23 @@ float   sphere_intersection(t_p3 d, t_p3 cam_nv, t_p3 sp_o, float r){
 		return (x1 < x2 ? x1 : x2);
 }
 
+float	plane_intersection(t_p3 d, t_p3 cam_nv, t_p3 pl_n, t_p3 pl_o){
+	float inter_proj;//projection of intersecting normal and direction of camera
+	float inter;
+	
+	inter_proj = _dot(d, pl_n);
+	if(inter_proj == 0)//this means that plane doesnt intersect with the ray
+		return INFINITY;
+	inter = _dot(_substruct(pl_o, cam_nv)/*vector to posible inter*/, pl_n) / inter_proj;
+	//if inter == 0 vector is || to plane
+	//if < 0 its on the oposite side of the cam
+	//if > 0 it intersects
+	if(inter > 0)
+		return inter;
+	else
+		return INFINITY;
+}
+
 float try_intersections(t_p3 d, t_p3 cam_nv, t_figures *fig, t_figures *closest_fig)
 {
 	float inter_dist;
@@ -105,6 +105,8 @@ float try_intersections(t_p3 d, t_p3 cam_nv, t_figures *fig, t_figures *closest_
 	{
 		if(fig->flag == SP)
             inter_dist = sphere_intersection(d, cam_nv, fig->figures.sp.centr, fig->figures.sp.radius);
+		else if(fig->flag == PL)
+			inter_dist = plane_intersection(d, cam_nv, fig->figures.pl.orient, fig->figures.pl.centr);
         if(inter_dist < closest_inter && inter_dist > 0){
             closest_inter = inter_dist;
             *closest_fig = *fig;
@@ -126,7 +128,7 @@ int trace_ray(t_p3 d, t_scene *scene)
     if(closest_inter == INFINITY)
         return scene->background;
     else
-        return 0x74ee9u;//rgb_int(closest_figure.collor);
+        return rgb_int(closest_figure.collor);
 }
 
 void render_scene(t_scene *scene)
