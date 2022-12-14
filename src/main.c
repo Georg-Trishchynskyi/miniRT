@@ -6,7 +6,7 @@
 /*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 18:12:34 by admin             #+#    #+#             */
-/*   Updated: 2022/12/13 13:39:12 by fstaryk          ###   ########.fr       */
+/*   Updated: 2022/12/14 12:47:06 by fstaryk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ int main(int argc, char **argv)
 	(void)argv;
 	(void)argc;
 
-	// if (argc < 2)
-	// 	fatal_error("no map file");
-	// if (!ft_strnstr(argv[1], ".rt", ft_strlen(argv[1])))
-	// 	fatal_error("incorect file");
-	scene = parse_scene("scene/checkerboard.rt");
+	if (argc < 2)
+		fatal_error("no map file");
+	if (!ft_strnstr(argv[1], ".rt", ft_strlen(argv[1])))
+		fatal_error("incorect file");
+	scene = parse_scene(argv[1]);
 	init_mlx(scene);
 	print_scene(scene);
 	render_scene(scene);

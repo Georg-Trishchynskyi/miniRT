@@ -6,7 +6,7 @@
 /*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 20:09:38 by fstaryk           #+#    #+#             */
-/*   Updated: 2022/12/13 21:37:29 by fstaryk          ###   ########.fr       */
+/*   Updated: 2022/12/14 14:00:24 by fstaryk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,12 @@ float	calculate_light(t_p3 norm, t_p3 inter_p, t_scene *scene)
 	while (light)
 	{
 		dir_to_light = _substruct(light->light.pos, inter_p);
-        if(!is_blocked(dir_to_light, inter_p, scene->figures) && _dot(dir_to_light, norm) > 0/*insurse that we dont lower our light because of light souces that cosinus lower than 0*/)
+        if(!is_blocked(dir_to_light, inter_p, scene->figures) && _dot(dir_to_light, norm) > 0/*insurse that we dont lower our light because of 
+                                                                                                            light souces that cosinus lower than 0*/)
         {
+            abvg++;
             // printf("im trying to calculate light\n");
-            ret_light += (light->light.scale * _dot(norm, dir_to_light)) / (_lenth(norm) * _lenth(dir_to_light));//dot(a, b)/len(a)*len(b) == cosinus between a
+            ret_light += (light->light.scale * _dot(norm, dir_to_light)) / (_lenth(norm) * _lenth(dir_to_light));//dot(a, b)/len(a)*len(b) == cosinus between vectors
         }
         light = light->next;
 	}

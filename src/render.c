@@ -6,7 +6,7 @@
 /*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 16:47:30 by fstaryk           #+#    #+#             */
-/*   Updated: 2022/12/13 21:36:42 by fstaryk          ###   ########.fr       */
+/*   Updated: 2022/12/14 18:27:06 by fstaryk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,44 @@ float	plane_intersection(t_p3 d, t_p3 cam_o, t_p3 pl_n, t_p3 pl_o){
 	//if inter == 0 vector is || to plane
 	//if < 0 its on the oposite side of the cam
 	//if > 0 it intersects
-	if(inter > 0)
-		return inter;
-	else
+	if(inter == 0)
 		return INFINITY;
+	else
+		return inter;
+}
+
+bool	check_p_in_borders(t_p3 p1, t_p3 p2, t_p3 p3, t_p3 inter_p)
+{
+	t_p3	v1;
+	t_p3	v2;
+	t_p3	v3;
+	t_p3	cross1;
+	t_p3	cross2;
+	
+	v1 = _substruct(p2, p1);
+	v2 = _substruct(p3, p1);
+	v3 = _substruct(inter_p, p1);	
+	cross1 = _cross(v1, v2);
+	cross2 = _cross(v1, v3);
+	if(_dot(cross1, cross2) / _lenth(cross1) * _lenth(cross2) < 0)
+		return false;
+	return true;
+}
+
+float	trinagle_intersection(t_p3 d, t_p3 cam_o, t_triangle tri){
+	t_p3 tri_norm;
+	float	plane_inter;
+	t_p3	inter_p;
+	tri_norm = _cross(_substruct(tri.p1, tri.p2), _substruct(tri.p1, tri.p3));
+	plane_inter = plane_intersection(d, cam_o, tri_norm, tri.p1);
+	inter_p = _add(cam_o, _multy(d, plane_inter));
+	if (!check_p_in_borders(tri.p1, tri.p2, tri.p3, inter_p))
+		return INFINITY;
+	if (!check_p_in_borders(tri.p3, tri.p1, tri.p2, inter_p))
+		return INFINITY;
+	if (!check_p_in_borders(tri.p2, tri.p3, tri.p1, inter_p))
+		return INFINITY;
+	return plane_inter;
 }
 
 float try_intersections(t_p3 d, t_p3 cam_o, t_figures *fig, t_figures *closest_fig)
@@ -107,6 +141,8 @@ float try_intersections(t_p3 d, t_p3 cam_o, t_figures *fig, t_figures *closest_f
             inter_dist = sphere_intersection(d, cam_o, fig->figures.sp.centr, fig->figures.sp.radius);
 		else if(fig->flag == PL)
 			inter_dist = plane_intersection(d, cam_o, fig->figures.pl.orient, fig->figures.pl.centr);
+		else if(fig->flag == TR)
+			inter_dist = trinagle_intersection(d, cam_o, fig->figures.tr);
         if(inter_dist < closest_inter && inter_dist > 0){
             closest_inter = inter_dist;
             *closest_fig = *fig;
@@ -129,8 +165,12 @@ int trace_ray(t_p3 d, t_scene *scene)
     closest_inter = try_intersections(d, scene->camera->pos, scene->figures, &closest_figure);
     if(closest_inter == INFINITY)
         return scene->background;
+	// return rgb_int(closest_figure.collor);
 	inter_p = _add(scene->camera->pos, _multy(_norm(d), closest_inter));
     reflect_norm = _norm(calculate_base_reflection(inter_p, &closest_figure));
+	// printf("normal is ");
+	// print_p3(reflect_norm);
+	// exit(0);
 	return rgb_int(_multy(closest_figure.collor, calculate_light(reflect_norm, inter_p, scene)));
 }
 
@@ -140,7 +180,7 @@ void render_scene(t_scene *scene)
 	int x;
 	t_p3 dir_vec;
 	int color;
-
+	abvg = 0;
 	y = 0;
 	while (y < scene->height)
 	{
@@ -157,4 +197,5 @@ void render_scene(t_scene *scene)
 		}
 		y++;
 	}
+	printf("count is %d\n", abvg);
 }

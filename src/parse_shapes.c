@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_shapes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:08:10 by gpinchuk          #+#    #+#             */
-/*   Updated: 2022/12/10 14:09:30 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2022/12/14 12:56:45 by fstaryk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void parse_sphere(char **str, t_figures **figures)
 	next(str);
 	temp->figures.sp.centr = read_vec(str);
 	next(str);
-	temp->figures.sp.radius = stof(str);
+	temp->figures.sp.radius = stof(str) / 2;
 	next(str);
 	temp->collor = read_vec(str);
 	
