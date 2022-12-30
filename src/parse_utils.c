@@ -3,28 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:09:44 by gpinchuk          #+#    #+#             */
-/*   Updated: 2022/12/13 13:39:21 by fstaryk          ###   ########.fr       */
+/*   Updated: 2022/12/28 14:11:11 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void next(char **str)
+void next(char **str, t_scene *scene)
 {
 	while(!(ft_isdigit(**str)))
 	{
-		if(**str == ',')
-			fatal_error("error in map");
+		if(**str == ',' || **str == '.')
+			fatal_error_v2(scene);
 		if(**str == '-')
 			break;
 		(*str)++;
 	}
 }
 
-float stof(char **str)
+float stof(char **str, t_scene *scene, int flag)
 {
 	int		w;
 	float	d;
@@ -47,18 +47,26 @@ float stof(char **str)
 	while (d >= 1)
 		d /= 10;
 	d += w;
+	check_stof(d * neg, scene, flag);
 	return (d * neg);
 }
 
-t_p3 read_vec(char **str)
+t_p3 read_vec(char **str, t_scene *scene, int flag)
 {
 	t_p3 new;
 
-	new.x = stof(str);
+	(void)scene;
+	new.x = stof(str, scene, 0);
 	(*str)++;
-	new.y = stof(str);
+	new.y = stof(str, scene, 0);
 	(*str)++;
-	new.z = stof(str);
+	new.z = stof(str, scene, 0);
+	if (flag == 1 && (new.x > 255 || new.x < 0 || new.y > 255 || \
+			new.y < 0 || new.z > 255 || new.z < 0))
+			fatal_error_v2(scene);
+	else if (flag == 2 && (new.x > 5 || new.x < -2 || new.y > 1 || \
+			new.y < -1 || new.z > 1 || new.z < -1))
+			fatal_error_v2(scene);
 	return new;
 }
 

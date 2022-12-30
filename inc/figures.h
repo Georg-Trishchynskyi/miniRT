@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   figures.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 13:45:17 by gpinchuk          #+#    #+#             */
-/*   Updated: 2022/12/13 13:38:45 by fstaryk          ###   ########.fr       */
+/*   Updated: 2022/12/27 16:46:51 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # define TR 3
 # define CY 4
 
-# include "../inc/minirt.h"
+# include "minirt.h"
 
 typedef struct s_sphere
 {
@@ -67,14 +67,10 @@ typedef struct s_figures
 	int				flag;
 	union u_figures	figures;
 	t_p3			collor;
+	int				blesk;
 	// t_p3			*pos;
 	struct s_figures *next;
 }				t_figures;
 
-//PARSE
-void	parse_plane(char **str, t_figures **figures);
-void	parse_sphere(char **str, t_figures **figures);
-void	parse_triangle(char **str, t_figures ** figures);
-void	parse_cylinder(char **str, t_figures ** figures);
 
 #endif

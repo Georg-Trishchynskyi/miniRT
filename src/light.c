@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 20:09:38 by fstaryk           #+#    #+#             */
-/*   Updated: 2022/12/14 14:00:24 by fstaryk          ###   ########.fr       */
+/*   Updated: 2022/12/27 14:13:34 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,17 @@ bool	is_blocked(t_p3 dir_to_light, t_p3 inter_p, t_figures *fig)
 {
 	float	inter;
 
-    while (fig)
-    {
-        if(fig->flag == SP)
-            inter = sphere_intersection(dir_to_light, inter_p, fig->figures.sp.centr, fig->figures.sp.radius);      
-        else if(fig->flag == PL)
+	while (fig)
+	{
+		if(fig->flag == SP)
+			inter = sphere_intersection(dir_to_light, inter_p, fig->figures.sp.centr, fig->figures.sp.radius);      
+		else if(fig->flag == PL)
 			inter = plane_intersection(dir_to_light, inter_p, fig->figures.pl.orient, fig->figures.pl.centr);
-        if(inter > 0 && inter < INFINITY)
-            return true;
-        fig = fig->next;
-    }
-    return false;
+		if(inter > 0.0000001 && inter < 1)
+			return true;
+		fig = fig->next;
+	}
+	return false;
 }
 
 // t_p3	calculate_light(t_p3 norm, t_p3 inter_p, t_scene *scene)
@@ -70,26 +70,38 @@ bool	is_blocked(t_p3 dir_to_light, t_p3 inter_p, t_figures *fig)
 // 	return (ret_light);
 // }
 
-float	calculate_light(t_p3 norm, t_p3 inter_p, t_scene *scene)
+// void add_light(t_p3 *rgb, float cof, )
+
+float	calculate_light(t_p3 norm, t_p3 inter_p, t_scene *scene, t_p3 view_vec)
 {
 	float ret_light;
 	t_lights *light;
 	t_p3 dir_to_light;
+	t_p3	R_vec;
+	
+	// t_p3	rgb;
 
+	// add_light();
 	light = scene->lights;
 	ret_light = 0;
 	ret_light += scene->a_scale; 
 	while (light)
 	{
 		dir_to_light = _substruct(light->light.pos, inter_p);
-        if(!is_blocked(dir_to_light, inter_p, scene->figures) && _dot(dir_to_light, norm) > 0/*insurse that we dont lower our light because of 
-                                                                                                            light souces that cosinus lower than 0*/)
-        {
-            abvg++;
-            // printf("im trying to calculate light\n");
-            ret_light += (light->light.scale * _dot(norm, dir_to_light)) / (_lenth(norm) * _lenth(dir_to_light));//dot(a, b)/len(a)*len(b) == cosinus between vectors
-        }
-        light = light->next;
+		if (_dot(norm, dir_to_light) > 0/*insurse that we dont lower our light because of light souces that cosinus lower than 0*/)
+		{
+			ret_light += (light->light.scale * _dot(norm, dir_to_light)) / (_lenth(norm) * _lenth(dir_to_light));//dot(a, b)/len(a)*len(b) == cosinus between vectors
+		}
+		if (scene->figures->blesk != -1)
+		{
+			R_vec = _substruct(_multy(_multy(norm, 2), _dot(norm, dir_to_light)), dir_to_light);
+			if (_dot(R_vec, view_vec) > 0)
+			{
+				ret_light += light->light.scale * powf(_dot(R_vec, view_vec) / (_lenth(R_vec) * _lenth(view_vec)), scene->figures->blesk);
+			}
+			
+		}
+		light = light->next;
 	}
 	return (ret_light);
 }

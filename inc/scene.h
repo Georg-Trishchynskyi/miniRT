@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:41:34 by gpinchuk          #+#    #+#             */
-/*   Updated: 2022/12/13 13:38:54 by fstaryk          ###   ########.fr       */
+/*   Updated: 2022/12/27 17:33:11 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ typedef struct	s_scene
 //PARSE
 void	parse_ambient(char **str, t_scene *scene);
 void	parse_camera(char **str, t_scene *scene);
-void	parse_light(char **str, t_lights **light);
+void	parse_light(char **str, t_scene *scene);
 
 //CMAERA
 // t_cam *new_camera();

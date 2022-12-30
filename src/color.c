@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 20:04:30 by fstaryk           #+#    #+#             */
-/*   Updated: 2022/12/13 21:30:40 by fstaryk          ###   ########.fr       */
+/*   Updated: 2022/12/27 14:32:16 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 
 int	rgb_int(t_p3 col)
 {
+	if(col.x > 253)
+		col.x = 255;
+	if(col.y > 253)
+		col.y = 255;
+	if(col.z > 253)
+		col.z = 255;
 	return (((int)col.x << 16) | ((int)col.y << 8) | (int)col.z);
 }
 
@@ -26,3 +32,4 @@ t_p3	color_x_light(t_p3 base_color, t_p3 light_collor)
 	new.z = base_color.z - ((255 - light_collor.z) / 2);
 	return (new);
 }
+

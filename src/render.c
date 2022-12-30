@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 16:47:30 by fstaryk           #+#    #+#             */
-/*   Updated: 2022/12/14 18:27:06 by fstaryk          ###   ########.fr       */
+/*   Updated: 2022/12/17 18:52:19 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,25 +153,22 @@ float try_intersections(t_p3 d, t_p3 cam_o, t_figures *fig, t_figures *closest_f
 }
 
 
+
+
 int trace_ray(t_p3 d, t_scene *scene)
 {
-    float   closest_inter;
-    t_figures closest_figure;
+	float		closest_inter;
+	t_figures	closest_figure;
 	t_p3		reflect_norm;
-	t_p3	inter_p;
+	t_p3		inter_p;
 	
-	// closest_figure = NULL;
-    closest_figure.flag = 0;
-    closest_inter = try_intersections(d, scene->camera->pos, scene->figures, &closest_figure);
-    if(closest_inter == INFINITY)
-        return scene->background;
-	// return rgb_int(closest_figure.collor);
+	closest_figure.flag = 0;
+	closest_inter = try_intersections(d, scene->camera->pos, scene->figures, &closest_figure);
+	if(closest_inter == INFINITY)
+		return scene->background;
 	inter_p = _add(scene->camera->pos, _multy(_norm(d), closest_inter));
-    reflect_norm = _norm(calculate_base_reflection(inter_p, &closest_figure));
-	// printf("normal is ");
-	// print_p3(reflect_norm);
-	// exit(0);
-	return rgb_int(_multy(closest_figure.collor, calculate_light(reflect_norm, inter_p, scene)));
+	reflect_norm = _norm(calculate_base_reflection(inter_p, &closest_figure));
+	return rgb_int(_multy(closest_figure.collor, calculate_light(reflect_norm, inter_p, scene, _multy(d, -1 * closest_inter))));
 }
 
 void render_scene(t_scene *scene)
@@ -190,7 +187,8 @@ void render_scene(t_scene *scene)
 			dir_vec = get_screen_coord(x, y, scene);
 			// printf("dir vec is ");
 			// print_p3(dir_vec);
-			dir_vec = look_at_pixel(dir_vec, scene->camera->direct);                     
+			dir_vec = look_at_pixel(dir_vec, scene->camera->direct);   
+			//fprintf(stderr, "|||| %f, %f ,%f ||||\n", dir_vec.x, dir_vec.y, dir_vec.z);               
 			color = trace_ray(dir_vec, scene);
             my_mlx_pixel_put(scene, x, y, color); 
 			x++;

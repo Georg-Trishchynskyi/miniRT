@@ -1,26 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   camera.c                                           :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/06 19:24:10 by admin             #+#    #+#             */
-/*   Updated: 2022/12/10 13:54:17 by gpinchuk         ###   ########.fr       */
+/*   Created: 2022/12/27 16:37:59 by gpinchuk          #+#    #+#             */
+/*   Updated: 2022/12/27 18:51:18 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-// t_cam *new_camera()
-// {
-// 	t_cam *camera;
-
-// 	camera = (t_cam*)malloc(sizeof(t_cam));
-// 	if (!camera)
-// 		fatal_error("Camera was not allocated");
-// 	camera->pos = NULL;
-// 	camera->direct = NULL;
-// 	camera->fov = NULL;
-// 	return (camera);
-// }
+void free_scene(t_scene *scene)
+{
+	t_figures	*temp;
+	t_lights	*temp_l;
+	
+	while(scene->figures)
+	{
+		temp = scene->figures;
+		scene->figures = scene->figures->next;
+		free(temp);
+	}
+	while(scene->lights)
+	{
+		temp_l = scene->lights;
+		scene->lights = scene->lights->next;
+		free(temp_l);
+	}
+	free(scene->camera);
+	free(scene);
+}

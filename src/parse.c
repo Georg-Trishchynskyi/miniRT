@@ -3,31 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 13:01:23 by gpinchuk          #+#    #+#             */
-/*   Updated: 2022/12/12 11:14:37 by fstaryk          ###   ########.fr       */
+/*   Updated: 2022/12/28 14:04:10 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minirt.h"
 
-void parse(char *str, t_scene *scene)
-{
+int parse(char *str, t_scene *scene)
+{	
 	if (*str == 'p' && *(str + 1) == 'l' && str++)
-		parse_plane(&str, &scene->figures);
+		parse_plane(&str, scene);
 	else if (*str == 'l' && str++)
-		parse_light(&str, &scene->lights);
+		parse_light(&str, scene);
 	else if (*str == 'A' && str++)
 		parse_ambient(&str, scene);
 	else if (*str == 'c' &&*(str + 1) == 'y' && str++)
-		parse_cylinder(&str, &scene->figures);
+		parse_cylinder(&str, scene);
 	else if (*str == 'c' && str++)
 		parse_camera(&str, scene);
 	else if (*str == 's' && *(str + 1) == 'p' && str++)
-		parse_sphere(&str, &scene->figures);
+		parse_sphere(&str, scene);
 	else if (*str == 't' && *(str + 1) == 'r' && str++)
-		parse_triangle(&str, &scene->figures);
+		parse_triangle(&str, scene);
+	else if (*str != '#')
+	{
+		print_error("no such identifier:");
+		return (print_error(str));	
+	}
+	return (1);
+}
+
+void create_scene(t_scene **scene)
+{
+	(*scene) = (t_scene *)malloc(sizeof(t_scene));
+	(*scene)->figures = NULL;
+	(*scene)->lights = NULL;
+	(*scene)->background = 0xffffff;
+	(*scene)->height = 1200;
+	(*scene)->width = 1200;
 }
 
 t_scene *parse_scene(char *file_name)
@@ -35,18 +51,20 @@ t_scene *parse_scene(char *file_name)
 	int fd = open(file_name, O_RDONLY);
 	char *str;
 	t_scene *scene;
+
+	scene = NULL;
 	if(fd == -1)
 		fatal_error("no such file");
-	scene = (t_scene *)malloc(sizeof(t_scene));
-	scene->figures = NULL;
-	scene->lights = NULL;
-	scene->background = 0xffffff;
-	scene->height = 1200;
-	scene->width = 1200;
+	create_scene(&scene);
 	str = get_next_line(fd);
 	while (str)
 	{
-		parse(str, scene);
+		ft_putstr_fd(str, 2);
+		if (*str != '\n')
+			 if (parse(str, scene) == -1)
+			 	{
+					fatal_error("END");
+				}
 		free(str);
 		str = get_next_line(fd);
 	}
