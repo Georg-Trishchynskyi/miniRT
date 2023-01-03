@@ -6,7 +6,7 @@
 /*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 20:09:38 by fstaryk           #+#    #+#             */
-/*   Updated: 2022/12/27 14:13:34 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2023/01/02 15:10:59 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ bool	is_blocked(t_p3 dir_to_light, t_p3 inter_p, t_figures *fig)
 
 // void add_light(t_p3 *rgb, float cof, )
 
-float	calculate_light(t_p3 norm, t_p3 inter_p, t_scene *scene, t_p3 view_vec)
+float	calculate_light(t_p3 norm, t_p3 inter_p, t_scene *scene, t_p3 view_vec, t_material mat)
 {
 	float ret_light;
 	t_lights *light;
@@ -92,12 +92,12 @@ float	calculate_light(t_p3 norm, t_p3 inter_p, t_scene *scene, t_p3 view_vec)
 		{
 			ret_light += (light->light.scale * _dot(norm, dir_to_light)) / (_lenth(norm) * _lenth(dir_to_light));//dot(a, b)/len(a)*len(b) == cosinus between vectors
 		}
-		if (scene->figures->blesk != -1)
+		if (mat.gloss != -1 && mat.gloss != 0)
 		{
 			R_vec = _substruct(_multy(_multy(norm, 2), _dot(norm, dir_to_light)), dir_to_light);
 			if (_dot(R_vec, view_vec) > 0)
 			{
-				ret_light += light->light.scale * powf(_dot(R_vec, view_vec) / (_lenth(R_vec) * _lenth(view_vec)), scene->figures->blesk);
+				ret_light += light->light.scale * powf(_dot(R_vec, view_vec) / (_lenth(R_vec) * _lenth(view_vec)), mat.gloss);
 			}
 			
 		}

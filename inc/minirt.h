@@ -6,7 +6,7 @@
 /*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:41:25 by gpinchuk          #+#    #+#             */
-/*   Updated: 2022/12/28 13:54:01 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2023/01/02 17:29:59 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,14 @@ void next(char **str, t_scene *scene);
 void	my_mlx_pixel_put(t_scene *scene, int x, int y, int color);
 
 
-
+//MATERIAL
+t_material fill_material(char **str, t_scene *scene);
 
 //LIGHTS
 
 t_p3    calculate_base_reflection(t_p3 inter_p, t_figures *fig);
 // t_p3	calculate_light(t_p3 norm, t_p3 inter_p, t_scene *scene);
-float	calculate_light(t_p3 norm, t_p3 inter_p, t_scene *scene, t_p3 view_vec);
+float	calculate_light(t_p3 norm, t_p3 inter_p, t_scene *scene, t_p3 view_vec, t_material mat);
 
 //COLORS
 int rgb_int(t_p3 col);
@@ -78,4 +79,8 @@ void render_scene(t_scene *scene);
 void print_p3(t_p3 x);
 void print_scene(t_scene *scene);
 
+
+//keyhook
+int	key(int key, t_scene *scene);
+int escape(t_scene *scene);
 #endif

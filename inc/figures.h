@@ -6,7 +6,7 @@
 /*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 13:45:17 by gpinchuk          #+#    #+#             */
-/*   Updated: 2022/12/27 16:46:51 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2022/12/30 17:05:44 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,11 @@ typedef struct s_cylinder
 	float		height;
 }				t_cylinder;
 
+typedef struct	s_material
+{
+	int			gloss;	
+}				t_material;
+
 // typedef struct s_square
 // {
 // 	t_p3		centr;
@@ -67,7 +72,7 @@ typedef struct s_figures
 	int				flag;
 	union u_figures	figures;
 	t_p3			collor;
-	int				blesk;
+	t_material		material;
 	// t_p3			*pos;
 	struct s_figures *next;
 }				t_figures;

@@ -6,7 +6,7 @@
 /*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 18:12:34 by admin             #+#    #+#             */
-/*   Updated: 2022/12/17 17:33:14 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2023/01/02 18:00:33 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ int main(int argc, char **argv)
 	init_mlx(scene);
 	print_scene(scene);
 	render_scene(scene);
-	mlx_put_image_to_window(scene->mlx->mlx, scene->mlx->window, scene->mlx->img, 0, 0);
+	mlx_hook(scene->mlx->window, 2, 0, key, scene);
+	mlx_hook(scene->mlx->window, 17, 0, escape, scene);
 	mlx_loop(scene->mlx->mlx);
 	return (1);
 }

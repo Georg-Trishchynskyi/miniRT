@@ -6,7 +6,7 @@
 /*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:08:10 by gpinchuk          #+#    #+#             */
-/*   Updated: 2022/12/28 14:07:31 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2023/01/02 15:18:09 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void parse_plane(char **str, t_scene *scene)
 	temp->figures.pl.orient = read_vec(str, scene, 2);
 	next(str, scene);
 	temp->collor = read_vec(str, scene, 1);
-	temp->blesk = -1;
+	next(str, scene);
+	temp->material = fill_material(str, scene);
 }
 
 void parse_sphere(char **str, t_scene *scene)
@@ -45,7 +46,8 @@ void parse_sphere(char **str, t_scene *scene)
 	temp->figures.sp.radius = stof(str, scene, 2) / 2;
 	next(str, scene);
 	temp->collor = read_vec(str, scene, 1);
-	temp->blesk = -1; 
+	next(str, scene);
+	temp->material = fill_material(str, scene);
 }
 
 void parse_triangle(char **str, t_scene *scene)
@@ -65,6 +67,8 @@ void parse_triangle(char **str, t_scene *scene)
 	temp->figures.tr.p3 = read_vec(str, scene, 0);
 	next(str, scene);
 	temp->collor = read_vec(str, scene, 1);	
+	next(str, scene);
+	temp->material = fill_material(str, scene);
 }
 
 void parse_cylinder(char **str, t_scene *scene)
@@ -86,4 +90,6 @@ void parse_cylinder(char **str, t_scene *scene)
 	temp->figures.cy.height = stof(str, scene, 0);
 	next(str, scene);
 	temp->collor = read_vec(str, scene, 1);
+	next(str, scene);
+	temp->material = fill_material(str, scene);
 }

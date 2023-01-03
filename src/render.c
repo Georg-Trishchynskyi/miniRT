@@ -6,7 +6,7 @@
 /*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 16:47:30 by fstaryk           #+#    #+#             */
-/*   Updated: 2022/12/17 18:52:19 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2023/01/02 18:00:38 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,7 @@ int trace_ray(t_p3 d, t_scene *scene)
 	t_figures	closest_figure;
 	t_p3		reflect_norm;
 	t_p3		inter_p;
+	float		temp_color;
 	
 	closest_figure.flag = 0;
 	closest_inter = try_intersections(d, scene->camera->pos, scene->figures, &closest_figure);
@@ -168,7 +169,12 @@ int trace_ray(t_p3 d, t_scene *scene)
 		return scene->background;
 	inter_p = _add(scene->camera->pos, _multy(_norm(d), closest_inter));
 	reflect_norm = _norm(calculate_base_reflection(inter_p, &closest_figure));
-	return rgb_int(_multy(closest_figure.collor, calculate_light(reflect_norm, inter_p, scene, _multy(d, -1 * closest_inter))));
+	if (_dot(d, reflect_norm) > 0)
+	{
+		reflect_norm = _multy(reflect_norm, -1.0);
+	}
+	temp_color = calculate_light(reflect_norm, inter_p, scene, _multy(d, -1 * closest_inter), closest_figure.material);
+	return rgb_int(_multy(closest_figure.collor, temp_color));
 }
 
 void render_scene(t_scene *scene)
@@ -179,6 +185,13 @@ void render_scene(t_scene *scene)
 	int color;
 	abvg = 0;
 	y = 0;
+
+	if (scene->mlx->img)
+	{
+		fprintf(stderr, "%f", scene->camera->pos.x);
+		mlx_destroy_image(scene->mlx->mlx, scene->mlx->img);
+		scene->mlx->img = mlx_new_image(scene->mlx->mlx, scene->width, scene->height);
+	}
 	while (y < scene->height)
 	{
 		x = 0;
@@ -195,5 +208,6 @@ void render_scene(t_scene *scene)
 		}
 		y++;
 	}
+	mlx_put_image_to_window(scene->mlx->mlx, scene->mlx->window, scene->mlx->img, 0, 0);
 	printf("count is %d\n", abvg);
 }

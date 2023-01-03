@@ -6,7 +6,7 @@
 /*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 13:01:23 by gpinchuk          #+#    #+#             */
-/*   Updated: 2022/12/28 14:04:10 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2023/01/02 17:24:45 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void create_scene(t_scene **scene)
 	(*scene) = (t_scene *)malloc(sizeof(t_scene));
 	(*scene)->figures = NULL;
 	(*scene)->lights = NULL;
+	(*scene)->mlx = NULL;
 	(*scene)->background = 0xffffff;
 	(*scene)->height = 1200;
 	(*scene)->width = 1200;

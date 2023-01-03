@@ -6,7 +6,7 @@
 /*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 16:37:59 by gpinchuk          #+#    #+#             */
-/*   Updated: 2022/12/27 18:51:18 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2023/01/02 17:28:14 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@ void free_scene(t_scene *scene)
 		temp_l = scene->lights;
 		scene->lights = scene->lights->next;
 		free(temp_l);
+	}
+	if (scene->mlx)
+	{
+		mlx_destroy_window(scene->mlx->mlx, scene->mlx->window);
+		mlx_destroy_image(scene->mlx->mlx, scene->mlx->img);
+		free(scene->mlx);
 	}
 	free(scene->camera);
 	free(scene);
