@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 16:47:30 by fstaryk           #+#    #+#             */
-/*   Updated: 2023/01/02 18:00:38 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2023/01/07 14:32:20 by fstaryk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,14 @@ t_p3    get_screen_coord(int x, int y, t_scene *scene)
 {
 	t_p3 ret;
 
-	// printf("defining vector for %d %d\n", x, y);
+	// printf("defining vector for %d %d\naspect ratio is %f, fov_l is %f\n", x, y, scene->aspect_ratio, scene->camera->fov_l);
+	
 	ret.x = ((2 * (x + 0.5)/scene->width) - 1) * scene->aspect_ratio * scene->camera->fov_l;
-	ret.y = (1 - (2 * (y + 0.5)/scene->height)) * scene->aspect_ratio;
+	ret.y = (1 - (2 * ((y + 0.5)/scene->height))) * scene->camera->fov_l;
 	ret.z = -1;
+	ret.x *= -1;
 	// printf("result is "z
+	// print_p3(ret);
 	return ret;
 }
 
@@ -143,6 +146,8 @@ float try_intersections(t_p3 d, t_p3 cam_o, t_figures *fig, t_figures *closest_f
 			inter_dist = plane_intersection(d, cam_o, fig->figures.pl.orient, fig->figures.pl.centr);
 		else if(fig->flag == TR)
 			inter_dist = trinagle_intersection(d, cam_o, fig->figures.tr);
+		else if(fig->flag == CY)
+			inter_dist = cylinder_intersection(d, cam_o, fig);
         if(inter_dist < closest_inter && inter_dist > 0){
             closest_inter = inter_dist;
             *closest_fig = *fig;
@@ -183,7 +188,6 @@ void render_scene(t_scene *scene)
 	int x;
 	t_p3 dir_vec;
 	int color;
-	abvg = 0;
 	y = 0;
 
 	if (scene->mlx->img)
@@ -199,15 +203,14 @@ void render_scene(t_scene *scene)
 		{
 			dir_vec = get_screen_coord(x, y, scene);
 			// printf("dir vec is ");
-			// print_p3(dir_vec);
-			dir_vec = look_at_pixel(dir_vec, scene->camera->direct);   
+			dir_vec = look_at_pixel(dir_vec, scene->camera->direct);
 			//fprintf(stderr, "|||| %f, %f ,%f ||||\n", dir_vec.x, dir_vec.y, dir_vec.z);               
 			color = trace_ray(dir_vec, scene);
             my_mlx_pixel_put(scene, x, y, color); 
+			// exit(0);
 			x++;
 		}
 		y++;
 	}
 	mlx_put_image_to_window(scene->mlx->mlx, scene->mlx->window, scene->mlx->img, 0, 0);
-	printf("count is %d\n", abvg);
 }
