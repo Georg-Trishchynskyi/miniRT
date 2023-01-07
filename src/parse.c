@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 13:01:23 by gpinchuk          #+#    #+#             */
-/*   Updated: 2023/01/02 17:24:45 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2023/01/03 16:18:04 by fstaryk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void create_scene(t_scene **scene)
 	(*scene)->figures = NULL;
 	(*scene)->lights = NULL;
 	(*scene)->mlx = NULL;
-	(*scene)->background = 0xffffff;
+	(*scene)->background = 0x000000;
 	(*scene)->height = 1200;
 	(*scene)->width = 1200;
 }
