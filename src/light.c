@@ -6,7 +6,7 @@
 /*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 20:09:38 by fstaryk           #+#    #+#             */
-/*   Updated: 2023/01/02 15:10:59 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2023/01/07 14:43:28 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ bool	is_blocked(t_p3 dir_to_light, t_p3 inter_p, t_figures *fig)
 	while (fig)
 	{
 		if(fig->flag == SP)
-			inter = sphere_intersection(dir_to_light, inter_p, fig->figures.sp.centr, fig->figures.sp.radius);      
+			inter = sphere_intersection(dir_to_light, inter_p, fig->figures.sp.centr, fig->figures.sp.radius);
 		else if(fig->flag == PL)
 			inter = plane_intersection(dir_to_light, inter_p, fig->figures.pl.orient, fig->figures.pl.centr);
-		if(inter > 0.0000001 && inter < 1)
+		if(inter > 1e-4 && inter < 1)
 			return true;
 		fig = fig->next;
 	}
@@ -72,7 +72,7 @@ bool	is_blocked(t_p3 dir_to_light, t_p3 inter_p, t_figures *fig)
 
 // void add_light(t_p3 *rgb, float cof, )
 
-float	calculate_light(t_p3 norm, t_p3 inter_p, t_scene *scene, t_p3 view_vec, t_material mat)
+float	calculate_light(t_p3 norm, t_p3 inter_p, t_scene *scene, t_p3 view_vec, t_figures figure)
 {
 	float ret_light;
 	t_lights *light;
@@ -88,18 +88,21 @@ float	calculate_light(t_p3 norm, t_p3 inter_p, t_scene *scene, t_p3 view_vec, t_
 	while (light)
 	{
 		dir_to_light = _substruct(light->light.pos, inter_p);
-		if (_dot(norm, dir_to_light) > 0/*insurse that we dont lower our light because of light souces that cosinus lower than 0*/)
+		R_vec = _substruct(_multy(_multy(norm, 2), _dot(norm, dir_to_light)), dir_to_light);
+		if (!is_blocked(dir_to_light, inter_p, scene->figures))
 		{
-			ret_light += (light->light.scale * _dot(norm, dir_to_light)) / (_lenth(norm) * _lenth(dir_to_light));//dot(a, b)/len(a)*len(b) == cosinus between vectors
-		}
-		if (mat.gloss != -1 && mat.gloss != 0)
-		{
-			R_vec = _substruct(_multy(_multy(norm, 2), _dot(norm, dir_to_light)), dir_to_light);
-			if (_dot(R_vec, view_vec) > 0)
+			if (_dot(norm, dir_to_light) > 0/*insurse that we dont lower our light because of light souces that cosinus lower than 0*/)
 			{
-				ret_light += light->light.scale * powf(_dot(R_vec, view_vec) / (_lenth(R_vec) * _lenth(view_vec)), mat.gloss);
+				ret_light += (light->light.scale * _dot(norm, dir_to_light)) / (_lenth(norm) * _lenth(dir_to_light));//dot(a, b)/len(a)*len(b) == cosinus between vectors
 			}
-			
+			if (figure.material.gloss != -1 && figure.material.gloss != 0)
+			{
+				if (_dot(R_vec, view_vec) > 0)
+				{
+					ret_light += light->light.scale * powf(_dot(R_vec, view_vec) / (_lenth(R_vec) * _lenth(view_vec)), figure.material.gloss);
+				}
+				
+			}
 		}
 		light = light->next;
 	}

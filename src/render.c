@@ -6,23 +6,11 @@
 /*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 16:47:30 by fstaryk           #+#    #+#             */
-/*   Updated: 2023/01/02 18:00:38 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2023/01/08 19:29:19 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minirt.h"
-
-t_p3    get_screen_coord(int x, int y, t_scene *scene)
-{
-	t_p3 ret;
-
-	// printf("defining vector for %d %d\n", x, y);
-	ret.x = ((2 * (x + 0.5)/scene->width) - 1) * scene->aspect_ratio * scene->camera->fov_l;
-	ret.y = (1 - (2 * (y + 0.5)/scene->height)) * scene->aspect_ratio;
-	ret.z = -1;
-	// printf("result is "z
-	return ret;
-}
 
 t_p3    look_at_pixel(t_p3 d, t_p3 cam_nv)
 {
@@ -52,6 +40,20 @@ t_p3    look_at_pixel(t_p3 d, t_p3 cam_nv)
 	// print_p3(rotated);
 	return rotated;
 }
+
+t_p3    get_screen_coord(int x, int y, t_scene *scene)
+{
+	t_p3 ret;
+
+	// printf("defining vector for %d %d\n", x, y);
+	ret.x = ((2 * (x + 0.5)/scene->width) - 1) * scene->aspect_ratio * scene->camera->fov_l;
+	ret.y = (1 - (2 * (y + 0.5)/scene->height)) * scene->camera->fov_l;
+	ret.z = -1;
+	// printf("result is "z
+	ret = look_at_pixel(ret, scene->camera->direct);
+	return ret;
+}
+
 
 float   sphere_intersection(t_p3 d, t_p3 cam_o, t_p3 sp_o, float r){
     t_p3 p;//makes vector p that goes from sphere origin to intersection
@@ -152,29 +154,47 @@ float try_intersections(t_p3 d, t_p3 cam_o, t_figures *fig, t_figures *closest_f
 	return closest_inter;
 }
 
+t_p3 ray_reflect(t_p3 dir, t_p3 normal)
+{
+	return _substruct(_multy(normal, 2 * _dot(normal, dir)) , dir);
+}
 
+// t_p3	get_reflect_ray(t_p3 d, t_p3 normal)
+// {
+// 	t_p3		reflect_ray;
 
+// 	reflect_ray.direction = ray_reflect(d, normal);
+// 	if (vec3_dot_product(reflect_ray.direction, hit_info->hit_normal) < 0)
+// 		reflect_ray.origin = (vec3_substract(hit_info->hit,
+// 					vec3_multiply(hit_info->hit_normal, 1e-3)));
+// 	else
+// 		reflect_ray.origin = (vec3_add(hit_info->hit,
+// 					vec3_multiply(hit_info->hit_normal, 1e-3)));
+// 	return (reflect_ray);
+// }
 
-int trace_ray(t_p3 d, t_scene *scene)
+int trace_ray(t_p3 d, t_p3 O, t_scene *scene, int depth)
 {
 	float		closest_inter;
 	t_figures	closest_figure;
 	t_p3		reflect_norm;
 	t_p3		inter_p;
-	float		temp_color;
+	t_p3		temp_color;
+	int			reflect_color;
 	
 	closest_figure.flag = 0;
-	closest_inter = try_intersections(d, scene->camera->pos, scene->figures, &closest_figure);
+	closest_inter = try_intersections(d, O, scene->figures, &closest_figure);
 	if(closest_inter == INFINITY)
 		return scene->background;
-	inter_p = _add(scene->camera->pos, _multy(_norm(d), closest_inter));
+	inter_p = _add(O, _multy(_norm(d), closest_inter));
 	reflect_norm = _norm(calculate_base_reflection(inter_p, &closest_figure));
-	if (_dot(d, reflect_norm) > 0)
-	{
-		reflect_norm = _multy(reflect_norm, -1.0);
-	}
-	temp_color = calculate_light(reflect_norm, inter_p, scene, _multy(d, -1 * closest_inter), closest_figure.material);
-	return rgb_int(_multy(closest_figure.collor, temp_color));
+	temp_color = _multy(closest_figure.collor, calculate_light(reflect_norm, inter_p, scene, _multy(d, -1), closest_figure));
+	if (depth <= -10 || closest_figure.material.reflective <= 0)
+		return rgb_int(temp_color);
+	reflect_color = trace_ray(ray_reflect(_multy(d, -1), reflect_norm), inter_p, scene, depth - 1);
+	return _cadd(_cproduct(rgb_int(temp_color), (1 - closest_figure.material.reflective)), _cproduct(reflect_color, closest_figure.material.reflective));
+	// return rgb_int(temp_color);
+	// return reflect_color;
 }
 
 void render_scene(t_scene *scene)
@@ -183,9 +203,8 @@ void render_scene(t_scene *scene)
 	int x;
 	t_p3 dir_vec;
 	int color;
-	abvg = 0;
-	y = 0;
 
+	y = 0;
 	if (scene->mlx->img)
 	{
 		fprintf(stderr, "%f", scene->camera->pos.x);
@@ -197,17 +216,12 @@ void render_scene(t_scene *scene)
 		x = 0;
 		while (x < scene->width)
 		{
-			dir_vec = get_screen_coord(x, y, scene);
-			// printf("dir vec is ");
-			// print_p3(dir_vec);
-			dir_vec = look_at_pixel(dir_vec, scene->camera->direct);   
-			//fprintf(stderr, "|||| %f, %f ,%f ||||\n", dir_vec.x, dir_vec.y, dir_vec.z);               
-			color = trace_ray(dir_vec, scene);
+			dir_vec = get_screen_coord(x, y, scene);                 
+			color = trace_ray(dir_vec, scene->camera->pos, scene, 2);
             my_mlx_pixel_put(scene, x, y, color); 
 			x++;
 		}
 		y++;
 	}
 	mlx_put_image_to_window(scene->mlx->mlx, scene->mlx->window, scene->mlx->img, 0, 0);
-	printf("count is %d\n", abvg);
 }

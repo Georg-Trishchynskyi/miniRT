@@ -6,7 +6,7 @@
 /*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 13:45:17 by gpinchuk          #+#    #+#             */
-/*   Updated: 2022/12/30 17:05:44 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2023/01/08 14:29:23 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ typedef struct s_cylinder
 
 typedef struct	s_material
 {
-	int			gloss;	
+	int			gloss;
+	float		reflective;
 }				t_material;
 
 // typedef struct s_square
