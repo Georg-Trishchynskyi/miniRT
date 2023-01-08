@@ -1,14 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/08 13:01:23 by gpinchuk          #+#    #+#             */
-/*   Updated: 2023/01/03 16:18:04 by fstaryk          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+
 
 #include "../inc/minirt.h"
 
@@ -42,9 +32,9 @@ void create_scene(t_scene **scene)
 	(*scene)->figures = NULL;
 	(*scene)->lights = NULL;
 	(*scene)->mlx = NULL;
-	(*scene)->background = 0x000000;
-	(*scene)->height = 1200;
-	(*scene)->width = 1200;
+	(*scene)->background = 0;
+	(*scene)->height = 1080;
+	(*scene)->width = 1920;
 }
 
 t_scene *parse_scene(char *file_name)

@@ -1,14 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   figures.h                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/08 13:45:17 by gpinchuk          #+#    #+#             */
-/*   Updated: 2023/01/03 14:29:55 by fstaryk          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+
 
 #ifndef FIGURES_H
 # define FIGURES_H
@@ -51,7 +41,8 @@ typedef struct s_cylinder
 
 typedef struct	s_material
 {
-	int			gloss;	
+	int			gloss;
+	float		reflective;
 }				t_material;
 
 // typedef struct s_square
