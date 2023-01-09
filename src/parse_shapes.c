@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_shapes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:08:10 by gpinchuk          #+#    #+#             */
-/*   Updated: 2023/01/05 13:57:17 by fstaryk          ###   ########.fr       */
+/*   Updated: 2023/01/09 13:36:15 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,27 @@ void parse_cylinder(char **str, t_scene *scene)
 	temp->figures.cy.r = stof(str, scene, 0) / 2;
 	next(str, scene);
 	temp->figures.cy.h = stof(str, scene, 0);
+	next(str, scene);
+	temp->collor = read_vec(str, scene, 1);
+	next(str, scene);
+	temp->material = fill_material(str, scene);
+}
+
+void parse_hyperboloid(char **str, t_scene *scene)
+{
+	t_figures *temp;
+
+	add_end_f(&scene->figures);
+	temp = scene->figures;
+	while(temp->next)
+		temp = temp->next;
+	temp->flag = HY;
+	next(str, scene);
+	temp->figures.hy.o = read_vec(str, scene, 0);
+	next(str, scene);
+	temp->figures.hy.param = read_vec(str, scene, 0);
+	next(str, scene);
+	temp->figures.hy.r = stof(str, scene, 0);
 	next(str, scene);
 	temp->collor = read_vec(str, scene, 1);
 	next(str, scene);

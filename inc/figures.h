@@ -6,6 +6,7 @@
 # define PL 2
 # define TR 3
 # define CY 4
+# define HY 5
 
 # include "minirt.h"
 
@@ -45,12 +46,12 @@ typedef struct	s_material
 	float		reflective;
 }				t_material;
 
-// typedef struct s_square
-// {
-// 	t_p3		centr;
-// 	t_p3		orient;
-// 	float		scale;
-// }				t_square;
+typedef struct s_hyper_b
+{
+	t_p3		o;
+	t_p3		param;
+	float		r;
+}				t_hyper_b;
 
 union u_figures
 {
@@ -58,7 +59,7 @@ union u_figures
 	t_plane		pl;
 	t_triangle	tr;
 	t_cylinder	cy;
-	// t_square	sq;
+	t_hyper_b	hy;
 };
 
 typedef struct s_figures

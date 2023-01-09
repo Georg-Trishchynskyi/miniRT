@@ -31,6 +31,7 @@ void	parse_sphere(char **str, t_scene *scene);
 void	parse_plane(char **str, t_scene *scene);
 void	parse_triangle(char **str, t_scene *scene);
 void	parse_cylinder(char **str, t_scene *scene);
+void	parse_hyperboloid(char **str, t_scene *scene);
 
 //UTILS
 void add_end_f(t_figures **figures);

@@ -18,6 +18,8 @@ int parse(char *str, t_scene *scene)
 		parse_sphere(&str, scene);
 	else if (*str == 't' && *(str + 1) == 'r' && str++)
 		parse_triangle(&str, scene);
+	else if (*str == 'h' && *(str + 1) == 'y' && str++)
+		parse_hyperboloid(&str, scene);
 	else if (*str != '#')
 	{
 		print_error("no such identifier:");
