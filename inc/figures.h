@@ -50,6 +50,7 @@ typedef struct s_hyper_b
 {
 	t_p3		o;
 	t_p3		param;
+	t_p3		nv;
 	float		r;
 }				t_hyper_b;
 

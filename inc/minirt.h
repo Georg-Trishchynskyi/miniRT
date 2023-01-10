@@ -79,4 +79,7 @@ float	cylinder_intersection(t_p3 d, t_p3 cam_o, t_figures* cy);
 //keyhook
 int	key(int key, t_scene *scene);
 int escape(t_scene *scene);
+
+float  hyperboloid_intersection(t_p3 d, t_p3 cam_o, t_hyper_b hy);
+t_p3   hyberboloid_normal(t_p3 inter_p, t_hyper_b hy);
 #endif

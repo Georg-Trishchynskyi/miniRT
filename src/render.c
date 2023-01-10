@@ -136,6 +136,8 @@ float try_intersections(t_p3 d, t_p3 cam_o, t_figures *fig, t_figures *closest_f
 			inter_dist = trinagle_intersection(d, cam_o, fig->figures.tr);
 		else if(fig->flag == CY)
 			inter_dist = cylinder_intersection(d, cam_o, fig);
+		else if(fig->flag == HY)
+			inter_dist = hyperboloid_intersection(d, cam_o, fig->figures.hy);
         if(inter_dist < closest_inter && inter_dist > 0){
             closest_inter = inter_dist;
             *closest_fig = *fig;
@@ -177,6 +179,8 @@ int trace_ray(t_p3 d, t_p3 O, t_scene *scene, int depth)
 	closest_inter = try_intersections(d, O, scene->figures, &closest_figure);
 	if(closest_inter == INFINITY)
 		return scene->background;
+	// if(closest_figure.flag == HY)
+	// 	return 0xffffff;
 	inter_p = _add(O, _multy(_norm(d), closest_inter));
 	reflect_norm = _norm(calculate_base_reflection(inter_p, &closest_figure));
 	temp_color = _multy(closest_figure.collor, calculate_light(reflect_norm, inter_p, scene, _multy(d, -1), closest_figure));

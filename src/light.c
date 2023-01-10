@@ -11,6 +11,8 @@ t_p3    calculate_base_reflection(t_p3 inter_p, t_figures *fig){
         refl = fig->figures.pl.orient;
 	if(fig->flag == CY)
 		refl = fig->figures.cy.normal;
+	if(fig->flag == HY)
+		refl = hyberboloid_normal(inter_p, fig->figures.hy);
     return refl;
 }
 
@@ -24,6 +26,8 @@ bool	is_blocked(t_p3 dir_to_light, t_p3 inter_p, t_figures *fig)
 			inter = sphere_intersection(dir_to_light, inter_p, fig->figures.sp.centr, fig->figures.sp.radius);
 		else if(fig->flag == PL)
 			inter = plane_intersection(dir_to_light, inter_p, fig->figures.pl.orient, fig->figures.pl.centr);
+		else if(fig->flag == HY)
+			inter = hyperboloid_intersection(dir_to_light, inter_p, fig->figures.hy);
 		if(inter > 1e-4 && inter < 1)
 			return true;
 		fig = fig->next;

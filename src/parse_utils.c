@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:09:44 by gpinchuk          #+#    #+#             */
-/*   Updated: 2022/12/28 14:11:11 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2023/01/09 15:18:27 by fstaryk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ t_p3 read_vec(char **str, t_scene *scene, int flag)
 	if (flag == 1 && (new.x > 255 || new.x < 0 || new.y > 255 || \
 			new.y < 0 || new.z > 255 || new.z < 0))
 			fatal_error_v2(scene);
-	else if (flag == 2 && (new.x > 5 || new.x < -2 || new.y > 1 || \
+	else if (flag == 2 && (new.x > 1 || new.x < -1 || new.y > 1 || \
 			new.y < -1 || new.z > 1 || new.z < -1))
 			fatal_error_v2(scene);
 	return new;

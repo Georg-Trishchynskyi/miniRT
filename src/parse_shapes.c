@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_shapes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:08:10 by gpinchuk          #+#    #+#             */
-/*   Updated: 2023/01/09 13:36:15 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2023/01/09 15:19:07 by fstaryk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ void parse_hyperboloid(char **str, t_scene *scene)
 	temp->flag = HY;
 	next(str, scene);
 	temp->figures.hy.o = read_vec(str, scene, 0);
+	next(str, scene);
+	temp->figures.hy.nv = read_vec(str, scene, 0);
 	next(str, scene);
 	temp->figures.hy.param = read_vec(str, scene, 0);
 	next(str, scene);
