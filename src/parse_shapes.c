@@ -6,7 +6,7 @@
 /*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:08:10 by gpinchuk          #+#    #+#             */
-/*   Updated: 2023/01/09 13:36:15 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2023/01/14 19:33:34 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void parse_plane(char **str, t_scene *scene)
 	next(str, scene);
 	temp->figures.pl.centr = read_vec(str, scene, 0);
 	next(str, scene);
-	temp->figures.pl.orient = read_vec(str, scene, 2);
+	temp->figures.pl.orient = _norm(read_vec(str, scene, 2));
 	next(str, scene);
 	temp->collor = read_vec(str, scene, 1);
 	next(str, scene);

@@ -15,7 +15,7 @@
 # include "libft.h"
 # include "scene.h"
 
-#define EPSILON 0.00001
+#define EPSILON 1e-5
 
 //ERRORS
 int		print_error(char *str);
@@ -48,7 +48,7 @@ t_material fill_material(char **str, t_scene *scene);
 
 //LIGHTS
 
-t_p3    calculate_base_reflection(t_p3 inter_p, t_figures *fig);
+t_p3    calculate_base_reflection(t_p3 inter_p, t_p3 d, t_figures *fig);
 // t_p3	calculate_light(t_p3 norm, t_p3 inter_p, t_scene *scene);
 float	calculate_light(t_p3 norm, t_p3 inter_p, t_scene *scene, t_p3 view_vec, t_figures figure);
 
@@ -61,7 +61,7 @@ t_p3	color_x_light(t_p3 base_color, t_p3 light_collor);
 
 //intersections
 
-float   sphere_intersection(t_p3 d, t_p3 cam_o, t_p3 sp_o, float r);
+float			sphere_intersection(t_p3 d, t_p3 o, t_figures *lst);
 float	plane_intersection(t_p3 d, t_p3 cam_o, t_p3 pl_n, t_p3 pl_o);
 float try_intersections(t_p3 d, t_p3 cam_o, t_figures *fig, t_figures *closest_fig);
 

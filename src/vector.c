@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 18:12:38 by admin             #+#    #+#             */
-/*   Updated: 2023/01/07 14:54:40 by fstaryk          ###   ########.fr       */
+/*   Updated: 2023/01/14 19:02:06 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,22 @@ t_p3 new_vec(float x, float y, float z)
 	return (vec);
 }
 
+float		_mod(t_p3 v)
+{
+	return (sqrt(_dot(v, v)));
+}
+
+float vcos(t_p3 v1, t_p3 v2)
+{
+	float ret;
+
+	ret = _dot(v1, v2) / (_mod(v1) * _mod(v2));
+	// fprintf(stderr, "Dot:: %f\n", _dot(v1, v2));
+	// fprintf(stderr, "Mod:: %f\n", (_mod(v1) * _mod(v2)));
+	
+	return (ret);
+}
+
 float _lenth(t_p3 vec)
 {
 	float ret;
@@ -31,11 +47,6 @@ float _lenth(t_p3 vec)
 	ret = sqrt((pow(vec.x, 2) + pow(vec.y, 2) + pow(vec.z, 2)));
 	return (ret);
 }
-
-// double		mod(t_p3 v)
-// {
-// 	return (sqrt(dot(v, v)));
-// }
 
 // t_p3		normalize(t_p3 p)
 // {

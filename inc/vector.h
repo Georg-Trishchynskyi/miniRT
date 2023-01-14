@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:41:40 by gpinchuk          #+#    #+#             */
-/*   Updated: 2023/01/07 14:59:22 by fstaryk          ###   ########.fr       */
+/*   Updated: 2023/01/14 17:26:24 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct  s_p3
 
 t_p3	_norm(t_p3 vec);
 float	_lenth(t_p3 vec);
+float	vcos(t_p3 v1, t_p3 v2);
 float	_lenth_sq(t_p3 vec);
 t_p3	_substruct(t_p3 vec1, t_p3 vec2);
 t_p3	new_vec(float x, float y, float z);

@@ -6,7 +6,7 @@
 /*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:41:34 by gpinchuk          #+#    #+#             */
-/*   Updated: 2022/12/27 17:33:11 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2023/01/09 14:05:22 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,14 @@ typedef struct	s_scene
 	t_p3		a_color;
 	int			background;
 }				t_scene;
+
+// typedef struct s_hit_info
+// {
+// 	float		closest_inter;
+// 	t_figures	closest_figure;
+// 	t_p3		reflect_norm;
+// 	t_p3		inter_p;
+// }				t_hit_info;
 
 //PARSE
 void	parse_ambient(char **str, t_scene *scene);

@@ -2,16 +2,33 @@
 #include "../inc/minirt.h"
 
 //add triangle
-t_p3    calculate_base_reflection(t_p3 inter_p, t_figures *fig){
+t_p3    calculate_base_reflection(t_p3 inter_p, t_p3 d, t_figures *fig)
+{
     t_p3 refl;
     
     if(fig->flag == SP)
-        refl = _substruct(inter_p, fig->figures.sp.centr);
+	{
+		refl = _norm(_substruct(inter_p, fig->figures.sp.centr));
+		// fprintf(stderr, "dir == %f, %f, %f\n", refl.x, refl.y, refl.z);
+		// fprintf(stderr, "\t%f\n\n", vcos(refl, d));
+		if (vcos(d, refl) > 0)
+		{
+			refl = _multy(refl, -1);
+			// fprintf(stderr, "\n%d\n", fig->figures.sp.inside);
+			fig->figures.sp.inside = 1;
+		}
+		else
+			fig->figures.sp.inside = 0;
+	}
     if(fig->flag == PL)
+	{
         refl = fig->figures.pl.orient;
+	}
 	if(fig->flag == CY)
+	{
 		refl = fig->figures.cy.normal;
-    return refl;
+	}
+    return  refl;
 }
 
 bool	is_blocked(t_p3 dir_to_light, t_p3 inter_p, t_figures *fig)
@@ -21,7 +38,7 @@ bool	is_blocked(t_p3 dir_to_light, t_p3 inter_p, t_figures *fig)
 	while (fig)
 	{
 		if(fig->flag == SP)
-			inter = sphere_intersection(dir_to_light, inter_p, fig->figures.sp.centr, fig->figures.sp.radius);
+			inter = sphere_intersection(dir_to_light, inter_p, fig);
 		else if(fig->flag == PL)
 			inter = plane_intersection(dir_to_light, inter_p, fig->figures.pl.orient, fig->figures.pl.centr);
 		if(inter > 1e-4 && inter < 1)
