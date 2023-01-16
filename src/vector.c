@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 18:12:38 by admin             #+#    #+#             */
-/*   Updated: 2023/01/07 14:54:40 by fstaryk          ###   ########.fr       */
+/*   Updated: 2023/01/16 14:54:32 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,16 @@ t_p3 new_vec(float x, float y, float z)
 	vec.y = y;
 	vec.z = z;
 	return (vec);
+}
+
+float		_mod(t_p3 v)
+{
+	return (sqrt(_dot(v, v)));
+}
+
+float vcos(t_p3 v1, t_p3 v2)
+{
+	return (_dot(v1, v2) / (_mod(v1) * _mod(v2)));
 }
 
 float _lenth(t_p3 vec)

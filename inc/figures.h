@@ -14,6 +14,7 @@ typedef struct s_sphere
 {
 	t_p3		centr;
 	float		radius;
+	int			inside;
 }				t_sphere;
 
 typedef struct s_plane
@@ -44,6 +45,7 @@ typedef struct	s_material
 {
 	int			gloss;
 	float		reflective;
+	float		refract;
 }				t_material;
 
 typedef struct s_hyper_b
