@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hyperboloid.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:47:47 by fstaryk           #+#    #+#             */
-/*   Updated: 2023/01/09 19:06:03 by fstaryk          ###   ########.fr       */
+/*   Updated: 2023/01/18 14:07:08 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@
 //   double B = 2*ox*dx / a2 + 2*oy*dy / b2 - 2*oz*dz / c2;
 //   double C = ox*ox / a2 + oy*oy / b2 - oz*oz / c2 - 1;
 
-float   hyperboloid_intersection(t_p3 d, t_p3 cam_o, t_hyper_b hy)
+double   hyperboloid_intersection(t_p3 d, t_p3 cam_o, t_hyper_b hy)
 {
     t_p3    new_o;
     t_p3    param_sq;   
-    float   quad_kof[3];
-    float   disc;
-    float   x[2];
+    double   quad_kof[3];
+    double   disc;
+    double   x[2];
     //all the semi major parameteres squared, because we only use them like that 
     param_sq = new_vec(pow(hy.param.x, 2), pow(hy.param.y, 2), pow(hy.param.z, 2));
     //shifting center of hyperboloid to point we need

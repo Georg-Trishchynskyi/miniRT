@@ -44,12 +44,12 @@ t_p3    get_screen_coord(int x, int y, t_scene *scene)
 }
 
 
-void   solve_sphere(t_p3 d, t_p3 cam_o, t_sphere sp, float x[2]){
+void   solve_sphere(t_p3 d, t_p3 cam_o, t_sphere sp, double x[2]){
 	t_p3 p;//makes vector p that goes from sphere origin to intersection
-	float disc;
+	double disc;
 	t_p3 sp_o;
-	float r;
-	float quad_kof[3];
+	double r;
+	double quad_kof[3];
 	
 	// print_p3(d);
 	r = sp.radius;
@@ -68,10 +68,10 @@ void   solve_sphere(t_p3 d, t_p3 cam_o, t_sphere sp, float x[2]){
 	x[1] = (-quad_kof[1] - sqrt(disc)) / (2 * quad_kof[0]);
 }
 
-float			sphere_intersection(t_p3 d, t_p3 o, t_figures *lst)
+double			sphere_intersection(t_p3 d, t_p3 o, t_figures *lst)
 {
-	float	closest;
-	float	x[2];
+	double	closest;
+	double	x[2];
 	t_p3	ip1;
 	t_p3	ip2;
 
@@ -94,9 +94,9 @@ float			sphere_intersection(t_p3 d, t_p3 o, t_figures *lst)
 	return (INFINITY);
 }
 
-float	plane_intersection(t_p3 d, t_p3 cam_o, t_p3 pl_n, t_p3 pl_o){
-	float inter_proj;//projection of intersecting normal and direction of camera
-	float inter;
+double	plane_intersection(t_p3 d, t_p3 cam_o, t_p3 pl_n, t_p3 pl_o){
+	double inter_proj;//projection of intersecting normal and direction of camera
+	double inter;
 	
 	inter_proj = _dot(d, pl_n);
 	if(inter_proj == 0)//this means that plane doesnt intersect with the ray
@@ -129,9 +129,9 @@ bool	check_p_in_borders(t_p3 p1, t_p3 p2, t_p3 p3, t_p3 inter_p)
 	return true;
 }
 
-float	trinagle_intersection(t_p3 d, t_p3 cam_o, t_triangle tri){
+double	trinagle_intersection(t_p3 d, t_p3 cam_o, t_triangle tri){
 	t_p3 tri_norm;
-	float	plane_inter;
+	double	plane_inter;
 	t_p3	inter_p;
 	tri_norm = _cross(_substruct(tri.p1, tri.p2), _substruct(tri.p1, tri.p3));
 	plane_inter = plane_intersection(d, cam_o, tri_norm, tri.p1);
@@ -145,10 +145,10 @@ float	trinagle_intersection(t_p3 d, t_p3 cam_o, t_triangle tri){
 	return plane_inter;
 }
 
-float try_intersections(t_p3 d, t_p3 cam_o, t_figures *fig, t_figures *closest_fig)
+double try_intersections(t_p3 d, t_p3 cam_o, t_figures *fig, t_figures *closest_fig)
 {
-	float inter_dist;
-    float closest_inter;
+	double inter_dist;
+    double closest_inter;
 	
     closest_inter = INFINITY;
     while (fig)
@@ -177,19 +177,6 @@ t_p3 ray_reflect(t_p3 dir, t_p3 normal)
 	return _substruct(_multy(normal, 2 * _dot(normal, dir)) , dir);
 }
 
-// t_p3	get_reflect_ray(t_p3 d, t_p3 normal)
-// {
-// 	t_p3		reflect_ray;
-
-// 	reflect_ray.direction = ray_reflect(d, normal);
-// 	if (vec3_dot_product(reflect_ray.direction, hit_info->hit_normal) < 0)
-// 		reflect_ray.origin = (vec3_substract(hit_info->hit,
-// 					vec3_multiply(hit_info->hit_normal, 1e-3)));
-// 	else
-// 		reflect_ray.origin = (vec3_add(hit_info->hit,
-// 					vec3_multiply(hit_info->hit_normal, 1e-3)));
-// 	return (reflect_ray);
-// }
 t_p3 ray_refraction(t_p3 dir, t_p3 normal, t_figures *cl_figure)
 {
 	double k;
@@ -197,7 +184,7 @@ t_p3 ray_refraction(t_p3 dir, t_p3 normal, t_figures *cl_figure)
 	double etai;
 	double etat;
 	double cosi;
-
+	
 	cosi = _dot(dir, normal);
 	etai = 1;
 	etat = cl_figure->material.refract;
@@ -217,7 +204,7 @@ t_p3 ray_refraction(t_p3 dir, t_p3 normal, t_figures *cl_figure)
 
 int trace_ray(t_p3 d, t_p3 O, t_scene *scene, int depth)
 {
-	float		closest_inter;
+	double		closest_inter;
 	t_figures	closest_figure;
 	t_p3		reflect_norm;
 	t_p3		inter_p;
@@ -231,7 +218,7 @@ int trace_ray(t_p3 d, t_p3 O, t_scene *scene, int depth)
 		return scene->background;
 	inter_p = _add(O, _multy(d, closest_inter));
 	reflect_norm = _norm(calculate_base_reflection(inter_p, d, &closest_figure));
-	temp_color = rgb_int(_multy(closest_figure.collor, calculate_light(reflect_norm, inter_p, scene, _multy(d, -1), closest_figure)));
+	temp_color = calculate_light(reflect_norm, inter_p, scene, _multy(d, -1), closest_figure);
 	if (closest_figure.material.refract > 0)
 		temp_color = trace_ray(ray_refraction(d, reflect_norm, &closest_figure), inter_p, scene, depth);
 	if (depth > 0 && closest_figure.material.reflective > 0)

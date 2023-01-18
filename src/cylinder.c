@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 14:28:53 by fstaryk           #+#    #+#             */
-/*   Updated: 2023/01/07 14:58:58 by fstaryk          ###   ########.fr       */
+/*   Updated: 2023/01/18 14:07:08 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minirt.h"
 
-static int		solve_tube(float *x, t_p3 d, t_p3 o, t_figures *cy)
+static int		solve_tube(double *x, t_p3 d, t_p3 o, t_figures *cy)
 {
 	t_p3	v;
 	t_p3	u;
-	float	a;
-	float	b;
-	float	c;
+	double	a;
+	double	b;
+	double	c;
 	// printf("d and cam_o ahead\n");
 	// print_p3(d);
 	// print_p3(o);
@@ -57,10 +57,10 @@ static int		solve_tube(float *x, t_p3 d, t_p3 o, t_figures *cy)
 	return (1);
 }
 
-t_p3		calc_cy_normal(float *x2, t_p3 o, t_p3 d, t_figures *fig)
+t_p3		calc_cy_normal(double *x2, t_p3 o, t_p3 d, t_figures *fig)
 {
-	float	dist;
-	float	x;
+	double	dist;
+	double	x;
 
 	if ((fig->figures.cy.dist1 >= 0 &&fig->figures.cy.dist1 <=fig->figures.cy.h
 				&& x2[0] > EPSILON) && (fig->figures.cy.dist2 >= 0
@@ -85,11 +85,11 @@ t_p3		calc_cy_normal(float *x2, t_p3 o, t_p3 d, t_figures *fig)
 			_multy(fig->figures.cy.nv, dist)), _substruct(fig->figures.cy.o, o))));
 }
 
-float	tube_intersection(t_p3 d, t_p3 cam_o, t_figures *cy)
+double	tube_intersection(t_p3 d, t_p3 cam_o, t_figures *cy)
 {
-	float	x2[2];
+	double	x2[2];
 	// print_p3(d);
-    // float   v;
+    // double   v;
     //geting intersection with infinite cylinder equation
     if(solve_tube(x2, d, cam_o, cy) == 0)
         return INFINITY;
@@ -110,10 +110,10 @@ float	tube_intersection(t_p3 d, t_p3 cam_o, t_figures *cy)
     return x2[0];
 }
 
-float	caps_intersection(t_p3 d, t_p3 o, t_figures *cy)
+double	caps_intersection(t_p3 d, t_p3 o, t_figures *cy)
 {
-	float	id1;
-	float	id2;
+	double	id1;
+	double	id2;
 	t_p3	ip1;
 	t_p3	ip2;
 	t_p3	c2;
@@ -147,10 +147,10 @@ float	caps_intersection(t_p3 d, t_p3 o, t_figures *cy)
 	return (INFINITY);
 }
 
-float	cylinder_intersection(t_p3 d, t_p3 cam_o, t_figures* cy)
+double	cylinder_intersection(t_p3 d, t_p3 cam_o, t_figures* cy)
 {
-	float	tube_inter;
-	float	caps_inter;
+	double	tube_inter;
+	double	caps_inter;
 	
 	// printf("\n\n");
 	// print_p3(cam_o);

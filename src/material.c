@@ -6,7 +6,7 @@
 /*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 16:52:24 by gpinchuk          #+#    #+#             */
-/*   Updated: 2023/01/16 17:46:53 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2023/01/18 14:12:51 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ t_material fill_material(char **str, t_scene *scene)
 	}
 	else if  (number == 3)
 	{
-		material.gloss = 500;
+		material.gloss = -1;
 		material.reflective = 0;
-		material.refract = 1.5;
+		material.refract = 1.2;
 	}
 	else
 	{

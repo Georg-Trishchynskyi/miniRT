@@ -6,13 +6,13 @@
 /*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 18:12:38 by admin             #+#    #+#             */
-/*   Updated: 2023/01/16 14:54:32 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2023/01/18 14:07:08 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minirt.h"
 
-t_p3 new_vec(float x, float y, float z)
+t_p3 new_vec(double x, double y, double z)
 {
 	t_p3 vec;
 	// vec = (t_p3)malloc(sizeof(t_p3));
@@ -24,19 +24,19 @@ t_p3 new_vec(float x, float y, float z)
 	return (vec);
 }
 
-float		_mod(t_p3 v)
+double		_mod(t_p3 v)
 {
 	return (sqrt(_dot(v, v)));
 }
 
-float vcos(t_p3 v1, t_p3 v2)
+double vcos(t_p3 v1, t_p3 v2)
 {
 	return (_dot(v1, v2) / (_mod(v1) * _mod(v2)));
 }
 
-float _lenth(t_p3 vec)
+double _lenth(t_p3 vec)
 {
-	float ret;
+	double ret;
 
 	ret = sqrt((pow(vec.x, 2) + pow(vec.y, 2) + pow(vec.z, 2)));
 	return (ret);
@@ -59,9 +59,9 @@ float _lenth(t_p3 vec)
 // 	return (nv);
 // }
 
-float _lenth_sq(t_p3 vec)
+double _lenth_sq(t_p3 vec)
 {
-	float ret;
+	double ret;
 
 	ret = (pow(vec.x, 2) + pow(vec.y, 2) + pow(vec.z, 2));
 	return (ret);
@@ -70,7 +70,7 @@ float _lenth_sq(t_p3 vec)
 t_p3 _norm(t_p3 vec)
 {
 	t_p3	nv;
-	float	mod;
+	double	mod;
 
 	// print_p3(vec);
 	mod = sqrt((double)vec.x * (double)vec.x + (double)vec.y * (double)vec.y + (double)vec.z * (double)vec.z);
@@ -119,7 +119,7 @@ t_p3 _cross(t_p3 a, t_p3 b)
 	return (cp);
 }
 
-t_p3 _multy(t_p3 vec1, float i)
+t_p3 _multy(t_p3 vec1, double i)
 {
 	t_p3 new;
 
@@ -129,17 +129,17 @@ t_p3 _multy(t_p3 vec1, float i)
 	return (new);
 }
 
-float _dot(t_p3 vec1, t_p3 vec2)
+double _dot(t_p3 vec1, t_p3 vec2)
 {
-	float ret;
+	double ret;
 
 	ret = ((vec1.x * vec2.x) + (vec1.y * vec2.y) + (vec1.z * vec2.z));
 	return ret; 
 }
 
-float		distance(t_p3 p1, t_p3 p2)
+double		distance(t_p3 p1, t_p3 p2)
 {
-	float d;
+	double d;
 
 	d = sqrt(pow(p2.x - p1.x, 2) + pow(p2.y - p1.y, 2) + pow(p2.z - p1.z, 2));
 	return (d);

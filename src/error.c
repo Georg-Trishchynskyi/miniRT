@@ -6,7 +6,7 @@
 /*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 18:21:33 by admin             #+#    #+#             */
-/*   Updated: 2022/12/30 16:55:22 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2023/01/18 14:07:08 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void fatal_error_v2(t_scene *scene)
 	exit(0);
 }
 
-void check_stof(float num, t_scene *scene, int flag)
+void check_stof(double num, t_scene *scene, int flag)
 {
 	if(flag == 0)
 		return ;	

@@ -6,7 +6,7 @@
 /*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:41:34 by gpinchuk          #+#    #+#             */
-/*   Updated: 2022/12/27 17:33:11 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2023/01/18 14:07:08 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ typedef struct	s_cam
 {
 	t_p3		pos;
 	t_p3		direct;
-	float		fov;
-	float		fov_l;
+	double		fov;
+	double		fov_l;
 }				t_cam;
 
 typedef struct s_light
 {
 	t_p3		pos;
-	float		scale;
+	double		scale;
 	t_p3		rgb;
 }				t_light;
 
@@ -54,10 +54,10 @@ typedef struct	s_scene
 	t_figures	*figures;
 	t_lights	*lights;
 	t_mlx		*mlx;
-	float		aspect_ratio;
+	double		aspect_ratio;
 	int			height;
 	int			width;
-	float		a_scale;
+	double		a_scale;
 	t_p3		a_color;
 	int			background;
 }				t_scene;

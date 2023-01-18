@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_other.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:11:57 by gpinchuk          #+#    #+#             */
-/*   Updated: 2023/01/07 13:51:00 by fstaryk          ###   ########.fr       */
+/*   Updated: 2023/01/18 14:07:08 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void parse_ambient(char **str, t_scene *scene)
 	scene->a_scale = stof(str, scene, 1);
 	next(str, scene);
 	scene->a_color = read_vec(str, scene, 1);
-	scene->aspect_ratio = (float)scene->width / (float)scene->height;
+	scene->aspect_ratio = (double)scene->width / (double)scene->height;
 }
 
 void parse_camera(char **str, t_scene *scene)

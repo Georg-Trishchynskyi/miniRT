@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:09:44 by gpinchuk          #+#    #+#             */
-/*   Updated: 2023/01/09 15:18:27 by fstaryk          ###   ########.fr       */
+/*   Updated: 2023/01/18 14:07:08 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ void next(char **str, t_scene *scene)
 	}
 }
 
-float stof(char **str, t_scene *scene, int flag)
+double stof(char **str, t_scene *scene, int flag)
 {
 	int		w;
-	float	d;
+	double	d;
 	int		neg;
 
 	w = 0;

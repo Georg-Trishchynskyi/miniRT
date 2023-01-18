@@ -27,11 +27,11 @@ t_p3    calculate_base_reflection(t_p3 inter_p, t_p3 d, t_figures *fig){
 
 bool	is_blocked(t_p3 dir_to_light, t_p3 inter_p, t_figures *fig)
 {
-	float	inter;
+	double	inter;
 
 	while (fig)
 	{
-		if(fig->flag == SP && fig->material.refract <= 0)
+		if(fig->flag == SP && fig->material.refract <= 0 )
 			inter = sphere_intersection(dir_to_light, inter_p, fig);
 		else if(fig->flag == PL)
 			inter = plane_intersection(dir_to_light, inter_p, fig->figures.pl.orient, fig->figures.pl.centr);
@@ -44,39 +44,71 @@ bool	is_blocked(t_p3 dir_to_light, t_p3 inter_p, t_figures *fig)
 	return false;
 }
 
-float	calculate_light(t_p3 norm, t_p3 inter_p, t_scene *scene, t_p3 view_vec, t_figures figure)
+double calculate_gloss(t_p3 norm, t_p3 dir_to_light, t_figures figure, t_lights *light, t_p3 view_vec)
 {
-	float ret_light;
+	t_p3	R_vec;
+
+	R_vec = _substruct(_multy(_multy(norm, 2), _dot(norm, dir_to_light)), dir_to_light);
+	if (_dot(R_vec, view_vec) > 0)
+	{
+		return (light->light.scale * powf(vcos(R_vec, view_vec), figure.material.gloss));
+	}
+	else
+		return (0);
+}
+
+void	add_coeficient(t_p3 *rgb, double coef, t_p3 color)
+{
+	(*rgb).x += coef * color.x / 255;
+	(*rgb).y += coef * color.y / 255;
+	(*rgb).z += coef * color.z / 255;
+}
+
+int		rgb_to_int(t_p3 color, t_p3 rgb)
+{
+	rgb.x = rgb.x * color.x;
+	rgb.y = rgb.y * color.y;
+	rgb.z = rgb.z * color.z;
+
+	rgb.x = rgb.x > 255 ? 255 : rgb.x;
+	rgb.y = rgb.y > 255 ? 255 : rgb.y;
+	rgb.z = rgb.z > 255 ? 255 : rgb.z;
+	return (((int)rgb.x << 16) | ((int)rgb.y << 8) | (int)rgb.z);
+}
+
+int	calculate_light(t_p3 norm, t_p3 inter_p, t_scene *scene, t_p3 view_vec, t_figures figure)
+{
+	double ret_light;
+	double test_light;
 	t_lights *light;
 	t_p3 dir_to_light;
-	t_p3	R_vec;
-	
-	// t_p3	rgb;
+	t_p3	rgb;
 
-	// add_light();
 	light = scene->lights;
 	ret_light = 0.0f;
-	ret_light += scene->a_scale; 
+	test_light = 0.0f;
+	rgb = new_vec(0,0,0);
+	add_coeficient(&rgb, scene->a_scale, scene->a_color);
+	test_light += scene->a_scale;
 	while (light)
 	{
 		dir_to_light = _substruct(light->light.pos, inter_p);
-		R_vec = _substruct(_multy(_multy(norm, 2), _dot(norm, dir_to_light)), dir_to_light);
 		if (!is_blocked(dir_to_light, inter_p, scene->figures))
 		{
 			if (_dot(norm, dir_to_light) > 0/*insurse that we dont lower our light because of light souces that cosinus lower than 0*/)
 			{
-				ret_light += (light->light.scale * _dot(norm, dir_to_light)) / (_lenth(norm) * _lenth(dir_to_light));//dot(a, b)/len(a)*len(b) == cosinus between vectors
+				ret_light = (light->light.scale * vcos(norm, dir_to_light));
+				test_light += (light->light.scale * vcos(norm, dir_to_light));
+				add_coeficient(&rgb, ret_light, light->light.rgb);
 			}
 			if (figure.material.gloss != -1)
 			{
-				if (_dot(R_vec, view_vec) > 0)
-				{
-					ret_light += light->light.scale * powf(_dot(R_vec, view_vec) / (_lenth(R_vec) * _lenth(view_vec)), figure.material.gloss);
-				}
-				
+				ret_light = calculate_gloss(norm, dir_to_light, figure, light, view_vec);
+				test_light += calculate_gloss(norm, dir_to_light, figure, light, view_vec);
+				add_coeficient(&rgb, ret_light, light->light.rgb);
 			}
 		}
 		light = light->next;
 	}
-	return (ret_light);
+	return rgb_to_int(figure.collor, rgb);
 }

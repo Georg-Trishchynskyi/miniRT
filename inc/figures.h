@@ -13,7 +13,7 @@
 typedef struct s_sphere
 {
 	t_p3		centr;
-	float		radius;
+	double		radius;
 	int			inside;
 }				t_sphere;
 
@@ -34,18 +34,18 @@ typedef struct s_cylinder
 {
 	t_p3		o;
 	t_p3		nv;
-	float		r;
-	float		h;
+	double		r;
+	double		h;
 	t_p3		normal;
-	float		dist1;
-	float		dist2;
+	double		dist1;
+	double		dist2;
 }				t_cylinder;
 
 typedef struct	s_material
 {
 	int			gloss;
-	float		reflective;
-	float		refract;
+	double		reflective;
+	double		refract;
 }				t_material;
 
 typedef struct s_hyper_b
@@ -53,7 +53,7 @@ typedef struct s_hyper_b
 	t_p3		o;
 	t_p3		param;
 	t_p3		nv;
-	float		r;
+	double		r;
 }				t_hyper_b;
 
 union u_figures
