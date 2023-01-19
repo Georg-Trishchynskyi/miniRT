@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 18:12:34 by admin             #+#    #+#             */
-/*   Updated: 2023/01/02 18:00:33 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2023/01/19 12:59:47 by fstaryk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,13 @@ int main(int argc, char **argv)
 	if (!ft_strnstr(argv[1], ".rt", ft_strlen(argv[1])))
 		fatal_error("incorect file");
 	scene = parse_scene(argv[1]);
+	fprintf(stderr, "after parse\n");
 	// while(scene->figures)
 	// {
 	// 	fprintf(stderr, "|||| %f, %f ,%f ||||\n", scene->figures->collor.x, scene->figures->collor.y, scene->figures->collor.z);
 	// 	scene->figures = scene->figures->next;
 	// }
-	init_mlx(scene);
+	// init_mlx(scene);
 	print_scene(scene);
 	render_scene(scene);
 	mlx_hook(scene->mlx->window, 2, 0, key, scene);

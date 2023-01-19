@@ -78,7 +78,14 @@ double	cylinder_intersection(t_p3 d, t_p3 cam_o, t_figures* cy);
 //keyhook
 int	key(int key, t_scene *scene);
 int escape(t_scene *scene);
+void init_mlx(t_scene *scene);
 
+//Hyperboloid
 double  hyperboloid_intersection(t_p3 d, t_p3 cam_o, t_hyper_b hy);
 t_p3   hyberboloid_normal(t_p3 inter_p, t_hyper_b hy);
+
+//Textures
+t_texture	*load_textures(void *mlx, char *texture_path);
+t_p3 get_collor_fig(t_figures *fig, t_p3 p);
+void get_sphere_texture_index(t_figures *fig, t_p3 inter_p, int ind[2]);
 #endif

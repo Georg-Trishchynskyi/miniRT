@@ -49,6 +49,7 @@ t_scene *parse_scene(char *file_name)
 	if(fd == -1)
 		fatal_error("no such file");
 	create_scene(&scene);
+	init_mlx(scene);
 	str = get_next_line(fd);
 	while (str)
 	{

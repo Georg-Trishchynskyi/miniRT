@@ -4,6 +4,7 @@
 //add triangle
 t_p3    calculate_base_reflection(t_p3 inter_p, t_p3 d, t_figures *fig){
     t_p3 refl;
+	t_p3 bump_norm;
     
     if(fig->flag == SP)
 	{
@@ -15,6 +16,12 @@ t_p3    calculate_base_reflection(t_p3 inter_p, t_p3 d, t_figures *fig){
 		}
 		else
 			fig->figures.sp.inside = 0;
+		// if (fig->figures.sp.inside = 0)
+		// {
+		// 	bump_norm = sample_bump_map(inter_p, fig);
+		// 	refl = _add(refl, bump_norm);
+		// }
+		
 	}
     if(fig->flag == PL)
         refl = fig->figures.pl.orient;
@@ -37,6 +44,8 @@ bool	is_blocked(t_p3 dir_to_light, t_p3 inter_p, t_figures *fig)
 			inter = plane_intersection(dir_to_light, inter_p, fig->figures.pl.orient, fig->figures.pl.centr);
 		else if(fig->flag == HY)
 			inter = hyperboloid_intersection(dir_to_light, inter_p, fig->figures.hy);
+		else if(fig->flag == CY)
+			inter = cylinder_intersection(dir_to_light, inter_p, fig);
 		if(inter > 1e-4 && inter < 1)
 			return true;
 		fig = fig->next;
@@ -76,6 +85,7 @@ int		rgb_to_int(t_p3 color, t_p3 rgb)
 	return (((int)rgb.x << 16) | ((int)rgb.y << 8) | (int)rgb.z);
 }
 
+//change figure to pointer
 int	calculate_light(t_p3 norm, t_p3 inter_p, t_scene *scene, t_p3 view_vec, t_figures figure)
 {
 	double ret_light;
@@ -86,10 +96,8 @@ int	calculate_light(t_p3 norm, t_p3 inter_p, t_scene *scene, t_p3 view_vec, t_fi
 
 	light = scene->lights;
 	ret_light = 0.0f;
-	test_light = 0.0f;
 	rgb = new_vec(0,0,0);
 	add_coeficient(&rgb, scene->a_scale, scene->a_color);
-	test_light += scene->a_scale;
 	while (light)
 	{
 		dir_to_light = _substruct(light->light.pos, inter_p);
@@ -98,17 +106,15 @@ int	calculate_light(t_p3 norm, t_p3 inter_p, t_scene *scene, t_p3 view_vec, t_fi
 			if (_dot(norm, dir_to_light) > 0/*insurse that we dont lower our light because of light souces that cosinus lower than 0*/)
 			{
 				ret_light = (light->light.scale * vcos(norm, dir_to_light));
-				test_light += (light->light.scale * vcos(norm, dir_to_light));
 				add_coeficient(&rgb, ret_light, light->light.rgb);
 			}
 			if (figure.material.gloss != -1)
 			{
 				ret_light = calculate_gloss(norm, dir_to_light, figure, light, view_vec);
-				test_light += calculate_gloss(norm, dir_to_light, figure, light, view_vec);
 				add_coeficient(&rgb, ret_light, light->light.rgb);
 			}
 		}
 		light = light->next;
 	}
-	return rgb_to_int(figure.collor, rgb);
+	return rgb_to_int(get_collor_fig(&figure, inter_p), rgb);
 }

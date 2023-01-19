@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:41:34 by gpinchuk          #+#    #+#             */
-/*   Updated: 2023/01/18 14:07:08 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2023/01/19 12:51:23 by fstaryk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,15 @@ typedef struct s_mlx
 	char		*addr;	
 	int			endian;
 }				t_mlx;
+
+typedef struct s_temp_img
+{
+	char	*img_data;
+	int		img_bp;
+	int		img_sl;
+	int		img_e;
+}				t_temp_img;
+
 
 
 typedef struct	s_scene
