@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_textures.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 12:09:59 by fstaryk           #+#    #+#             */
-/*   Updated: 2023/01/20 17:42:45 by fstaryk          ###   ########.fr       */
+/*   Updated: 2023/01/20 18:53:19 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,6 @@ t_texture* read_xpm_file(void *mlx, char* filename) {
     
     ret = malloc(sizeof(t_texture));
 	im.img_data = mlx_xpm_file_to_image(mlx, filename, &ret->width, &ret->height);
-    ret->texture = (int*)mlx_get_data_addr(im.img_data, &im.img_bp, &im.img_sl, &im.img_e);
+    ret->pix_arr = (int*)mlx_get_data_addr(im.img_data, &im.img_bp, &im.img_sl, &im.img_e);
     return ret;
 }

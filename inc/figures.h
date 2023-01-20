@@ -66,7 +66,6 @@ typedef struct	s_material
 	double 		bump_scale;
 	t_texture	*texture;
 	t_texture	*bump;
-	// t_texture	*bump_map;
 }				t_material;
 
 

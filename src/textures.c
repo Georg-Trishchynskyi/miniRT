@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 13:28:28 by fstaryk           #+#    #+#             */
-/*   Updated: 2023/01/20 17:43:23 by fstaryk          ###   ########.fr       */
+/*   Updated: 2023/01/20 19:00:07 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ void get_sphere_texture_index(t_figures *fig, t_p3 inter_p, int ind[2]){
     cartesian_to_spherical(_substruct(inter_p, fig->figures.sp.centr), &rho, &theta, &phi);
     double u = (theta + M_PI) / (2 * M_PI);
     double v = phi / M_PI;
-    ind[0] = (u * fig->material.texture->width) - 1;
-    ind[1] = (v * fig->material.texture->height) - 1;
+    ind[0] = (u * fig->material.texture->width);
+    ind[1] = (v * fig->material.texture->height);
 }
 
 t_p3 apply_texture_sphere(t_p3 p, t_figures *fig) {
@@ -52,7 +52,7 @@ t_p3 apply_texture_sphere(t_p3 p, t_figures *fig) {
     // if()
     // if(ind[1] < fig->material.texture->height && ind[0] < fig->material.texture->width )
     fprintf(stderr, "\nheight is %d and width is %d\n0 is %d, 1 is %d\n", fig->material.texture->height, fig->material.texture->width, ind[0], ind[1]);
-    return (int_to_rgb(fig->material.texture->texture[ind[1] * fig->material.texture->width + ind[0]]));
+    return (int_to_rgb(fig->material.texture->pix_arr[ind[1] * fig->material.texture->width + ind[0]]));
     return new_vec(0, 0, 0);
 }
 
