@@ -3,14 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 20:04:30 by fstaryk           #+#    #+#             */
-/*   Updated: 2023/01/18 19:06:33 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2023/01/20 17:40:05 by fstaryk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minirt.h"
+
+t_p3 int_to_rgb(int x){
+	return new_vec((x & 0x00ff0000) >> 16, (x & 0x0000ff00) >> 8, (x & 0x000000ff));
+}
 
 int		_cproduct(int color, double coef)
 {

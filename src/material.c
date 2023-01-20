@@ -6,7 +6,7 @@
 /*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 16:52:24 by gpinchuk          #+#    #+#             */
-/*   Updated: 2023/01/19 17:02:19 by fstaryk          ###   ########.fr       */
+/*   Updated: 2023/01/20 17:41:52 by fstaryk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ t_material fill_material(char **str, t_scene *scene)
 	else if(number == 4)
 	{
 		material.gloss = -1;
-		material.reflective = 1;
+		material.reflective = 0;
 		material.refract = -1;
 		material.bump_scale = -1;
-		material.texture = NULL;//load_textures(scene->mlx->mlx, "textures/The_world.xpm");
+		material.texture = read_xpm_file(scene->mlx->mlx, "textures/The_world.xpm");
 	}
 	else if(number == 5)
 	{

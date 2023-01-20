@@ -16,19 +16,21 @@ t_p3    calculate_base_reflection(t_p3 inter_p, t_p3 d, t_figures *fig){
 		}
 		else
 			fig->figures.sp.inside = 0;
-		// if (fig->figures.sp.inside = 0)
-		// {
-		// 	bump_norm = sample_bump_map(inter_p, fig);
-		// 	refl = _add(refl, bump_norm);
-		// }
+		if (fig->figures.sp.inside == 0 && fig->material.texture != NULL)
+		{
+			bump_norm = sample_bump_map(inter_p, fig);
+			refl = _add(refl, bump_norm);
+		}
 		
 	}
-    if(fig->flag == PL)
+    else if(fig->flag == PL)
         refl = fig->figures.pl.orient;
-	if(fig->flag == CY)
+	else if(fig->flag == CY)
 		refl = fig->figures.cy.normal;
-	if(fig->flag == HY)
+	else if(fig->flag == HY)
 		refl = hyberboloid_normal(inter_p, fig->figures.hy);
+	else if(fig->flag == TR)
+		refl = calculate_triangle_normal();
     return refl;
 }
 
@@ -46,6 +48,8 @@ bool	is_blocked(t_p3 dir_to_light, t_p3 inter_p, t_figures *fig)
 			inter = hyperboloid_intersection(dir_to_light, inter_p, fig->figures.hy);
 		else if(fig->flag == CY)
 			inter = cylinder_intersection(dir_to_light, inter_p, fig);
+		else if(fig->flag == TR)
+			inter = trinagle_intersection(dir_to_light, inter_p, fig->figures.tr);
 		if(inter > 1e-4 && inter < 1)
 			return true;
 		fig = fig->next;

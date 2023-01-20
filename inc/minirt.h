@@ -69,7 +69,8 @@ void render_scene(t_scene *scene);
 
 void print_p3(t_p3 x);
 void print_scene(t_scene *scene);
-
+double	trinagle_intersection(t_p3 d, t_p3 cam_o, t_triangle tri);
+t_p3 calculate_triangle_normal(t_triangle tri);
 //cylinder
 
 double	cylinder_intersection(t_p3 d, t_p3 cam_o, t_figures* cy);
@@ -85,7 +86,11 @@ double  hyperboloid_intersection(t_p3 d, t_p3 cam_o, t_hyper_b hy);
 t_p3   hyberboloid_normal(t_p3 inter_p, t_hyper_b hy);
 
 //Textures
+t_p3 sample_bump_map(t_p3 inter_p, t_figures *closest_figure);
 t_texture	*load_textures(void *mlx, char *texture_path);
 t_p3 get_collor_fig(t_figures *fig, t_p3 p);
 void get_sphere_texture_index(t_figures *fig, t_p3 inter_p, int ind[2]);
+
+t_p3 int_to_rgb(int x);
+t_texture* read_xpm_file(void *mlx, char* filename);
 #endif

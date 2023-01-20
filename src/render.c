@@ -129,11 +129,16 @@ bool	check_p_in_borders(t_p3 p1, t_p3 p2, t_p3 p3, t_p3 inter_p)
 	return true;
 }
 
+t_p3 calculate_triangle_normal(t_triangle tri)
+{
+	return _cross(_substruct(tri.p1, tri.p2), _substruct(tri.p1, tri.p3));
+}
+
 double	trinagle_intersection(t_p3 d, t_p3 cam_o, t_triangle tri){
 	t_p3 tri_norm;
 	double	plane_inter;
 	t_p3	inter_p;
-	tri_norm = _cross(_substruct(tri.p1, tri.p2), _substruct(tri.p1, tri.p3));
+	tri_norm = calculate_triangle_normal(tri);
 	plane_inter = plane_intersection(d, cam_o, tri_norm, tri.p1);
 	inter_p = _add(cam_o, _multy(d, plane_inter));
 	if (!check_p_in_borders(tri.p1, tri.p2, tri.p3, inter_p))

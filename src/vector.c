@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 18:12:38 by admin             #+#    #+#             */
-/*   Updated: 2023/01/18 14:07:08 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2023/01/20 18:30:49 by fstaryk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,16 @@ t_p3 _multy(t_p3 vec1, double i)
 	new.x = vec1.x * i;
 	new.y = vec1.y * i;
 	new.z = vec1.z * i;
+	return (new);
+}
+
+t_p3 _div(t_p3 vec1, double i)
+{
+	t_p3 new;
+
+	new.x = vec1.x / i;
+	new.y = vec1.y / i;
+	new.z = vec1.z / i;
 	return (new);
 }
 

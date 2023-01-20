@@ -53,8 +53,9 @@ typedef struct s_color
 typedef struct s_texture
 {
 	int			width;
-	int			height;		
-	t_color		***pix_arr;
+	int			height;	
+	int			*pix_arr;	
+	// t_color		***pix_arr;
 }				t_texture;
 
 typedef struct	s_material
@@ -64,6 +65,7 @@ typedef struct	s_material
 	double		refract;
 	double 		bump_scale;
 	t_texture	*texture;
+	t_texture	*bump;
 	// t_texture	*bump_map;
 }				t_material;
 
