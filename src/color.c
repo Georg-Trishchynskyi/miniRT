@@ -3,23 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 20:04:30 by fstaryk           #+#    #+#             */
-/*   Updated: 2023/01/20 17:40:05 by fstaryk          ###   ########.fr       */
+/*   Updated: 2023/01/22 20:43:04 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minirt.h"
 
-t_p3 int_to_rgb(int x){
-	return new_vec((x & 0x00ff0000) >> 16, (x & 0x0000ff00) >> 8, (x & 0x000000ff));
+t_p3	int_to_rgb(int x)
+{
+	return (new_vec((x & 0x00ff0000) >> 16, \
+	(x & 0x0000ff00) >> 8, (x & 0x000000ff)));
 }
 
-int		_cproduct(int color, double coef)
+int	_cproduct(int color, double coef)
 {
-	int mask;
-	int r;
+	int	mask;
+	int	r;
 	int	g;
 	int	b;
 
@@ -33,12 +35,12 @@ int		_cproduct(int color, double coef)
 	return ((r << 16) | (g << 8) | b);
 }
 
-int		_cadd(int color_a, int color_b)
+int	_cadd(int color_a, int color_b)
 {
-	int mask;
+	int	mask;
 	int	r;
 	int	g;
-	int b;
+	int	b;
 
 	mask = 255;
 	r = ((color_a & (mask << 16)) + (color_b & (mask << 16))) & (mask << 16);
@@ -49,8 +51,8 @@ int		_cadd(int color_a, int color_b)
 
 t_p3	color_x_light(t_p3 base_color, t_p3 light_collor)
 {
-    t_p3 new;
-    
+	t_p3	new;
+
 	new.x = base_color.x - ((255 - light_collor.x) / 2);
 	new.y = base_color.y - ((255 - light_collor.y) / 2);
 	new.z = base_color.z - ((255 - light_collor.z) / 2);

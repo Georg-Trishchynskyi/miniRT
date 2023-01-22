@@ -2,7 +2,7 @@
 
 #include "../inc/minirt.h"
 
-int parse(char *str, t_scene *scene)
+int	parse(char *str, t_scene *scene)
 {	
 	if (*str == 'p' && *(str + 1) == 'l' && str++)
 		parse_plane(&str, scene);
@@ -10,7 +10,7 @@ int parse(char *str, t_scene *scene)
 		parse_light(&str, scene);
 	else if (*str == 'A' && str++)
 		parse_ambient(&str, scene);
-	else if (*str == 'c' &&*(str + 1) == 'y' && str++)
+	else if (*str == 'c' && *(str + 1) == 'y' && str++)
 		parse_cylinder(&str, scene);
 	else if (*str == 'c' && str++)
 		parse_camera(&str, scene);
@@ -23,12 +23,12 @@ int parse(char *str, t_scene *scene)
 	else if (*str != '#')
 	{
 		print_error("no such identifier:");
-		return (print_error(str));	
+		return (print_error(str));
 	}
 	return (1);
 }
 
-void create_scene(t_scene **scene)
+void	create_scene(t_scene **scene)
 {
 	(*scene) = (t_scene *)malloc(sizeof(t_scene));
 	(*scene)->figures = NULL;
@@ -39,14 +39,15 @@ void create_scene(t_scene **scene)
 	(*scene)->width = 1920;
 }
 
-t_scene *parse_scene(char *file_name)
+t_scene	*parse_scene(char *file_name)
 {
-	int fd = open(file_name, O_RDONLY);
-	char *str;
-	t_scene *scene;
+	int		fd;
+	char	*str;
+	t_scene	*scene;
 
+	fd = open(file_name, O_RDONLY);
 	scene = NULL;
-	if(fd == -1)
+	if (fd == -1)
 		fatal_error("no such file");
 	create_scene(&scene);
 	init_mlx(scene);
@@ -55,13 +56,13 @@ t_scene *parse_scene(char *file_name)
 	{
 		ft_putstr_fd(str, 2);
 		if (*str != '\n')
-			 if (parse(str, scene) == -1)
-			 	{
+			if (parse(str, scene) == -1)
+				{
 					fatal_error("END");
 				}
 		free(str);
 		str = get_next_line(fd);
 	}
 	free(str);
-	return scene;
+	return (scene);
 }

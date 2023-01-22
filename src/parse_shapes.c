@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   parse_shapes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:08:10 by gpinchuk          #+#    #+#             */
-/*   Updated: 2023/01/22 18:37:25 by fstaryk          ###   ########.fr       */
+/*   Updated: 2023/01/22 21:03:47 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void parse_plane(char **str, t_scene *scene)
+void	parse_plane(char **str, t_scene *scene)
 {
-	t_figures *temp;
+	t_figures	*temp;
 
 	add_end_f(&scene->figures);
 	temp = scene->figures;
-	while(temp->next)
+	while (temp->next)
 		temp = temp->next;
 	temp->flag = PL;
 	next(str, scene);
@@ -31,13 +31,13 @@ void parse_plane(char **str, t_scene *scene)
 	temp->material = fill_material(str, scene);
 }
 
-void parse_sphere(char **str, t_scene *scene)
+void	parse_sphere(char **str, t_scene *scene)
 {
-	t_figures *temp;
+	t_figures	*temp;
 
 	add_end_f(&scene->figures);
 	temp = scene->figures;
-	while(temp->next)
+	while (temp->next)
 		temp = temp->next;
 	temp->flag = SP;
 	next(str, scene);
@@ -50,13 +50,13 @@ void parse_sphere(char **str, t_scene *scene)
 	temp->material = fill_material(str, scene);
 }
 
-void parse_triangle(char **str, t_scene *scene)
+void	parse_triangle(char **str, t_scene *scene)
 {
-	t_figures *temp;
-	
+	t_figures	*temp;
+
 	add_end_f(&scene->figures);
 	temp = scene->figures;
-	while(temp->next)
+	while (temp->next)
 		temp = temp->next;
 	temp->flag = TR;
 	next(str, scene);
@@ -66,18 +66,18 @@ void parse_triangle(char **str, t_scene *scene)
 	next(str, scene);
 	temp->figures.tr.p3 = read_vec(str, scene, 0);
 	next(str, scene);
-	temp->collor = read_vec(str, scene, 0);	
+	temp->collor = read_vec(str, scene, 0);
 	next(str, scene);
 	temp->material = fill_material(str, scene);
 }
 
-void parse_cylinder(char **str, t_scene *scene)
+void	parse_cylinder(char **str, t_scene *scene)
 {
-	t_figures *temp;
+	t_figures	*temp;
 
 	add_end_f(&scene->figures);
 	temp = scene->figures;
-	while(temp->next)
+	while (temp->next)
 		temp = temp->next;
 	temp->flag = CY;
 	next(str, scene);
@@ -94,13 +94,13 @@ void parse_cylinder(char **str, t_scene *scene)
 	temp->material = fill_material(str, scene);
 }
 
-void parse_hyperboloid(char **str, t_scene *scene)
+void	parse_hyperboloid(char **str, t_scene *scene)
 {
-	t_figures *temp;
+	t_figures	*temp;
 
 	add_end_f(&scene->figures);
 	temp = scene->figures;
-	while(temp->next)
+	while (temp->next)
 		temp = temp->next;
 	temp->flag = HY;
 	next(str, scene);

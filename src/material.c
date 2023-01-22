@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   material.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 16:52:24 by gpinchuk          #+#    #+#             */
-/*   Updated: 2023/01/22 18:39:25 by fstaryk          ###   ########.fr       */
+/*   Updated: 2023/01/22 21:07:12 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ t_material fill_material(char **str, t_scene *scene)
 		material.reflective = 0;
 		material.refract = -1;
 		material.bump_scale = -1;
-		material.texture = read_xpm_file(scene->mlx->mlx, "/Users/fstaryk/Desktop/miniRT/textures/HFD_HemiSunset01_SmlSample.jpeg.xpm");
+		material.texture = read_xpm_file(scene->mlx->mlx, "textures/HFD_HemiSunset01_SmlSample.jpeg.xpm");
 		material.bump = NULL;
 	}
 	else if(number == 7)
