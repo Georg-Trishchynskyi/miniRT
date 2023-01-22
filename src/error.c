@@ -3,41 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 18:21:33 by admin             #+#    #+#             */
-/*   Updated: 2023/01/22 18:24:06 by fstaryk          ###   ########.fr       */
+/*   Updated: 2023/01/22 21:05:44 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int print_error(char *str)
+int	print_error(char *str)
 {
 	write(2, str, ft_strlen(str));
-	return -1;
+	return (-1);
 }
 
-void fatal_error(char *str)
+void	fatal_error(char *str)
 {
-	//free something//
 	perror(str);
 	exit(0);
 }
 
-void fatal_error_v2(t_scene *scene)
+void	fatal_error_v2(t_scene *scene)
 {
 	ft_putstr_fd("error in map", 2);
 	free_scene(scene);
 	exit(0);
 }
 
-void check_stof(double num, t_scene *scene, int flag)
+void	check_stof(double num, t_scene *scene, int flag)
 {
-	if(flag == 0)
-		return ;	
+	if (flag == 0)
+		return ;
 	else if (flag == 1 && (num < 0 || num > 1))
-		fatal_error_v2(scene);	
+		fatal_error_v2(scene);
 	else if (flag == 2 && (num < 0 || num > 180))
+		fatal_error_v2(scene);
+	else if (flag == 3 && (num < 1 || num > 5))
 		fatal_error_v2(scene);
 }

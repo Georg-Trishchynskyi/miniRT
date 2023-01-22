@@ -3,33 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 18:12:34 by admin             #+#    #+#             */
-/*   Updated: 2023/01/22 21:23:03 by fstaryk          ###   ########.fr       */
+/*   Updated: 2023/01/22 21:02:03 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void init_mlx(t_scene *scene)
+void	init_mlx(t_scene *scene)
 {
 	scene->mlx = malloc(sizeof(t_mlx));
 	scene->mlx->bits_per_pixel = 0;
 	scene->mlx->line_length = 0;
 	scene->mlx->endian = 0;
 	scene->mlx->mlx = mlx_init();
-	scene->mlx->window = mlx_new_window(scene->mlx->mlx, scene->width, scene->height, "minirt");	
-	scene->mlx->img = mlx_new_image(scene->mlx->mlx, scene->width, scene->height);
+	scene->mlx->window = mlx_new_window(scene->mlx->mlx, \
+	scene->width, scene->height, "minirt");
+	scene->mlx->img = mlx_new_image(scene->mlx->mlx, \
+	scene->width, scene->height);
 	scene->mlx->addr = mlx_get_data_addr(scene->mlx->img, \
 	&scene->mlx->bits_per_pixel, &scene->mlx->line_length, &scene->mlx->endian);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	// void *mlx;
-	t_scene *scene;
-	// void *window;
+	t_scene	*scene;
 	(void)argv;
 	(void)argc;
 
@@ -39,12 +39,6 @@ int main(int argc, char **argv)
 		fatal_error("incorect file");
 	scene = parse_scene(argv[1]);
 	fprintf(stderr, "after parse\n");
-	// while(scene->figures)
-	// {
-	// 	fprintf(stderr, "|||| %f, %f ,%f ||||\n", scene->figures->collor.x, scene->figures->collor.y, scene->figures->collor.z);
-	// 	scene->figures = scene->figures->next;
-	// }
-	// init_mlx(scene);
 	print_scene(scene);
 	multithreaded_render(scene);
 	mlx_put_image_to_window(scene->mlx->mlx, scene->mlx->window, scene->mlx->img, 0, 0);

@@ -6,7 +6,7 @@
 /*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 17:14:41 by gpinchuk          #+#    #+#             */
-/*   Updated: 2023/01/22 21:24:14 by fstaryk          ###   ########.fr       */
+/*   Updated: 2023/01/22 20:54:02 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	key(int key, t_scene *scene)
 	return (0);
 }
 
-int escape(t_scene *scene)
+int	escape(t_scene *scene)
 {
 	free_scene(scene);
 	exit(0);
