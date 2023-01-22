@@ -8,6 +8,7 @@
 # include <unistd.h>
 # include <math.h>
 # include <mlx.h>
+# include <pthread.h>
 
 # include "vector.h"
 # include "figures.h"
@@ -16,6 +17,7 @@
 # include "scene.h"
 
 #define EPSILON 0.00001
+#define NUM_THREADS 12
 
 //ERRORS
 int		print_error(char *str);
@@ -65,7 +67,7 @@ double	plane_intersection(t_p3 d, t_p3 cam_o, t_p3 pl_n, t_p3 pl_o);
 double try_intersections(t_p3 d, t_p3 cam_o, t_figures *fig, t_figures *closest_fig);
 
 //render
-void render_scene(t_scene *scene);
+void render_scene(t_scene *scene, int thread_id);
 
 void print_p3(t_p3 x);
 void print_scene(t_scene *scene);
@@ -93,4 +95,7 @@ void get_sphere_texture_index(t_figures *fig, t_p3 inter_p, int ind[2]);
 
 t_p3 int_to_rgb(int x);
 t_texture* read_xpm_file(void *mlx, char* filename);
+
+//MULTI_THREADING
+void			multithreaded_render(t_scene *scene);
 #endif
