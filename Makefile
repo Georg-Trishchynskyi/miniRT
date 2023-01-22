@@ -6,7 +6,7 @@ INC = inc
 LIB_F = libft
 OBJ = obj
 CC = gcc
-CFLAGS = -g -I $(LIB_D) -I $(INC)
+CFLAGS = -g -o3 -I $(LIB_D) -I $(INC)
 SRC_F = $(wildcard $(SRC)/*.c)
 OBJ_F = $(SRC_F:.c=.o)
 OBJS = $(subst $(SRC),$(OBJ),$(OBJ_F))
@@ -19,7 +19,7 @@ DEF_COLOR = \033[0;39m
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIB_F)/$(LIB)
-	@$(CC) $^ -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	@$(CC) $^ -o3 -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 	@echo "$(GREEN)FDF compiled!$(DEF_COLOR)"
 
 $(OBJ)/%.o:	$(SRC)/%.c $(OBJ)

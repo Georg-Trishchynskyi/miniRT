@@ -221,34 +221,35 @@ int trace_ray(t_p3 d, t_p3 O, t_scene *scene, int depth)
 	return (_cadd(_cproduct(temp_color, (1 - closest_figure.material.reflective)), _cproduct(reflect_color, closest_figure.material.reflective)));
 }
 
-
-
-void	render_scene(t_scene *scene)
+void render_scene(t_scene *scene, int thread_id)
 {
-	int		y;
-	int		x;
-	t_p3	dir_vec;
-	int		color;
-
-	y = 0;
-	if (scene->mlx->img)
-	{
-		fprintf(stderr, "%f", scene->camera->pos.x);
-		mlx_destroy_image(scene->mlx->mlx, scene->mlx->img);
-		scene->mlx->img = mlx_new_image(scene->mlx->mlx, scene->width, scene->height);
-	}
-	while (y < scene->height)
+	int y;
+	int x;
+	t_p3 dir_vec;
+	int color;
+	int lines_to_render;
+  
+	lines_to_render = scene->height / NUM_THREADS;
+	y = thread_id * lines_to_render;
+	// if (scene->mlx->img)
+	// {
+	// 	fprintf(stderr, "%f", scene->camera->pos.x);
+	// 	mlx_destroy_image(scene->mlx->mlx, scene->mlx->img);
+	// 	scene->mlx->img = mlx_new_image(scene->mlx->mlx, scene->width, scene->height);
+	// }
+	while (y < lines_to_render * (thread_id + 1))
 	{
 		x = 0;
 		while (x < scene->width)
 		{
-			dir_vec = get_screen_coord(x, y, scene);
+			dir_vec = get_screen_coord(x, y, scene);		          
 			color = trace_ray(dir_vec, scene->camera->pos, scene, 2);
             my_mlx_pixel_put(scene, x, y, color);
-			printf("\rRendering scene... [%f%%]", ((float)y / (float)scene->height) * 100);
+			if(thread_id == NUM_THREADS - 1) 
+				printf("\rRendering scene... [%f%%]", (100 * (y % lines_to_render) / (float)lines_to_render));
+			// exit(0);
 			x++;
 		}
 		y++;
 	}
-	mlx_put_image_to_window(scene->mlx->mlx, scene->mlx->window, scene->mlx->img, 0, 0);
 }

@@ -6,7 +6,7 @@
 /*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:41:34 by gpinchuk          #+#    #+#             */
-/*   Updated: 2023/01/19 12:51:23 by fstaryk          ###   ########.fr       */
+/*   Updated: 2023/01/22 20:57:16 by fstaryk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,14 @@ typedef struct	s_scene
 	double		a_scale;
 	t_p3		a_color;
 	int			background;
+	
 }				t_scene;
+
+typedef struct	s_thread_data
+{
+	t_scene		*scene;
+	int			index;	
+}				t_thread_data;
 
 //PARSE
 void	parse_ambient(char **str, t_scene *scene);

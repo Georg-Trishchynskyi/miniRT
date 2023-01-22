@@ -40,7 +40,8 @@ int	main(int argc, char **argv)
 	scene = parse_scene(argv[1]);
 	fprintf(stderr, "after parse\n");
 	print_scene(scene);
-	render_scene(scene);
+	multithreaded_render(scene);
+	mlx_put_image_to_window(scene->mlx->mlx, scene->mlx->window, scene->mlx->img, 0, 0);
 	mlx_hook(scene->mlx->window, 2, 0, key, scene);
 	mlx_hook(scene->mlx->window, 17, 0, escape, scene);
 	mlx_loop(scene->mlx->mlx);
