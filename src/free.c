@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 16:37:59 by gpinchuk          #+#    #+#             */
-/*   Updated: 2023/01/02 17:28:14 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2023/01/22 18:35:58 by fstaryk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@ void free_scene(t_scene *scene)
 	while(scene->figures)
 	{
 		temp = scene->figures;
+		if(temp->material.texture){
+			// free(temp->material.texture->pix_arr);
+			free(temp->material.texture);
+		}
 		scene->figures = scene->figures->next;
 		free(temp);
 	}

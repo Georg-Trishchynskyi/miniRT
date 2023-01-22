@@ -15,6 +15,10 @@ t_p3    look_at_pixel(t_p3 d, t_p3 cam_nv)
 	ref_up = new_vec(0, 1, 0);
 	// print_p3(ref_up);
 	// print_p3(_norm(cam_nv));
+	if (cam_nv.y == 1 || cam_nv.y == -1)
+		x_axis = cam_nv.y == 1 ? (t_p3) {1, 0, 0} : (t_p3) {-1, 0, 0};
+	else
+		x_axis = _cross(ref_up, cam_nv);
 	x_axis = _cross(ref_up, _norm(cam_nv));
 	// printf("x axis is ");
 	// print_p3(x_axis);
@@ -253,6 +257,7 @@ void render_scene(t_scene *scene)
 			dir_vec = get_screen_coord(x, y, scene);                 
 			color = trace_ray(dir_vec, scene->camera->pos, scene, 2);
             my_mlx_pixel_put(scene, x, y, color); 
+			printf("\rRendering scene... [%f%%]", ((float)y / (float)scene->height) * 100);
 			// exit(0);
 			x++;
 		}

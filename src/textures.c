@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 13:28:28 by fstaryk           #+#    #+#             */
-/*   Updated: 2023/01/20 19:00:07 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2023/01/22 18:09:58 by fstaryk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_p3 apply_texture_sphere(t_p3 p, t_figures *fig) {
     get_sphere_texture_index(fig, p, ind);
     // if()
     // if(ind[1] < fig->material.texture->height && ind[0] < fig->material.texture->width )
-    fprintf(stderr, "\nheight is %d and width is %d\n0 is %d, 1 is %d\n", fig->material.texture->height, fig->material.texture->width, ind[0], ind[1]);
+    // fprintf(stderr, "\nheight is %d and width is %d\n0 is %d, 1 is %d\n", fig->material.texture->height, fig->material.texture->width, ind[0], ind[1]);
     return (int_to_rgb(fig->material.texture->pix_arr[ind[1] * fig->material.texture->width + ind[0]]));
     return new_vec(0, 0, 0);
 }
@@ -73,8 +73,8 @@ t_p3 get_collor_fig(t_figures *fig, t_p3 p)
 {
     if(fig->material.texture == NULL)
         return fig->collor;
-    // else if(fig->flag == SP)
-    //     return apply_checkerboard(fig, p, 30, 15);  
+    else if(fig->flag == SP && fig->material.texture->width == 1 && fig->material.texture->height == 1)
+        return apply_checkerboard(fig, p, 30, 15);  
     else if(fig->flag == SP)
         return apply_texture_sphere(p, fig);
     return fig->collor;

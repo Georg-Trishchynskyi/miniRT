@@ -16,10 +16,10 @@ t_p3    calculate_base_reflection(t_p3 inter_p, t_p3 d, t_figures *fig){
 		}
 		else
 			fig->figures.sp.inside = 0;
-		if (fig->figures.sp.inside == 0 && fig->material.texture != NULL)
+		if (fig->material.bump != NULL)
 		{
 			bump_norm = sample_bump_map(inter_p, fig);
-			refl = _add(refl, bump_norm);
+			refl = bump_norm;
 		}
 		
 	}
@@ -29,8 +29,8 @@ t_p3    calculate_base_reflection(t_p3 inter_p, t_p3 d, t_figures *fig){
 		refl = fig->figures.cy.normal;
 	else if(fig->flag == HY)
 		refl = hyberboloid_normal(inter_p, fig->figures.hy);
-	// else if(fig->flag == TR)
-	// 	refl = calculate_triangle_normal();
+	else if(fig->flag == TR)
+		refl = calculate_triangle_normal(fig->figures.tr);
     return refl;
 }
 

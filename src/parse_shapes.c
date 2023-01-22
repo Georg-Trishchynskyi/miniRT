@@ -6,7 +6,7 @@
 /*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:08:10 by gpinchuk          #+#    #+#             */
-/*   Updated: 2023/01/09 15:19:07 by fstaryk          ###   ########.fr       */
+/*   Updated: 2023/01/22 18:37:25 by fstaryk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void parse_triangle(char **str, t_scene *scene)
 	next(str, scene);
 	temp->figures.tr.p3 = read_vec(str, scene, 0);
 	next(str, scene);
-	temp->collor = read_vec(str, scene, 1);	
+	temp->collor = read_vec(str, scene, 0);	
 	next(str, scene);
 	temp->material = fill_material(str, scene);
 }
