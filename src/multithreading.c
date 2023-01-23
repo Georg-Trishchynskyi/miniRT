@@ -3,25 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   multithreading.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 20:37:07 by fstaryk           #+#    #+#             */
-/*   Updated: 2023/01/22 20:58:27 by fstaryk          ###   ########.fr       */
+/*   Updated: 2023/01/22 22:01:36 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minirt.h"
 
-static void		*render_thread(void *ptr)
+static void	*render_thread(void *ptr)
 {
 	t_thread_data	*data;
 
 	data = (t_thread_data *)ptr;
-    render_scene(data->scene, data->index);
+	render_scene(data->scene, data->index);
 	return (NULL);
 }
 
-void			start_threads(t_thread_data thread_data[NUM_THREADS])
+void	start_threads(t_thread_data thread_data[NUM_THREADS])
 {
 	pthread_t	threads[NUM_THREADS];
 	int			i;
@@ -37,10 +37,10 @@ void			start_threads(t_thread_data thread_data[NUM_THREADS])
 		pthread_join(threads[i++], NULL);
 }
 
-void			multithreaded_render(t_scene *scene)
+void	multithreaded_render(t_scene *scene)
 {
-	t_thread_data thread_data[NUM_THREADS];
-	int	i;
+	t_thread_data	thread_data[NUM_THREADS];
+	int				i;
 
 	i = 0;
 	while (i < NUM_THREADS)

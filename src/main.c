@@ -6,7 +6,7 @@
 /*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 18:12:34 by admin             #+#    #+#             */
-/*   Updated: 2023/01/22 21:02:03 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2023/01/22 22:06:18 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ void	init_mlx(t_scene *scene)
 int	main(int argc, char **argv)
 {
 	t_scene	*scene;
-	(void)argv;
-	(void)argc;
 
 	if (argc < 2)
 		fatal_error("no map file");
@@ -39,9 +37,9 @@ int	main(int argc, char **argv)
 		fatal_error("incorect file");
 	scene = parse_scene(argv[1]);
 	fprintf(stderr, "after parse\n");
-	print_scene(scene);
 	multithreaded_render(scene);
-	mlx_put_image_to_window(scene->mlx->mlx, scene->mlx->window, scene->mlx->img, 0, 0);
+	mlx_put_image_to_window(scene->mlx->mlx, \
+		scene->mlx->window, scene->mlx->img, 0, 0);
 	mlx_hook(scene->mlx->window, 2, 0, key, scene);
 	mlx_hook(scene->mlx->window, 17, 0, escape, scene);
 	mlx_loop(scene->mlx->mlx);

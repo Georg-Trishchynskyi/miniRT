@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_textures.c                                   :+:      :+:    :+:   */
+/*   texture.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/19 12:09:59 by fstaryk           #+#    #+#             */
-/*   Updated: 2023/01/22 22:00:31 by gpinchuk         ###   ########.fr       */
+/*   Created: 2023/01/22 21:56:35 by gpinchuk          #+#    #+#             */
+/*   Updated: 2023/01/22 21:57:16 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minirt.h"
+#include "minirt.h"
 
-t_texture	*read_xpm_file(void *mlx, char	*filename)
+t_p3	get_collor_fig(t_figures *fig, t_p3 p)
 {
-	t_texture	*ret;
-	t_temp_img	im;
-
-	ret = malloc(sizeof(t_texture));
-	im.img_data = mlx_xpm_file_to_image(mlx, \
-		filename, &ret->width, &ret->height);
-	ret->pix_arr = (int *)mlx_get_data_addr(im.img_data, \
-		&im.img_bp, &im.img_sl, &im.img_e);
-	return (ret);
+	if (fig->material.texture == NULL)
+		return (fig->collor);
+	else if (fig->flag == SP && fig->material.texture->width == 1 \
+							&& fig->material.texture->height == 1)
+		return (apply_checkerboard_sphere(fig, p, 30, 15));
+	else if (fig->flag == SP)
+		return (apply_texture_sphere(p, fig));
+	return (fig->collor);
 }

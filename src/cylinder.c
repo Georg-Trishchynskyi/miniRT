@@ -6,7 +6,7 @@
 /*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 14:28:53 by fstaryk           #+#    #+#             */
-/*   Updated: 2023/01/22 20:48:49 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2023/01/22 22:03:22 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ static int	solve_tube(double *x, t_p3 d, t_p3 o, t_figures *cy)
 
 	v = _multy(cy->figures.cy.nv, _dot(d, cy->figures.cy.nv));
 	v = _substruct(d, v);//???vector from inter point to center nv of cylinder	
-	u = _multy(cy->figures.cy.nv, _dot(_substruct(o, cy->figures.cy.o), cy->figures.cy.nv));
+	u = _multy(cy->figures.cy.nv, _dot(_substruct(o, \
+				cy->figures.cy.o), cy->figures.cy.nv));
 	u = _substruct(_substruct(o, cy->figures.cy.o), u);
 	a = _dot(v, v);
 	b = 2 * _dot(v, u);

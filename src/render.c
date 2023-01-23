@@ -33,7 +33,8 @@ t_p3	get_screen_coord(int x, int y, t_scene *scene)
 }
 
 
-void	solve_sphere(t_p3 d, t_p3 cam_o, t_sphere sp, double x[2]){
+void	solve_sphere(t_p3 d, t_p3 cam_o, t_sphere sp, double x[2])
+{
 	t_p3	p;//makes vector p that goes from sphere origin to intersection
 	double	disc;
 	t_p3	sp_o;
@@ -197,7 +198,7 @@ t_p3	ray_refraction(t_p3 dir, t_p3 normal, t_figures *cl_figure)
 		return (_add(_multy(dir, eta), _multy(normal, (eta * cosi) - sqrt(k))));
 }
 
-int trace_ray(t_p3 d, t_p3 O, t_scene *scene, int depth)
+int	trace_ray(t_p3 d, t_p3 O, t_scene *scene, int depth)
 {
 	double		closest_inter;
 	t_figures	closest_figure;
@@ -205,49 +206,48 @@ int trace_ray(t_p3 d, t_p3 O, t_scene *scene, int depth)
 	t_p3		inter_p;
 	int			temp_color;
 	int			reflect_color;
-	
+
 	closest_figure.flag = 0;
-	d = _norm(d);
 	closest_inter = try_intersections(d, O, scene->figures, &closest_figure);
-	if(closest_inter == INFINITY)
+	if (closest_inter == INFINITY)
 		return (scene->background);
 	inter_p = _add(O, _multy(d, closest_inter));
-	reflect_norm = _norm(calculate_base_reflection(inter_p, d, &closest_figure));
-	temp_color = calculate_light(reflect_norm, inter_p, scene, _multy(d, -1), closest_figure);
+	reflect_norm = _norm(calculate_base_reflection \
+						(inter_p, d, &closest_figure));
+	temp_color = calculate_light(reflect_norm, inter_p, \
+					scene, _multy(d, -1), closest_figure);
 	if (closest_figure.material.refract > 0)
-		temp_color = trace_ray(ray_refraction(d, reflect_norm, &closest_figure), inter_p, scene, depth);
+		temp_color = trace_ray(ray_refraction(d, reflect_norm, \
+						&closest_figure), inter_p, scene, depth);
 	if (depth > 0 && closest_figure.material.reflective > 0)
-		reflect_color = trace_ray(ray_reflect(_multy(d, -1), reflect_norm), inter_p, scene, depth - 1);
-	return (_cadd(_cproduct(temp_color, (1 - closest_figure.material.reflective)), _cproduct(reflect_color, closest_figure.material.reflective)));
+		reflect_color = trace_ray(ray_reflect(_multy(d, -1), \
+				reflect_norm), inter_p, scene, depth - 1);
+	return (_cadd(_cproduct(temp_color, (1 - \
+	closest_figure.material.reflective)), _cproduct(reflect_color, \
+	closest_figure.material.reflective)));
 }
 
-void render_scene(t_scene *scene, int thread_id)
+void	render_scene(t_scene *scene, int thread_id)
 {
-	int y;
-	int x;
-	t_p3 dir_vec;
-	int color;
-	int lines_to_render;
-  
+	int		y;
+	int		x;
+	t_p3	dir_vec;
+	int		color;
+	int		lines_to_render;
+
 	lines_to_render = scene->height / NUM_THREADS;
 	y = thread_id * lines_to_render;
-	// if (scene->mlx->img)
-	// {
-	// 	fprintf(stderr, "%f", scene->camera->pos.x);
-	// 	mlx_destroy_image(scene->mlx->mlx, scene->mlx->img);
-	// 	scene->mlx->img = mlx_new_image(scene->mlx->mlx, scene->width, scene->height);
-	// }
 	while (y < lines_to_render * (thread_id + 1))
 	{
 		x = 0;
 		while (x < scene->width)
 		{
-			dir_vec = get_screen_coord(x, y, scene);		          
+			dir_vec = get_screen_coord(x, y, scene);
 			color = trace_ray(dir_vec, scene->camera->pos, scene, 2);
-            my_mlx_pixel_put(scene, x, y, color);
-			if(thread_id == NUM_THREADS - 1) 
-				printf("\rRendering scene... [%f%%]", (100 * (y % lines_to_render) / (float)lines_to_render));
-			// exit(0);
+			my_mlx_pixel_put(scene, x, y, color);
+			if (thread_id == NUM_THREADS - 1)
+				printf("\rRendering scene... [%f%%]", (100 * \
+				(y % lines_to_render) / (float)lines_to_render));
 			x++;
 		}
 		y++;

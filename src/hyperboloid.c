@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hyperboloid.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:47:47 by fstaryk           #+#    #+#             */
-/*   Updated: 2023/01/22 20:53:38 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2023/01/22 22:03:35 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ double	hyperboloid_intersection(t_p3 d, t_p3 cam_o, t_hyper_b hy)
 	quad_kof[0] = (d.x * d.x / param_sq.x) * hy.nv.x + \
 	(d.y * d.y / param_sq.y) * hy.nv.y + (d.z * d.z / param_sq.z) * hy.nv.z;
 	quad_kof[1] = (2 * new_o.x * d.x / param_sq.x) * hy.nv.x + \
-	(2*new_o.y  * d.y / param_sq.y) * hy.nv.y + (2 * new_o.z * d.z / param_sq.z) * hy.nv.z;
-	quad_kof[2] = (pow(new_o.x, 2) / param_sq.x)*hy.nv.x + \
+	(2 * new_o.y  * d.y / param_sq.y) * hy.nv.y + (2 * new_o.z * d.z / param_sq.z) * hy.nv.z;
+	quad_kof[2] = (pow(new_o.x, 2) / param_sq.x) * hy.nv.x + \
 	(pow(new_o.y, 2) / param_sq.y) * hy.nv.y + (pow(new_o.z, 2) / param_sq.z) * hy.nv.z - hy.r;
 	//finding a discriminant
 	disc = quad_kof[1] * quad_kof[1] - 4 * quad_kof[0] * quad_kof[2];

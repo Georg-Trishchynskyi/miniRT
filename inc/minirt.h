@@ -87,7 +87,10 @@ void init_mlx(t_scene *scene);
 double  hyperboloid_intersection(t_p3 d, t_p3 cam_o, t_hyper_b hy);
 t_p3   hyberboloid_normal(t_p3 inter_p, t_hyper_b hy);
 
-//Textures
+//Texture
+t_p3	apply_checkerboard_sphere(t_figures *fig, t_p3 p, \
+							int checkered_w, int checkered_h);
+t_p3	apply_texture_sphere(t_p3 p, t_figures *fig);
 t_p3 sample_bump_map(t_p3 inter_p, t_figures *closest_figure);
 t_texture	*load_textures(void *mlx, char *texture_path);
 t_p3 get_collor_fig(t_figures *fig, t_p3 p);

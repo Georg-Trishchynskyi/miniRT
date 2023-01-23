@@ -6,7 +6,7 @@
 /*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 14:09:44 by gpinchuk          #+#    #+#             */
-/*   Updated: 2023/01/22 21:12:53 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2023/01/23 14:52:56 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	next(char **str, t_scene *scene)
 			fatal_error_v2(scene);
 		if (**str == '-')
 			break ;
+		if (**str == '\n')
+			fatal_error_v2(scene);
 		(*str)++;
 	}
 }
