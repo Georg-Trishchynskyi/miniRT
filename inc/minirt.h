@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 14:31:19 by gpinchuk          #+#    #+#             */
-/*   Updated: 2023/01/24 15:02:56 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2023/01/24 15:55:46 by fstaryk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void		my_mlx_pixel_put(t_scene *scene, int x, int y, int color);
 
 //MATERIAL
 t_material	fill_material(char **str, t_scene *scene);
+t_material	init_material(void);
 
 //LIGHTS
 
@@ -81,7 +82,8 @@ double		plane_intersection(t_p3 d, t_p3 cam_o, t_p3 pl_n, t_p3 pl_o);
 double		trinagle_intersection(t_p3 d, t_p3 cam_o, t_triangle tri);
 
 //render
-void		render_scene(t_scene *scene, int thread_id);
+void		render_scene_with_thread(t_scene *scene, int thread_id);
+void		render_scene(t_scene *scene);
 
 //Trace ray
 
@@ -123,5 +125,6 @@ void		multithreaded_render(t_scene *scene);
 
 void		double_inter_case_cylinder(double *dist, double *x, \
 									double *x2, t_figures *fig);
+bool		is_thread_safe(t_figures *fig);
 
 #endif
