@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 20:04:30 by fstaryk           #+#    #+#             */
-/*   Updated: 2023/01/22 20:43:04 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2023/01/24 13:52:16 by fstaryk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ int	_cproduct(int color, double coef)
 	r = coef * ((color & (mask << 16)) >> 16);
 	g = coef * ((color & (mask << 8)) >> 8);
 	b = coef * (color & mask);
-	r = r > 255 ? 255 : r;
-	g = g > 255 ? 255 : g;
-	b = b > 255 ? 255 : b;
+	r = fmin(255, r);
+	g = fmin(255, g);
+	b = fmin(255, b);
 	return ((r << 16) | (g << 8) | b);
 }
 

@@ -1,7 +1,6 @@
 
 #include "../inc/minirt.h"
 
-//add triangle
 t_p3	calculate_base_reflection(t_p3 inter_p, t_p3 d, t_figures *fig)
 {
 	t_p3	refl;
@@ -109,18 +108,15 @@ int	calculate_light(t_p3 norm, t_p3 inter_p, t_scene *scene, t_p3 view_vec, t_fi
 	while (light)
 	{
 		dir_to_light = _substruct(light->light.pos, inter_p);
-		if (!is_blocked(dir_to_light, inter_p, scene->figures))
+		if (_dot(norm, dir_to_light) > 0 && !is_blocked(dir_to_light, inter_p, scene->figures)/*insurse that we dont lower our light because of light souces that cosinus lower than 0*/)
 		{
-			if (_dot(norm, dir_to_light) > 0/*insurse that we dont lower our light because of light souces that cosinus lower than 0*/)
-			{
-				ret_light = (light->light.scale * vcos(norm, dir_to_light));
-				add_coeficient(&rgb, ret_light, light->light.rgb);
-			}
-			if (figure.material.gloss != -1)
-			{
-				ret_light = calculate_gloss(norm, dir_to_light, figure, light, view_vec);
-				add_coeficient(&rgb, ret_light, light->light.rgb);
-			}
+			ret_light = (light->light.scale * vcos(norm, dir_to_light));
+			add_coeficient(&rgb, ret_light, light->light.rgb);
+		}
+		if (figure.material.gloss != -1)
+		{
+			ret_light = calculate_gloss(norm, dir_to_light, figure, light, view_vec);
+			add_coeficient(&rgb, ret_light, light->light.rgb);
 		}
 		light = light->next;
 	}

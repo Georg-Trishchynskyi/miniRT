@@ -1,5 +1,4 @@
 
-
 #ifndef FIGURES_H
 # define FIGURES_H
 # define SP 1
@@ -49,25 +48,22 @@ typedef struct s_color
 	unsigned char	a;
 }					t_color;
 
-
 typedef struct s_texture
 {
 	int			width;
 	int			height;	
 	int			*pix_arr;	
-	// t_color		***pix_arr;
 }				t_texture;
 
-typedef struct	s_material
+typedef struct s_material
 {
 	int			gloss;
 	double		reflective;
 	double		refract;
-	double 		bump_scale;
+	double		bump_scale;
 	t_texture	*texture;
 	t_texture	*bump;
 }				t_material;
-
 
 typedef struct s_hyper_b
 {
@@ -88,13 +84,11 @@ union u_figures
 
 typedef struct s_figures
 {
-	int				flag;
-	union u_figures	figures;
-	t_p3			collor;
-	t_material		material;
-	// t_p3			*pos;
-	struct s_figures *next;
+	int					flag;
+	union u_figures		figures;
+	t_p3				collor;
+	t_material			material;
+	struct s_figures	*next;
 }				t_figures;
-
 
 #endif

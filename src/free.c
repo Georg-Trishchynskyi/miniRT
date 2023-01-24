@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 16:37:59 by gpinchuk          #+#    #+#             */
-/*   Updated: 2023/01/22 20:49:49 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2023/01/24 14:23:33 by fstaryk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	free_scene(t_scene *scene)
 	t_figures	*temp;
 	t_lights	*temp_l;
 
-	while(scene->figures)
+	while (scene->figures)
 	{
 		temp = scene->figures;
 		if (temp->material.texture)

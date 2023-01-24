@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 21:50:05 by gpinchuk          #+#    #+#             */
-/*   Updated: 2023/01/22 21:50:49 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2023/01/24 13:54:00 by fstaryk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 t_p3	_cross(t_p3 a, t_p3 b)
 {
 	t_p3	cp;
+
 	cp.x = a.y * b.z - a.z * b.y;
 	cp.y = a.z * b.x - a.x * b.z;
 	cp.z = a.x * b.y - a.y * b.x;
-
 	return (cp);
 }
 
@@ -47,5 +47,5 @@ double	_dot(t_p3 vec1, t_p3 vec2)
 	double	ret;
 
 	ret = ((vec1.x * vec2.x) + (vec1.y * vec2.y) + (vec1.z * vec2.z));
-	return (ret); 
+	return (ret);
 }

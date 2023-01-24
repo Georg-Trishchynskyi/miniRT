@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 18:12:38 by admin             #+#    #+#             */
-/*   Updated: 2023/01/22 21:50:55 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2023/01/24 13:53:39 by fstaryk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ t_p3	_substruct(t_p3 vec1, t_p3 vec2)
 	new.x = vec1.x - vec2.x;
 	new.y = vec1.y - vec2.y;
 	new.z = vec1.z - vec2.z;
-
 	return (new);
 }
 
@@ -45,7 +44,6 @@ t_p3	_add(t_p3 vec1, t_p3 vec2)
 	new.x = vec1.x + vec2.x;
 	new.y = vec1.y + vec2.y;
 	new.z = vec1.z + vec2.z;
-
 	return (new);
 }
 

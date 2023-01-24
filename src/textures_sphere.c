@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures_sphere.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 13:28:28 by fstaryk           #+#    #+#             */
-/*   Updated: 2023/01/22 21:57:12 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2023/01/24 13:54:44 by fstaryk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	cartesian_to_spherical(t_p3 p, double *rho, double *theta, double *phi)
 	*theta = atan2(p.y, p.x);
 	*phi = acos(p.z / *rho);
 }
-
 
 void	get_sphere_texture_index(t_figures *fig, t_p3 inter_p, int ind[2])
 {
@@ -64,7 +63,6 @@ t_p3	apply_checkerboard_sphere(t_figures *fig, t_p3 p, \
 	fig->figures.sp.centr), &rho, &theta, &phi);
 	u = (int)(phi / (2 * M_PI) * checkered_w);
 	v = (int)(theta / M_PI * checkered_h);
-
 	if ((u + v) % 2 == 0)
 		return (new_vec(250, 250, 250));
 	return (new_vec(5, 5, 5));

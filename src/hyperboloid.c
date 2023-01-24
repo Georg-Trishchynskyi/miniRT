@@ -3,29 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   hyperboloid.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:47:47 by fstaryk           #+#    #+#             */
-/*   Updated: 2023/01/22 22:03:35 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2023/01/24 14:12:53 by fstaryk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minirt.h"
-
-//   double ox = ray.origin.x - center.x;
-//   double oy = ray.origin.y - center.y;
-//   double oz = ray.origin.z - center.z;
-//   double dx = ray.direction.x;
-//   double dy = ray.direction.y;
-//   double dz = ray.direction.z;
-
-//   double a2 = a*a;
-//   double b2 = b*b;
-//   double c2 = c*c;
-
-//   double A = dx*dx / a2 + dy*dy / b2 - dz*dz / c2;
-//   double B = 2*ox*dx / a2 + 2*oy*dy / b2 - 2*oz*dz / c2;
-//   double C = ox*ox / a2 + oy*oy / b2 - oz*oz / c2 - 1;
 
 double	hyperboloid_intersection(t_p3 d, t_p3 cam_o, t_hyper_b hy)
 {
@@ -44,9 +29,11 @@ double	hyperboloid_intersection(t_p3 d, t_p3 cam_o, t_hyper_b hy)
 	quad_kof[0] = (d.x * d.x / param_sq.x) * hy.nv.x + \
 	(d.y * d.y / param_sq.y) * hy.nv.y + (d.z * d.z / param_sq.z) * hy.nv.z;
 	quad_kof[1] = (2 * new_o.x * d.x / param_sq.x) * hy.nv.x + \
-	(2 * new_o.y  * d.y / param_sq.y) * hy.nv.y + (2 * new_o.z * d.z / param_sq.z) * hy.nv.z;
+					(2 * new_o.y * d.y / param_sq.y) * hy.nv.y \
+					+ (2 * new_o.z * d.z / param_sq.z) * hy.nv.z;
 	quad_kof[2] = (pow(new_o.x, 2) / param_sq.x) * hy.nv.x + \
-	(pow(new_o.y, 2) / param_sq.y) * hy.nv.y + (pow(new_o.z, 2) / param_sq.z) * hy.nv.z - hy.r;
+					(pow(new_o.y, 2) / param_sq.y) * hy.nv.y + \
+					(pow(new_o.z, 2) / param_sq.z) * hy.nv.z - hy.r;
 	//finding a discriminant
 	disc = quad_kof[1] * quad_kof[1] - 4 * quad_kof[0] * quad_kof[2];
 	if (disc < 0)
@@ -57,7 +44,7 @@ double	hyperboloid_intersection(t_p3 d, t_p3 cam_o, t_hyper_b hy)
 	return (fmin(x[0], x[1]));
 }
 
-t_p3   hyberboloid_normal(t_p3 inter_p, t_hyper_b hy)
+t_p3	hyberboloid_normal(t_p3 inter_p, t_hyper_b hy)
 {
 	t_p3	normal;
 	t_p3	new_o;

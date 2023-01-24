@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_check.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 15:34:13 by fstaryk           #+#    #+#             */
-/*   Updated: 2023/01/22 21:58:04 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2023/01/24 14:08:44 by fstaryk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@
 // }
 
 // void print_cylinder(t_figures *fig){
-//     printf("\n\t CYLINDER\nradius is %f\nheight is %f\norigin and normal :\n", fig->figures.cy.r, fig->figures.cy.h);
+//     printf("\n\t CYLINDER\nradius is %f\nheight is %f\norigin and norm
+//  :\n", fig->figures.cy.r, fig->figures.cy.h);
 //     print_p3(fig->figures.cy.o);
 //     print_p3(fig->figures.cy.nv);
 // }
@@ -36,7 +37,6 @@
 //             print_cylinder(fig);
 //         fig = fig->next;
 //     }
-    
 // }
 
 // void print_camera(t_cam *cam){
@@ -63,7 +63,9 @@
 
 // void print_scene(t_scene *scene)
 // {
-//     printf("Aspect ratio %f\n background color is %d\nwidth is %d, height is %d\n", scene->aspect_ratio, scene->background, scene->width, scene->height);
+//     printf("Aspect ratio %f\n background color 
+// is %d\nwidth is %d, height is %d\n", scene->aspect_ratio, 
+//scene->background, scene->width, scene->height);
 //     print_camera(scene->camera);
 //     print_lights(scene->lights);
 //     print_figures(scene->figures);

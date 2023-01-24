@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 14:28:53 by fstaryk           #+#    #+#             */
-/*   Updated: 2023/01/22 22:03:22 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2023/01/24 14:21:47 by fstaryk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,11 @@ t_p3	calc_cy_normal(double *x2, t_p3 o, t_p3 d, t_figures *fig)
 	double	dist;
 	double	x;
 
-	if ((fig->figures.cy.dist1 >= 0 && \
-			fig->figures.cy.dist1 <= fig->figures.cy.h
-			&& x2[0] > EPSILON) && (fig->figures.cy.dist2 >= 0 \
-			&&fig->figures.cy.dist2 <= fig->figures.cy.h && x2[1] > EPSILON))
-	{
-		dist = x2[0] < x2[1] ?fig->figures.cy.dist1 :fig->figures.cy.dist2;
-		x = x2[0] < x2[1] ? x2[0] : x2[1];
-	}
+	if ((fig->figures.cy.dist1 >= 0 \
+	&& fig->figures.cy.dist1 <= fig->figures.cy.h \
+	&& x2[0] > EPSILON) && (fig->figures.cy.dist2 >= 0 \
+	&&fig->figures.cy.dist2 <= fig->figures.cy.h && x2[1] > EPSILON))
+		double_inter_case_cylinder(&dist, &x, x2, fig);
 	else if (fig->figures.cy.dist1 >= 0 && fig->figures.cy.dist1 \
 						<=fig->figures.cy.h && x2[0] > EPSILON)
 	{
@@ -109,12 +106,13 @@ double	caps_intersection(t_p3 d, t_p3 o, t_figures *cy)
 		//botom inter point
 		ip2 = _add(o, _multy(d, id2));
 		//both of them are ni the range
-		if ((id1 < INFINITY && distance(ip1, cy->figures.cy.o) <= cy->figures.cy.r)
-				&& (id2 < INFINITY && distance(ip2, c2) <= cy->figures.cy.r))
-			return (id1 < id2 ? id1 : id2);
+		if ((id1 < INFINITY \
+			&& distance(ip1, cy->figures.cy.o) <= cy->figures.cy.r) \
+			&& (id2 < INFINITY && distance(ip2, c2) <= cy->figures.cy.r))
+			return (fmin(id1, id2));
 		//only top cap is un range
-		else if (id1 < INFINITY
-						&& distance(ip1, cy->figures.cy.o) <= cy->figures.cy.r)
+		else if (id1 < INFINITY && \
+				distance(ip1, cy->figures.cy.o) <= cy->figures.cy.r)
 			return (id1);
 		//only botom cap is in range
 		else if (id2 < INFINITY && distance(ip2, c2) <= cy->figures.cy.r)

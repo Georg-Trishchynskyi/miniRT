@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 21:48:19 by gpinchuk          #+#    #+#             */
-/*   Updated: 2023/01/22 21:49:30 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2023/01/24 13:54:19 by fstaryk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ double	_lenth(t_p3 vec)
 	ret = sqrt((pow(vec.x, 2) + pow(vec.y, 2) + pow(vec.z, 2)));
 	return (ret);
 }
-
 
 double	_lenth_sq(t_p3 vec)
 {

@@ -16,8 +16,8 @@
 # include "libft.h"
 # include "scene.h"
 
-#define EPSILON 0.00001
-#define NUM_THREADS 12
+# define EPSILON 0.00001
+# define NUM_THREADS 12
 
 //ERRORS
 int		print_error(char *str);
@@ -60,14 +60,20 @@ int		_cproduct(int color, double coef);
 t_p3	color_x_light(t_p3 base_color, t_p3 light_collor);
 
 double vcos(t_p3 v1, t_p3 v2);
+
 //intersections
 
+double try_intersections(t_p3 d, t_p3 cam_o, t_figures *fig, t_figures *closest_fig);
 double			sphere_intersection(t_p3 d, t_p3 o, t_figures *lst);
 double	plane_intersection(t_p3 d, t_p3 cam_o, t_p3 pl_n, t_p3 pl_o);
-double try_intersections(t_p3 d, t_p3 cam_o, t_figures *fig, t_figures *closest_fig);
+double	trinagle_intersection(t_p3 d, t_p3 cam_o, t_triangle tri);
 
 //render
 void render_scene(t_scene *scene, int thread_id);
+
+//Trace ray
+
+int	trace_ray(t_p3 d, t_p3 O, t_scene *scene, int depth);
 
 void print_p3(t_p3 x);
 void print_scene(t_scene *scene);
@@ -101,4 +107,10 @@ t_texture* read_xpm_file(void *mlx, char* filename);
 
 //MULTI_THREADING
 void			multithreaded_render(t_scene *scene);
+
+//Utils
+
+void	double_inter_case_cylinder(double *dist, double *x, \
+									double *x2, t_figures *fig);
+
 #endif
