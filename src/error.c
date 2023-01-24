@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 18:21:33 by admin             #+#    #+#             */
-/*   Updated: 2023/01/23 14:50:18 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2023/01/24 16:34:56 by fstaryk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+void	parse_error(t_scene *scene, int fd)
+{
+	close(fd);
+	fatal_error_v2(scene);
+}
 
 int	print_error(char *str)
 {

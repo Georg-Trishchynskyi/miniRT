@@ -6,7 +6,7 @@
 /*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 14:31:19 by gpinchuk          #+#    #+#             */
-/*   Updated: 2023/01/24 15:55:46 by fstaryk          ###   ########.fr       */
+/*   Updated: 2023/01/24 16:34:45 by fstaryk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void		fatal_error_v2(t_scene *scene);
 void		free_scene(t_scene *scene);
 void		exit_error(int code);
 void		check_stof(double num, t_scene *scene, int flag);
+void		parse_error(t_scene *scene, int fd);
 
 //PARSING
 t_scene		*parse_scene(char *file_name);

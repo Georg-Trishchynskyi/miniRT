@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 21:59:03 by gpinchuk          #+#    #+#             */
-/*   Updated: 2023/01/22 21:59:06 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2023/01/24 16:36:17 by fstaryk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,11 @@ t_scene	*parse_scene(char *file_name)
 		ft_putstr_fd(str, 2);
 		if (*str != '\n')
 			if (parse(str, scene) == -1)
-				fatal_error("END");
+				parse_error(scene, fd);
 		free(str);
 		str = get_next_line(fd);
 	}
 	free(str);
+	close(fd);
 	return (scene);
 }

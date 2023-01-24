@@ -6,7 +6,7 @@
 /*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 16:37:59 by gpinchuk          #+#    #+#             */
-/*   Updated: 2023/01/24 16:14:15 by fstaryk          ###   ########.fr       */
+/*   Updated: 2023/01/24 17:50:25 by fstaryk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,18 @@ void	free_figures(t_figures *fig)
 	while (fig)
 	{
 		temp = fig;
-		if (temp->material.texture)
+		if (temp->material.texture != NULL)
+		{
 			free(temp->material.texture);
-		if (temp->material.bump)
+		}
+		if (temp->material.bump != NULL)
+		{
 			free(temp->material.bump);
+		}
 		fig = fig->next;
 		free(temp);
 	}
+	exit(0);
 }
 
 void	free_mlx(t_mlx *mlx)
@@ -34,6 +39,7 @@ void	free_mlx(t_mlx *mlx)
 	{
 		mlx_destroy_window(mlx->mlx, mlx->window);
 		mlx_destroy_image(mlx->mlx, mlx->img);
+		// free(mlx->addr);
 		free(mlx);
 	}
 }
@@ -52,8 +58,6 @@ void	free_light(t_lights *lights)
 
 void	free_scene(t_scene *scene)
 {
-	t_figures	*temp;
-
 	free_figures(scene->figures);
 	free_mlx(scene->mlx);
 	free_light(scene->lights);
