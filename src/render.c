@@ -6,7 +6,7 @@
 /*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 14:09:02 by fstaryk           #+#    #+#             */
-/*   Updated: 2023/01/24 14:09:05 by fstaryk          ###   ########.fr       */
+/*   Updated: 2023/01/24 15:34:44 by fstaryk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,31 @@ t_p3	get_screen_coord(int x, int y, t_scene *scene)
 	return (ret);
 }
 
-void	render_scene(t_scene *scene, int thread_id)
+void	render_scene(t_scene *scene)
+{
+	int		y;
+	int		x;
+	t_p3	dir_vec;
+	int		color;
+
+	y = 0;
+	while (y < scene->height)
+	{
+		x = 0;
+		while (x < scene->width)
+		{
+			dir_vec = get_screen_coord(x, y, scene);
+			color = trace_ray(dir_vec, scene->camera->pos, scene, 2);
+			my_mlx_pixel_put(scene, x, y, color);
+			printf("\rRendering scene... [%f%%]", \
+				((float)y / (float)scene->height) * 100);
+			x++;
+		}
+		y++;
+	}
+}
+
+void	render_scene_with_thread(t_scene *scene, int thread_id)
 {
 	int		y;
 	int		x;

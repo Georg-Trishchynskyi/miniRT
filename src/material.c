@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   material.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 16:52:24 by gpinchuk          #+#    #+#             */
-/*   Updated: 2023/01/24 15:24:18 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2023/01/24 15:55:19 by fstaryk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,18 @@ void	checker_bord(t_material *material)
 		material->texture->width = 1;
 		material->texture->pix_arr = NULL;
 		material->bump = NULL;
+}
+
+t_material	init_material(void)
+{
+	t_material	ret;
+
+	ret.bump = NULL;
+	ret.texture = NULL;
+	ret.gloss = -1;
+	ret.reflective = -1;
+	ret.refract = -1;
+	return (ret);
 }
 
 t_material	fill_material(char **str, t_scene *scene)

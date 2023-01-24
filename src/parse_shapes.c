@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_shapes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:08:10 by gpinchuk          #+#    #+#             */
-/*   Updated: 2023/01/22 21:03:47 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2023/01/24 15:55:59 by fstaryk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	parse_sphere(char **str, t_scene *scene)
 	temp = scene->figures;
 	while (temp->next)
 		temp = temp->next;
+	temp->material = init_material();
 	temp->flag = SP;
 	next(str, scene);
 	temp->figures.sp.centr = read_vec(str, scene, 0);

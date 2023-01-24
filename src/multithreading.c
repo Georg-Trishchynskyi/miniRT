@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   multithreading.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 20:37:07 by fstaryk           #+#    #+#             */
-/*   Updated: 2023/01/22 22:01:36 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2023/01/24 15:33:49 by fstaryk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	*render_thread(void *ptr)
 	t_thread_data	*data;
 
 	data = (t_thread_data *)ptr;
-	render_scene(data->scene, data->index);
+	render_scene_with_thread(data->scene, data->index);
 	return (NULL);
 }
 
