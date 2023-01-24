@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   general_intesections.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 14:00:46 by fstaryk           #+#    #+#             */
-/*   Updated: 2023/01/24 14:01:48 by fstaryk          ###   ########.fr       */
+/*   Updated: 2023/01/24 14:43:45 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ double	try_intersections(t_p3 d, t_p3 cam_o, t_figures *fig,
 			inter_dist = cylinder_intersection(d, cam_o, fig);
 		else if (fig->flag == HY)
 			inter_dist = hyperboloid_intersection(d, cam_o, fig->figures.hy);
-		if (inter_dist < closest_inter && inter_dist > 1e-3){
+		if (inter_dist < closest_inter && inter_dist > 1e-3)
+		{
 			closest_inter = inter_dist;
 			*closest_fig = *fig;
 		}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:41:34 by gpinchuk          #+#    #+#             */
-/*   Updated: 2023/01/24 14:28:00 by fstaryk          ###   ########.fr       */
+/*   Updated: 2023/01/24 14:58:56 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,13 @@
 
 # include "minirt.h"
 
-typedef struct	s_cam
+typedef struct s_inter
+{
+	t_p3	p;
+	t_p3	n;
+}				t_inter;
+
+typedef struct s_cam
 {
 	t_p3		pos;
 	t_p3		direct;
@@ -55,9 +61,7 @@ typedef struct s_temp_img
 	int		img_e;
 }				t_temp_img;
 
-
-
-typedef struct	s_scene
+typedef struct s_scene
 {
 	t_cam		*camera;
 	t_figures	*figures;
@@ -69,23 +73,21 @@ typedef struct	s_scene
 	double		a_scale;
 	t_p3		a_color;
 	int			background;
-	
 }				t_scene;
 
-typedef struct	s_thread_data
+typedef struct s_thread_data
 {
 	t_scene		*scene;
 	int			index;	
 }				t_thread_data;
 
 //PARSE
+t_p3	read_vec(char **str, t_scene *scene, int flag);
 void	parse_ambient(char **str, t_scene *scene);
 void	parse_camera(char **str, t_scene *scene);
 void	parse_light(char **str, t_scene *scene);
 
 //CMAERA
 // t_cam *new_camera();
-
-//SCENE
 
 #endif

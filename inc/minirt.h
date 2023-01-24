@@ -1,6 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minirt.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/24 14:31:19 by gpinchuk          #+#    #+#             */
+/*   Updated: 2023/01/24 15:02:56 by gpinchuk         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef MINIRT_H
-#define MINIRT_H
+# define MINIRT_H
 
 # include <fcntl.h>
 # include <stdio.h>
@@ -43,16 +54,18 @@ void		next(char **str, t_scene *scene);
 
 void		my_mlx_pixel_put(t_scene *scene, int x, int y, int color);
 
-
 //MATERIAL
 t_material	fill_material(char **str, t_scene *scene);
 
 //LIGHTS
 
 t_p3		calculate_base_reflection(t_p3 inter_p, t_p3 d, t_figures *fig);
-int			calculate_light(t_p3 norm, t_p3 inter_p, t_scene *scene, t_p3 view_vec, t_figures figure);
+int			calculate_light(t_inter i, t_scene *scene, \
+						t_p3 view_vec, t_figures figure);
 
 //COLORS
+void		add_coeficient(t_p3 *rgb, double coef, t_p3 color);
+int			rgb_to_int(t_p3 color, t_p3 rgb);
 int			_cadd(int color_a, int color_b);
 int			_cproduct(int color, double coef);
 t_p3		color_x_light(t_p3 base_color, t_p3 light_collor);
@@ -61,7 +74,8 @@ double		vcos(t_p3 v1, t_p3 v2);
 
 //intersections
 
-double		try_intersections(t_p3 d, t_p3 cam_o, t_figures *fig, t_figures *closest_fig);
+double		try_intersections(t_p3 d, t_p3 cam_o, \
+			t_figures *fig, t_figures *closest_fig);
 double		sphere_intersection(t_p3 d, t_p3 o, t_figures *lst);
 double		plane_intersection(t_p3 d, t_p3 cam_o, t_p3 pl_n, t_p3 pl_o);
 double		trinagle_intersection(t_p3 d, t_p3 cam_o, t_triangle tri);
@@ -79,8 +93,7 @@ double		trinagle_intersection(t_p3 d, t_p3 cam_o, t_triangle tri);
 t_p3		calculate_triangle_normal(t_triangle tri);
 //cylinder
 
-double		cylinder_intersection(t_p3 d, t_p3 cam_o, t_figures* cy);
-
+double		cylinder_intersection(t_p3 d, t_p3 cam_o, t_figures *cy);
 
 //keyhook
 int			key(int key, t_scene *scene);
@@ -101,7 +114,7 @@ t_p3		get_collor_fig(t_figures *fig, t_p3 p);
 void		get_sphere_texture_index(t_figures *fig, t_p3 inter_p, int ind[2]);
 
 t_p3		int_to_rgb(int x);
-t_texture*	read_xpm_file(void *mlx, char* filename);
+t_texture	*read_xpm_file(void *mlx, char *filename);
 
 //MULTI_THREADING
 void		multithreaded_render(t_scene *scene);

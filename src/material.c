@@ -6,85 +6,81 @@
 /*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 16:52:24 by gpinchuk          #+#    #+#             */
-/*   Updated: 2023/01/23 14:50:27 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2023/01/24 15:24:18 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
+void	sub_fill(int gloss, double reflection, \
+			double refract, t_material *material)
+{
+	(*material).gloss = gloss;
+	(*material).reflective = reflection;
+	(*material).refract = refract;
+}
 
+void	second_part(int number, t_material *material, t_scene *scene)
+{
+	if (number == 2)
+	{		
+		sub_fill(1000, 0.3, -1, material);
+		material->texture = NULL;
+		material->bump = NULL;
+	}
+	else if (number == 3)
+	{
+		sub_fill(-1, 0, 1.2, material);
+		material->texture = NULL;
+		material->bump = NULL;
+	}
+	else if (number == 4)
+	{
+		sub_fill(-1, 0, -1, material);
+	material->texture = read_xpm_file(scene->mlx->mlx, "textures/World.xpm");
+		material->bump = read_xpm_file(scene->mlx->mlx, "textures/bump1.xpm");
+	}
+	else if (number == 5)
+	{
+		sub_fill(-1, 0.95, -1, material);
+		material->texture = NULL;
+		material->bump = NULL;
+	}
+}
+
+void	checker_bord(t_material *material)
+{
+		material->texture = malloc(sizeof(t_texture));
+		material->texture->height = 1;
+		material->texture->width = 1;
+		material->texture->pix_arr = NULL;
+		material->bump = NULL;
+}
 
 t_material	fill_material(char **str, t_scene *scene)
 {
 	t_material	material;
 	int			number;
 
-	number =  (int)stof(str, scene, 3);
-	fprintf(stderr, "\n%d\n", number);
+	number = (int)stof(str, scene, 3);
 	if (number == 1)
 	{
-		material.gloss = -1;
-		material.reflective = 0;
-		material.refract = -1;
+		sub_fill(-1, 0, -1, &material);
 		material.texture = NULL;
 		material.bump = NULL;
 	}
-	else if (number == 2)
-	{		
-		material.gloss = 1000;
-		material.reflective = 0.3;
-		material.refract = -1;
-		material.bump_scale = -1;
-		material.texture = NULL;
-		material.bump = NULL;
-	}
-	else if (number == 3)
-	{
-		material.gloss = -1;
-		material.reflective = 0.2;
-		material.refract = 1.2;
-		material.bump_scale = -1;
-		material.texture = NULL;
-		material.bump = NULL;
-	}
-	else if (number == 4)
-	{
-		material.gloss = -1;
-		material.reflective = 0;
-		material.refract = -1;
-		material.bump_scale = -1;
-		material.texture = read_xpm_file(scene->mlx->mlx, "textures/The_world.xpm");
-		material.bump = read_xpm_file(scene->mlx->mlx, "textures/bump-map-textur-fuer-3d-material-zum-rendern-und-erstellen-von-shadern_101553-2158.xpm");
-	}
-	else if (number == 5)
-	{
-		material.gloss = -1;
-		material.reflective = 0.95;
-		material.refract = -1;
-		material.bump_scale = -1;
-		material.texture = NULL;//load_textures(scene->mlx->mlx, "textures/The_world.xpm");
-		material.bump = NULL;
-	}
+	else if (number > 1 && number < 6)
+		second_part(number, &material, scene);
 	else if (number == 6)
 	{
-		material.gloss = -1;
-		material.reflective = 0;
-		material.refract = -1;
-		material.bump_scale = -1;
-		material.texture = read_xpm_file(scene->mlx->mlx, "textures/HFD_HemiSunset01_SmlSample.jpeg.xpm");
+		sub_fill(-1, 0, -1, &material);
+	material.texture = read_xpm_file(scene->mlx->mlx, "textures/HemiSun.xpm");
 		material.bump = NULL;
 	}
 	else if (number == 7)
 	{
-		material.gloss = -1;
-		material.reflective = 0;
-		material.refract = -1;
-		material.bump_scale = -1;
-		material.texture = malloc(sizeof(t_texture));
-		material.texture->height = 1;
-		material.texture->width = 1;
-		material.texture->pix_arr = NULL;
-		material.bump = NULL;
+		sub_fill(-1, 0, -1, &material);
+		checker_bord(&material);
 	}
 	return (material);
 }

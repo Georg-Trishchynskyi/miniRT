@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trace_ray.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 13:55:25 by fstaryk           #+#    #+#             */
-/*   Updated: 2023/01/24 13:57:26 by fstaryk          ###   ########.fr       */
+/*   Updated: 2023/01/24 14:59:33 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,7 @@ int	trace_ray(t_p3 d, t_p3 O, t_scene *scene, int depth)
 {
 	double		closest_inter;
 	t_figures	closest_figure;
-	t_p3		reflect_norm;
-	t_p3		inter_p;
+	t_inter		inter;
 	int			temp_color;
 	int			reflect_color;
 
@@ -55,17 +54,17 @@ int	trace_ray(t_p3 d, t_p3 O, t_scene *scene, int depth)
 	closest_inter = try_intersections(d, O, scene->figures, &closest_figure);
 	if (closest_inter == INFINITY)
 		return (scene->background);
-	inter_p = _add(O, _multy(d, closest_inter));
-	reflect_norm = _norm(calculate_base_reflection \
-						(inter_p, d, &closest_figure));
-	temp_color = calculate_light(reflect_norm, inter_p, \
+	inter.p = _add(O, _multy(d, closest_inter));
+	inter.n = _norm(calculate_base_reflection \
+						(inter.p, d, &closest_figure));
+	temp_color = calculate_light(inter, \
 					scene, _multy(d, -1), closest_figure);
 	if (closest_figure.material.refract > 0)
-		temp_color = trace_ray(ray_refraction(d, reflect_norm, \
-						&closest_figure), inter_p, scene, depth);
+		temp_color = trace_ray(ray_refraction(d, inter.n, \
+						&closest_figure), inter.p, scene, depth);
 	if (depth > 0 && closest_figure.material.reflective > 0)
 		reflect_color = trace_ray(ray_reflect(_multy(d, -1), \
-				reflect_norm), inter_p, scene, depth - 1);
+				inter.n), inter.p, scene, depth - 1);
 	return (_cadd(_cproduct(temp_color, (1 - \
 	closest_figure.material.reflective)), _cproduct(reflect_color, \
 	closest_figure.material.reflective)));

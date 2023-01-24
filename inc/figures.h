@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   figures.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/24 14:31:03 by gpinchuk          #+#    #+#             */
+/*   Updated: 2023/01/24 15:07:30 by gpinchuk         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef FIGURES_H
 # define FIGURES_H
@@ -60,7 +71,6 @@ typedef struct s_material
 	int			gloss;
 	double		reflective;
 	double		refract;
-	double		bump_scale;
 	t_texture	*texture;
 	t_texture	*bump;
 }				t_material;
