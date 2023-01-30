@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 14:54:54 by gpinchuk          #+#    #+#             */
-/*   Updated: 2023/01/24 15:02:22 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2023/01/27 15:46:32 by fstaryk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,12 @@ t_p3	calculate_base_reflection(t_p3 inter_p, t_p3 d, t_figures *fig)
 	return (refl);
 }
 
-bool	is_blocked(t_p3 dir_to_light, t_p3 inter_p, t_figures *fig)
+bool	is_blocked(t_p3 dir_to_light, t_p3 inter_p, t_figures *fig, int shadow)
 {
 	double	inter;
 
+	if(!shadow)
+		return false;
 	while (fig)
 	{
 		if (fig->flag == SP && fig->material.refract <= 0)
@@ -101,7 +103,13 @@ int	calculate_light(t_inter i, t_scene *scene, t_p3 view_vec, t_figures figure)
 	t_lights	*light;
 	t_p3		dilight;
 	t_p3		rgb;
+	int			is_shadowed;
 
+	//checking if the sphere is a skydome
+	if(figure.flag == SP && figure.figures.sp.radius >= 50)
+		is_shadowed = 0;
+	else
+		is_shadowed = 1;
 	light = scene->lights;
 	ret_light = 0.0f;
 	rgb = new_vec(0, 0, 0);
@@ -109,7 +117,7 @@ int	calculate_light(t_inter i, t_scene *scene, t_p3 view_vec, t_figures figure)
 	while (light)
 	{
 		dilight = _substruct(light->light.pos, i.p);
-		if (_dot(i.n, dilight) > 0 && !is_blocked(dilight, i.p, scene->figures))
+		if (_dot(i.n, dilight) > 0 && !is_blocked(dilight, i.p, scene->figures, is_shadowed))
 		{
 			ret_light = (light->light.scale * vcos(i.n, dilight));
 			add_coeficient(&rgb, ret_light, light->light.rgb);

@@ -6,7 +6,7 @@
 /*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 12:09:59 by fstaryk           #+#    #+#             */
-/*   Updated: 2023/01/24 17:51:35 by fstaryk          ###   ########.fr       */
+/*   Updated: 2023/01/26 17:27:02 by fstaryk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@ t_texture	*read_xpm_file(void *mlx, char	*filename)
 		filename, &ret->width, &ret->height);
 	ret->pix_arr = (int *)mlx_get_data_addr(im.img_data, \
 		&im.img_bp, &im.img_sl, &im.img_e);
-	mlx_destroy_image(mlx, im.img_data);
+	// mlx_destroy_image(mlx, im.img_data);
 	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 14:09:02 by fstaryk           #+#    #+#             */
-/*   Updated: 2023/01/24 15:34:44 by fstaryk          ###   ########.fr       */
+/*   Updated: 2023/01/27 19:39:21 by fstaryk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	render_scene(t_scene *scene)
 		while (x < scene->width)
 		{
 			dir_vec = get_screen_coord(x, y, scene);
-			color = trace_ray(dir_vec, scene->camera->pos, scene, 2);
+			color = trace_ray(dir_vec, scene->camera->pos, scene, 10);
 			my_mlx_pixel_put(scene, x, y, color);
 			printf("\rRendering scene... [%f%%]", \
 				((float)y / (float)scene->height) * 100);
@@ -85,7 +85,7 @@ void	render_scene_with_thread(t_scene *scene, int thread_id)
 		while (x < scene->width)
 		{
 			dir_vec = get_screen_coord(x, y, scene);
-			color = trace_ray(dir_vec, scene->camera->pos, scene, 2);
+			color = trace_ray(dir_vec, scene->camera->pos, scene, 10);
 			my_mlx_pixel_put(scene, x, y, color);
 			if (thread_id == NUM_THREADS - 1)
 				printf("\rRendering scene... [%f%%]", (100 * \

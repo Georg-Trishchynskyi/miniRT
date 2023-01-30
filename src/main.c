@@ -6,7 +6,7 @@
 /*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 18:12:34 by admin             #+#    #+#             */
-/*   Updated: 2023/01/24 16:27:12 by fstaryk          ###   ########.fr       */
+/*   Updated: 2023/01/27 19:33:13 by fstaryk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	main(int argc, char **argv)
 		fatal_error("incorect file");
 	scene = parse_scene(argv[1]);
 	fprintf(stderr, "after parse\n");
+	print_scene(scene);
 	if (is_thread_safe(scene->figures))
 		multithreaded_render(scene);
 	else
