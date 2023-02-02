@@ -14,6 +14,7 @@ Support features like reflection, refraction, colored light, multithreading, tex
 ![image](https://user-images.githubusercontent.com/92743778/216373160-c1fe6c6a-90b0-4f37-bb52-b0667a6afd58.png)
 ![image](https://user-images.githubusercontent.com/92743778/216373205-55125653-cbc2-4410-8dbc-13d35b8b636b.png)
 ![image](https://user-images.githubusercontent.com/92743778/216373251-9794210c-1d4d-48ab-b097-60c71b6647ee.png)
+![image](https://user-images.githubusercontent.com/92743778/216421269-9c714224-6938-41db-ac88-2280fa84b522.png)
 
 ## Installation
 
