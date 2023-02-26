@@ -3,38 +3,64 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 16:37:59 by gpinchuk          #+#    #+#             */
-/*   Updated: 2023/01/02 17:28:14 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2023/01/24 17:50:25 by fstaryk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void free_scene(t_scene *scene)
+void	free_figures(t_figures *fig)
 {
 	t_figures	*temp;
-	t_lights	*temp_l;
-	
-	while(scene->figures)
+
+	while (fig)
 	{
-		temp = scene->figures;
-		scene->figures = scene->figures->next;
+		temp = fig;
+		if (temp->material.texture != NULL)
+		{
+			free(temp->material.texture);
+		}
+		if (temp->material.bump != NULL)
+		{
+			free(temp->material.bump);
+		}
+		fig = fig->next;
 		free(temp);
 	}
-	while(scene->lights)
+	exit(0);
+}
+
+void	free_mlx(t_mlx *mlx)
+{
+	if (mlx)
 	{
-		temp_l = scene->lights;
-		scene->lights = scene->lights->next;
+		mlx_destroy_window(mlx->mlx, mlx->window);
+		mlx_destroy_image(mlx->mlx, mlx->img);
+		// free(mlx->addr);
+		free(mlx);
+	}
+}
+
+void	free_light(t_lights *lights)
+{
+	t_lights	*temp_l;
+
+	while (lights)
+	{
+		temp_l = lights;
+		lights = lights->next;
 		free(temp_l);
 	}
-	if (scene->mlx)
-	{
-		mlx_destroy_window(scene->mlx->mlx, scene->mlx->window);
-		mlx_destroy_image(scene->mlx->mlx, scene->mlx->img);
-		free(scene->mlx);
-	}
+}
+
+void	free_scene(t_scene *scene)
+{
+	free_figures(scene->figures);
+	free_mlx(scene->mlx);
+	free_light(scene->lights);
 	free(scene->camera);
 	free(scene);
 }

@@ -6,27 +6,22 @@
 /*   By: gpinchuk <gpinchuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 20:04:30 by fstaryk           #+#    #+#             */
-/*   Updated: 2023/01/08 18:50:10 by gpinchuk         ###   ########.fr       */
+/*   Updated: 2023/01/24 15:01:05 by gpinchuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minirt.h"
 
-int	rgb_int(t_p3 col)
+t_p3	int_to_rgb(int x)
 {
-	if(col.x > 253)
-		col.x = 255;
-	if(col.y > 253)
-		col.y = 255;
-	if(col.z > 253)
-		col.z = 255;
-	return (((int)col.x << 16) | ((int)col.y << 8) | (int)col.z);
+	return (new_vec((x & 0x00ff0000) >> 16, \
+	(x & 0x0000ff00) >> 8, (x & 0x000000ff)));
 }
 
-int		_cproduct(int color, float coef)
+int	_cproduct(int color, double coef)
 {
-	int mask;
-	int r;
+	int	mask;
+	int	r;
 	int	g;
 	int	b;
 
@@ -34,18 +29,18 @@ int		_cproduct(int color, float coef)
 	r = coef * ((color & (mask << 16)) >> 16);
 	g = coef * ((color & (mask << 8)) >> 8);
 	b = coef * (color & mask);
-	r = r > 255 ? 255 : r;
-	g = g > 255 ? 255 : g;
-	b = b > 255 ? 255 : b;
+	r = fmin(255, r);
+	g = fmin(255, g);
+	b = fmin(255, b);
 	return ((r << 16) | (g << 8) | b);
 }
 
-int		_cadd(int color_a, int color_b)
+int	_cadd(int color_a, int color_b)
 {
-	int mask;
+	int	mask;
 	int	r;
 	int	g;
-	int b;
+	int	b;
 
 	mask = 255;
 	r = ((color_a & (mask << 16)) + (color_b & (mask << 16))) & (mask << 16);
@@ -56,11 +51,24 @@ int		_cadd(int color_a, int color_b)
 
 t_p3	color_x_light(t_p3 base_color, t_p3 light_collor)
 {
-    t_p3 new;
-    
+	t_p3	new;
+
 	new.x = base_color.x - ((255 - light_collor.x) / 2);
 	new.y = base_color.y - ((255 - light_collor.y) / 2);
 	new.z = base_color.z - ((255 - light_collor.z) / 2);
 	return (new);
 }
 
+int	rgb_to_int(t_p3 color, t_p3 rgb)
+{
+	rgb.x = rgb.x * color.x;
+	rgb.y = rgb.y * color.y;
+	rgb.z = rgb.z * color.z;
+	if (rgb.x > 255)
+		rgb.x = 255;
+	if (rgb.y > 255)
+		rgb.y = 255;
+	if (rgb.y > 255)
+		rgb.y = 255;
+	return (((int)rgb.x << 16) | ((int)rgb.y << 8) | (int)rgb.z);
+}

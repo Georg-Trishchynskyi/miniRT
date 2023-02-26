@@ -6,7 +6,7 @@
 /*   By: fstaryk <fstaryk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 15:34:13 by fstaryk           #+#    #+#             */
-/*   Updated: 2022/12/13 21:19:35 by fstaryk          ###   ########.fr       */
+/*   Updated: 2023/01/26 17:14:53 by fstaryk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,22 @@ void print_sphere(t_figures *fig){
     print_p3(fig->figures.sp.centr);
 }
 
+// void print_cylinder(t_figures *fig){
+//     printf("\n\t CYLINDER\nradius is %f\nheight is %f\norigin and norm
+//  :\n", fig->figures.cy.r, fig->figures.cy.h);
+//     print_p3(fig->figures.cy.o);
+//     print_p3(fig->figures.cy.nv);
+// }
+
 void print_figures(t_figures *fig){
     while (fig)
     {
         if(fig->flag == SP)
             print_sphere(fig);
+        // if(fig->flag == CY)
+        //     print_cylinder(fig);
         fig = fig->next;
     }
-    
 }
 
 void print_camera(t_cam *cam){
@@ -55,7 +63,8 @@ void print_lights(t_lights *lights){
 
 void print_scene(t_scene *scene)
 {
-    printf("Aspect ratio %f\n background color is %d\nwidth is %d, height is %d\n", scene->aspect_ratio, scene->background, scene->width, scene->height);
+    printf("Aspect ratio %f\n background color is %d\nwidth is %d, height is %d\n", scene->aspect_ratio, 
+scene->background, scene->width, scene->height);
     print_camera(scene->camera);
     print_lights(scene->lights);
     print_figures(scene->figures);
